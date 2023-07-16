@@ -76,6 +76,6 @@
 				users   = [ "alxandr" ];
 			};
 
-			hosts = attrNames self.nixosConfigurations;
+			hosts = builtins.attrNames self.nixosConfigurations;
 		};
 }
