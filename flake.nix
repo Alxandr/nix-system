@@ -34,6 +34,15 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
+		# disko is used to format the disks of the computers
+		disko = {
+			url = "github:nix-community/disko";
+			# The `follows` keyword in inputs is used for inheritance.
+      # Here, `inputs.nixpkgs` of home-manager is kept consistent with the `inputs.nixpkgs` of the current flake,
+      # to avoid problems caused by different versions of nixpkgs dependencies.
+      inputs.nixpkgs.follows = "nixpkgs";
+		};
+
 		# home-manager, used for managing user configuration
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
@@ -62,7 +71,7 @@
     # mysecrets = { url = "git+ssh://git@github.com/ryan4yin/nix-secrets.git?shallow=1"; flake = false; };
 	};
 
-	outputs = { self, nixpkgs, home-manager, ... }@inputs:
+	outputs = { self, nixpkgs, disko, home-manager, ... }@inputs:
 		let
 			mkVM = import ./lib/mkvm.nix;
 
@@ -72,8 +81,10 @@
 		in {
 			nixosConfigurations.vm-test = mkVM "vm-test" rec {
 				inherit nixpkgs home-manager overlays;
-				system = "x86_64-linux";
+				system  = "x86_64-linux";
 				users   = [ "alxandr" ];
+				disks   = [ "/dev/sda" ];
+				memory  = "8G";
 			};
 
 			hosts = builtins.attrNames self.nixosConfigurations;

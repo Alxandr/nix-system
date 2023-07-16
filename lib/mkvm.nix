@@ -1,6 +1,6 @@
 # This function creates a NixOS system based on our VM setup for a
 # particular architecture.
-name: { nixpkgs, home-manager, system, users, overlays }:
+name: { nixpkgs, home-manager, system, users, overlays, disks, memory }:
 
 let
 	overlay_modules = [
@@ -29,6 +29,14 @@ let
 
 	home_manager_modules = home_manager_common_modules ++ home_manager_user_modules;
 
+	disko_modules = [
+		{
+			disko.devices = pkgs.callPackage ../hosts/${name}/disko.nix {
+				inherit disks memory;
+			};
+		}
+	];
+
 	args_modules = [
 		# We expose some extra arguments so that our modules can parameterize
 		# better based on these values.
@@ -40,7 +48,13 @@ let
 		}
 	];
 
-	modules = overlay_modules ++ machine_modules ++ user_modules ++ home_manager_modules ++ args_modules;
+	modules =
+		overlay_modules ++
+		machine_modules ++
+		user_modules ++
+		home_manager_modules ++
+		disko_modules ++
+		args_modules;
 
 in
 	nixpkgs.lib.nixosSystem rec {
