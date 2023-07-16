@@ -21,7 +21,7 @@ let
 			home-manager.useGlobalPkgs = true;
 			home-manager.useUserPackages = true;
 		}
-	]
+	];
 
 	home_manager_user_modules = map (user: {
 		home-manager.users.${user} = import ../users/${user}/home-manager.nix;
