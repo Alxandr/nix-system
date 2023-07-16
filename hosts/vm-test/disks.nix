@@ -40,7 +40,7 @@ let
 
 		postCreateHook = ''
 			mount -t btrfs /dev/mapper/crypted -o subvol=@swap /mnt
-			btrfs filesystem mkswapfile --size ${memory} /mnt/swap/swapfile
+			btrfs filesystem mkswapfile --size ${memory} /mnt/swapfile
 			umount /mnt
 		'';
 	};
@@ -56,7 +56,7 @@ let
 			extraOpenArgs = [ "--allow-discards" ];
 			# if you want to use the key for interactive login be sure there is no trailing newline
 			# for example use `echo -n "password" > /tmp/secret.key`
-			settings.keyFile = "/tmp/secret.key";
+			# settings.keyFile = "/tmp/secret.key";
 			content = btrfs_content;
 		};
 	};
