@@ -75,5 +75,7 @@
 				system = "x86_64-linux";
 				users   = [ "alxandr" ];
 			};
+
+			hosts = attrNames self.nixosConfigurations;
 		};
 }
