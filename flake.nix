@@ -80,11 +80,13 @@
 
 		in {
 			nixosConfigurations.vm-test = mkVM "vm-test" rec {
-				inherit nixpkgs home-manager overlays;
+				inherit nixpkgs home-manager overlays disko;
 				system  = "x86_64-linux";
 				users   = [ "alxandr" ];
-				disks   = [ "/dev/sda" ];
-				memory  = "8G";
+				disko-args = {
+					disks   = [ "/dev/sda" ];
+					memory  = "8G";
+				};
 			};
 
 			hosts = builtins.attrNames self.nixosConfigurations;
