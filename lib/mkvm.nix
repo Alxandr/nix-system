@@ -16,11 +16,18 @@ let
 
 	user_modules = map (user: ../users/${user}/nixos.nix) users;
 
-	home_manager_modules = map (user: home-manager.nixosModules.home-manager {
-		home-manager.useGlobalPkgs = true;
-		home-manager.useUserPackages = true;
+	home_manager_common_modules = [
+		home-manager.nixosModules.home-manager {
+			home-manager.useGlobalPkgs = true;
+			home-manager.useUserPackages = true;
+		}
+	]
+
+	home_manager_user_modules = map (user: {
 		home-manager.users.${user} = import ../users/${user}/home-manager.nix;
 	}) users;
+
+	home_manager_modules = home_manager_common_modules ++ home_manager_user_modules;
 
 	args_modules = [
 		# We expose some extra arguments so that our modules can parameterize
