@@ -35,13 +35,14 @@ let
 			};
 			"@swap" = {
 				mountpoint = "/.swapvol";
-				postCreateHook = ''
-					mount -t btrfs /dev/mapper/crypted -o subvol=@swap /mnt
-					btrfs filesystem mkswapfile --size ${memory} /mnt/swap/swapfile
-					umount /mnt
-				'';
 			};
 		};
+
+		postCreateHook = ''
+			mount -t btrfs /dev/mapper/crypted -o subvol=@swap /mnt
+			btrfs filesystem mkswapfile --size ${memory} /mnt/swap/swapfile
+			umount /mnt
+		'';
 	};
 
 	# Luks encrypted partition
