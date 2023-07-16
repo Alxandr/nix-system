@@ -1,4 +1,4 @@
-{ disks, memory }:
+{ disks, memory, ... }:
 let
 	# ESP partition (EFI boot)
 	esp_partition = {
