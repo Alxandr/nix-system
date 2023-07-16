@@ -22,7 +22,7 @@ jobs:
       - name: Show
         run: nix flake show --show-trace --impure
       - name: Build
-        run: nix build -L
+        run: nix build -L --accept-flake-config
       # - name: Deploy
       #   if: github.ref == 'refs/heads/main'
       #   env:
