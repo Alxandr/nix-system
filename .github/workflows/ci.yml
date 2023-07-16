@@ -20,7 +20,7 @@ jobs:
       #     name: domenkozar-private
       #     authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
       - name: Show
-        run: nix flake show --show-trace
+        run: nix flake show --show-trace --impure
       - name: Build
         run: nix build -L
       # - name: Deploy

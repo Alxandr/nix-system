@@ -112,21 +112,21 @@
         x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
       };
 
-			packages.x86_64-linux =
-				# take images for hosts
-        #   https://github.com/nix-community/nixos-generators
-				let system = x64_system; specialArgs = x64_specialArgs; in  {
-					# Hoshino Aquamarine is a virtual machine running on VirtualBox.
-					nixos-test-vm = nixos-generators.nixosGenerate {
-						inherit system specialArgs;
-						modules = host_test_modules ++ [
-							({config, ...}: {
-								# proxmox.qemuConf.name = "aquamarine-nixos-${config.system.nixos.label}";
-							})
-						];
+			# packages.x86_64-linux =
+			# 	# take images for hosts
+      #   #   https://github.com/nix-community/nixos-generators
+			# 	let system = x64_system; specialArgs = x64_specialArgs; in  {
+			# 		# VirtualBox nixos test VM
+			# 		nixos-test-vm = nixos-generators.nixosGenerate {
+			# 			inherit system specialArgs;
+			# 			modules = host_test_modules ++ [
+			# 				({config, ...}: {
+			# 					# proxmox.qemuConf.name = "aquamarine-nixos-${config.system.nixos.label}";
+			# 				})
+			# 			];
 
-						format = "virtualbox";
-					};
-				};
+			# 			format = "virtualbox";
+			# 		};
+			# 	};
 		};
 }
