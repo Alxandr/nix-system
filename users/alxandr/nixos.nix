@@ -6,7 +6,7 @@
 
   users.users.alxandr = {
     isNormalUser = true;
-    home = "/home/mitchellh";
+    home = "/home/alxandr";
     extraGroups = [
 			"docker"
 			"wheel"
