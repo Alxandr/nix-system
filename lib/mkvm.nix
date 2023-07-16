@@ -22,20 +22,20 @@ let
 		home-manager.users.${user} = import ../users/${user}/home-manager.nix;
 	}) users;
 
-	modules = overlay_modules ++ machine_modules ++ user_modules ++ home_manager_modules;
+	args_modules = [
+		# We expose some extra arguments so that our modules can parameterize
+		# better based on these values.
+		{
+			config._module.args = {
+				currentSystemName = name;
+				currentSystem = system;
+			};
+		}
+	];
+
+	modules = overlay_modules ++ machine_modules ++ user_modules ++ home_manager_modules ++ args_modules;
 
 in
 	nixpkgs.lib.nixosSystem rec {
-		inherit system;
-
-		modules = modules ++ [
-			# We expose some extra arguments so that our modules can parameterize
-			# better based on these values.
-			{
-				config._module.args = {
-					currentSystemName = name;
-					currentSystem = system;
-				};
-			}
-		];
+		inherit system modules;
 	}
