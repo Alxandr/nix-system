@@ -4,7 +4,7 @@ name: {
 	disko,
 	disko-args,
 	home-manager,
-	modules,
+	modules ? [],
 	nixpkgs,
 	overlays,
 	system,
