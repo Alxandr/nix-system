@@ -66,6 +66,9 @@
 		let
 			mkVM = import ./lib/mkvm.nix;
 
+			# Overlays is the list of overlays we want to apply from flake inputs.
+    	overlays = [];
+
 		in {
 			nixosConfigurations.vm-test = mkVM "vm-test" rec {
 				inherit nixpkgs home-manager overlays;
