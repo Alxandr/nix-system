@@ -121,7 +121,7 @@
 						inherit system specialArgs;
 						modules = host_test_modules ++ [
 							({config, ...}: {
-								proxmox.qemuConf.name = "aquamarine-nixos-${config.system.nixos.label}";
+								# proxmox.qemuConf.name = "aquamarine-nixos-${config.system.nixos.label}";
 							})
 						];
 
