@@ -11,8 +11,8 @@
 		# Include the results of the hardware scan.
 		./hardware-configuration.nix
 
-		../../../modules/nixos/core/desktop.nix
-		../../../modules/nixos/user-group.nix
+		../../modules/nixos/core/desktop.nix
+		../../modules/nixos/user-group.nix
 	];
 
 	# Virtualbox guest addons
