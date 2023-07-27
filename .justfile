@@ -5,9 +5,8 @@ memory        := `grep MemTotal /proc/meminfo | awk '{print $2}'` + "k"
 
 install host disk:
 	@just _format {{host}} "[ \"{{disk}}\" ]"
-	nixos-generate-config --no-filesystems --root /mnt
-	nixos-install
+	nixos-install --flake github:Alxandr/nix-system#{{host}}
 
 [private]
 _format host disks:
-	sudo nix run github:nix-community/disko -- --mode disko {{justfile_directory()}}/hosts/{{host}}/disko.nix --arg disks '{{disks}}' --arg memory '"{{memory}}"'
+	nix run github:nix-community/disko -- --mode disko {{justfile_directory()}}/hosts/{{host}}/disko.nix --arg disks '{{disks}}' --arg memory '"{{memory}}"'
