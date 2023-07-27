@@ -1,5 +1,4 @@
-memory_in_kib := `grep MemTotal /proc/meminfo | awk '{print $2}'`
-memory        := "{{memory_in_kib}}kib"
+memory        := `grep MemTotal /proc/meminfo | awk '{print $2}'` + "kib"
 
 @default:
   just --list
