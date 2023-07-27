@@ -79,20 +79,22 @@
     	overlays = [];
 
 		in {
-			nixosConfigurations.installer = nixpkgs.lib.nixosSystem {
-				system = "x86_64-linux";
-				modules = [
-					/etc/nixos/configuration.nix
-				];
-			};
+			nixosConfigurations = {
+				installer = nixpkgs.lib.nixosSystem rec {
+					system = "x86_64-linux";
+					modules = [
+						/etc/nixos/configuration.nix
+					];
+				};
 
-			nixosConfigurations.vm-test = mkVM "vm-test" rec {
-				inherit nixpkgs home-manager overlays disko;
-				system  = "x86_64-linux";
-				users   = [ "alxandr" ];
-				disko-args = {
-					disks   = [ "/dev/sda" ];
-					memory  = "8G";
+				vm-test = mkVM "vm-test" rec {
+					inherit nixpkgs home-manager overlays disko;
+					system  = "x86_64-linux";
+					users   = [ "alxandr" ];
+					disko-args = {
+						disks   = [ "/dev/sda" ];
+						memory  = "8G";
+					};
 				};
 			};
 

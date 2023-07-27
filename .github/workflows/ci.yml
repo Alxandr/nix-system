@@ -24,6 +24,9 @@ jobs:
       - name: Build
         run: |
           for host in $(nix eval .#hosts --accept-flake-config --json | jq -r '.[]'); do
+            if [ "$host" = "installer" ]; then
+              continue
+            fi
             echo "Building for $host"
             nix build -L --accept-flake-config ".#nixosConfigurations.${host}.config.system.build.toplevel"
           done
