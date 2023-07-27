@@ -5,6 +5,8 @@ memory        := `grep MemTotal /proc/meminfo | awk '{print $2}'` + "k"
 
 install host disk:
 	@just _format {{host}} "[ \"{{disk}}\" ]"
+	nixos-generate-config --no-filesystems --root /mnt
+	nixos-install
 
 [private]
 _format host disks:
