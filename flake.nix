@@ -80,12 +80,12 @@
 
 		in {
 			nixosConfigurations = {
-				installer = nixpkgs.lib.nixosSystem rec {
-					system = "x86_64-linux";
-					modules = [
-						./installer.nix
-					];
-				};
+				# installer = nixpkgs.lib.nixosSystem rec {
+				# 	system = "x86_64-linux";
+				# 	modules = [
+				# 		./installer.nix
+				# 	];
+				# };
 
 				vm-test = mkVM "vm-test" rec {
 					inherit nixpkgs home-manager overlays disko;
