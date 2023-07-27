@@ -83,7 +83,7 @@
 				installer = nixpkgs.lib.nixosSystem rec {
 					system = "x86_64-linux";
 					modules = [
-						/etc/nixos/configuration.nix
+						./installer.nix
 					];
 				};
 
