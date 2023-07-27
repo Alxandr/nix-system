@@ -5,7 +5,7 @@ memory        := "{{memory_in_kib}}kib"
   just --list
 
 install host disk:
-	@just _format ${{host}} "[ \"{{disk}}\" ]"
+	@just _format {{host}} "[ \"{{disk}}\" ]"
 
 [private]
 _format host disks:
