@@ -25,10 +25,10 @@
   # Kernel modules
   boot.kernelModules = [ "kvm" ];
 
-  # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
+  # # Setup keyfile
+  # boot.initrd.secrets = {
+  #   "/crypto_keyfile.bin" = null;
+  # };
 
 	# Enable swap on luks
   boot.initrd.luks.devices."luks-8ca65472-cd20-46e9-a4d6-3c42b414096e".device = "/dev/disk/by-uuid/8ca65472-cd20-46e9-a4d6-3c42b414096e";
