@@ -79,6 +79,15 @@
     	overlays = [];
 
 		in {
+			nixosConfigurations.installer = {
+				nixpkgs.lib.nixosSystem = {
+					system = "x86_64-linux";
+					modules = [
+						/etc/nixos/configuration.nix
+					];
+				};
+			};
+
 			nixosConfigurations.vm-test = mkVM "vm-test" rec {
 				inherit nixpkgs home-manager overlays disko;
 				system  = "x86_64-linux";
