@@ -9,7 +9,7 @@ My nix computer setups.
 
    ```nix
    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-   environment.systemPackages = [ pkgs.just ];
+   environment.systemPackages = [ pkgs.just pkgs.git pkgs.openssl ];
 
    ```
 
