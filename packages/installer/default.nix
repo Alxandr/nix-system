@@ -1,4 +1,4 @@
-{ stdenvNoCC, makeWrapper, lib, disko, hostnames, coreutils, bash }:
+{ stdenvNoCC, makeWrapper, lib, disko, hostnames, coreutils, bash, nix }:
 let
   flake = "github:Alxandr/nix-system";
   hostcases = builtins.map (host: "${host})\n    host=${host}\n    ;;") hostnames;
@@ -42,7 +42,7 @@ stdenvNoCC.mkDerivation {
     chmod 755 "$out/bin/install"
   '';
   postFixup = ''
-    wrapProgram "$out/bin/install" --set PATH ${lib.makeBinPath [disko coreutils bash]}
+    wrapProgram "$out/bin/install" --set PATH ${lib.makeBinPath [disko coreutils bash nix]}
   '';
   meta = with lib; {
     description = "Format disks with nix-config and installs NixOS";
