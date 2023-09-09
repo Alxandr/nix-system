@@ -1,11 +1,28 @@
-config:
+{ lib }: config:
 
 let
-  root = import ./disks/root.nix config.root;
+  interactive = config.interactive or true;
+
+  keyFiles = {
+    root = "/etc/disk-encryption-keys/root.key";
+  };
+
+  optKey = name:
+    if interactive
+    then { }
+    else { keyFile = keyFiles.${name}; };
+
+  rootCfg = config.root // (optKey "root");
+
+  root = import ./disks/root.nix rootCfg;
+
+  diskoConfiguration = {
+    disko.devices.disk = {
+      root = root.disk;
+    };
+  };
 
 in
 {
-  disko.devices.disks = {
-    root = root.disk;
-  };
+  inherit diskoConfiguration keyFiles interactive;
 }

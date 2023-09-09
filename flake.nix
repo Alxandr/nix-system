@@ -73,6 +73,7 @@
 
   outputs = { self, nixpkgs, disko, home-manager, ... }@inputs:
     let
+      flake = "github:Alxandr/nix-system";
       supportedSystems = [
         "x86_64-linux"
         "i686-linux"
@@ -81,7 +82,7 @@
       ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
-      host-lib = import ./lib;
+      host-lib = import ./lib { lib = nixpkgs.lib; };
       hosts = host-lib.mkHosts {
         dbost = ./hosts/servers/dbost;
       };
@@ -89,18 +90,28 @@
       hostnames = builtins.attrNames hosts;
     in
     {
-      diskoConfigurations = builtins.mapAttrs (name: host: host.diskoConfiguration) hosts;
+      inherit hosts hostnames;
 
       packages = forAllSystems (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
+          lib = pkgs.lib;
+
+          setup-packages = lib.mapAttrs
+            (name: host: (pkgs.callPackage ./packages/setup-host {
+              host = host // { inherit name; };
+              disko = disko.lib;
+              inherit flake;
+            }))
+            hosts;
+
+          setup-packages' = lib.mapAttrs' (name: pkg: lib.nameValuePair pkg.name pkg) setup-packages;
         in
         {
           alxandr-nixos-installer = pkgs.callPackage ./packages/installer {
-            disko = disko.packages.${system}.disko;
-            inherit hostnames;
+            inherit setup-packages;
           };
-        }
+        } // setup-packages'
       );
 
       apps = forAllSystems (system: {

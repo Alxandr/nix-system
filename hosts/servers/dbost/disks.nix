@@ -1,4 +1,5 @@
 {
+  interactive = false;
   root = {
     device = "/dev/sda";
     encrypted = true;

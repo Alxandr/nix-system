@@ -1,8 +1,8 @@
-{ device, swap, encrypted ? true }:
+{ device, swap, keyFile, encrypted ? true }:
 
 let
   swapvol = if swap == false then { } else {
-    "/@swap" = {
+    "@swap" = {
       mountpoint = "/.swapvol";
     };
   };
@@ -10,9 +10,12 @@ let
   postCreateHook =
     if swap == false then { } else {
       postCreateHook = ''
-        mount - t btrfs /dev/mapper/crypted - o subvol=@swap /mnt
-        btrfs filesystem mkswapfile --size ${swap} /mnt/swapfile
-        umount /mnt
+        (
+          MNTPOINT=$(mktemp -d)
+          mount /dev/mapper/crypted "$MNTPOINT" -o subvol=/@swap
+          trap 'umount $MNTPOINT; rm -rf $MNTPOINT' EXIT
+          btrfs filesystem mkswapfile --size ${swap} /mnt/swapfile
+        )
       '';
     };
 
@@ -21,14 +24,14 @@ let
     extraArgs = [ "-f" ]; # Override existing partition
     subvolumes = swapvol // {
       # Subvolume name is different from mountpoint
-      "/@root" = {
+      "@root" = {
         mountpoint = "/";
       };
-      "/@home" = {
+      "@home" = {
         mountpoint = "/home";
         mountOptions = [ "compress=zstd" ];
       };
-      "/@nix" = {
+      "@nix" = {
         mountpoint = "/nix";
         mountOptions = [ "compress=zstd" "noatime" ];
       };
@@ -41,7 +44,7 @@ let
     extraOpenArgs = [ "--allow-discards" ];
     # if you want to use the key for interactive login be sure there is no trailing newline
     # for example use `echo -n "password" > /tmp/secret.key`
-    settings.keyFile = "/etc/cryptroot.key";
+    settings.keyFile = keyFile;
     content = btrfs_content;
   };
 

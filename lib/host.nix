@@ -1,12 +1,14 @@
-let mkDisks = import ./disks.nix;
+{ lib }:
+
+let mkDisks = import ./disks.nix { inherit lib; };
 
 in
 rec {
   mkHost = dir:
     let
-      diskoConfiguration = mkDisks (import "${dir}/disks.nix");
+      disks = mkDisks (import "${dir}/disks.nix");
     in
-    { inherit diskoConfiguration; };
+    { inherit (disks) diskoConfiguration keyFiles interactive; };
 
   mkHosts = hosts: builtins.mapAttrs (name: dir: mkHost dir) hosts;
 }
