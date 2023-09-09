@@ -18,6 +18,7 @@ let
               chmod -v 0400 "${path}"
               chown root:root "${path}"
             '';
+            mkdist = "mkdir -p ${builtins.dirOf "/mnt${path}"} # ${name}";
             copy = ''cp "${path}" "/mnt${path}" # ${name}'';
           })
           host.keyFiles;
@@ -29,6 +30,9 @@ let
 
         keygens = builtins.map (cmd: cmd.keygen) cmds;
         keygen = builtins.concatStringsSep "\n" keygens;
+
+        mkdists = builtins.map (cmd: cmd.mkdist) cmds;
+        mkdist = builtins.concatStringsSep "\n" mkdists;
 
         copys = builtins.map (cmd: cmd.copy) cmds;
         copy = builtins.concatStringsSep "\n" copys;
@@ -45,6 +49,9 @@ let
 
         copyKeys = ''
           echo -e "\x1b[1;32m === Copy key-files for host ${host.name} === \x1b[0m"
+
+          #mkdir
+          ${mkdist}
 
           # copy
           ${copy}
