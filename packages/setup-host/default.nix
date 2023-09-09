@@ -1,4 +1,4 @@
-{ stdenvNoCC, makeWrapper, lib, disko, host, coreutils, bash, flake, pkgs }:
+{ stdenvNoCC, makeWrapper, lib, disko, host, coreutils, bash, flake, pkgs, openssl }:
 let
   diskoScript = disko.diskoScript host.diskoConfiguration pkgs;
   keyScripts =
@@ -86,7 +86,7 @@ stdenvNoCC.mkDerivation {
     chmod 755 "$out/bin/setup-${host.name}"
   '';
   postFixup = ''
-    wrapProgram "$out/bin/setup-${host.name}" --set PATH ${lib.makeBinPath [coreutils bash]}
+    wrapProgram "$out/bin/setup-${host.name}" --set PATH ${lib.makeBinPath [coreutils bash openssl]}
   '';
   meta = with lib; {
     description = "Format disks with nix-config and installs NixOS for host ${host.name}";
