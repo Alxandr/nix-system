@@ -36,7 +36,7 @@ stdenvNoCC.mkDerivation {
     ${hostswitch}
 
     echo -e "\x1b[1;32m === Formatting disks for host \$host === \x1b[0m"
-    disko --mode disko --flake "${flake}.#\$host"
+    disko --mode disko --flake "${flake}#\$host"
     EOF
     } >"$out/bin/install"
     chmod 755 "$out/bin/install"
