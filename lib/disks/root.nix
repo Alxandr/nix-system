@@ -14,7 +14,7 @@ let
           MNTPOINT=$(mktemp -d)
           mount /dev/mapper/crypted "$MNTPOINT" -o subvol=/@swap
           trap 'umount $MNTPOINT; rm -rf $MNTPOINT' EXIT
-          btrfs filesystem mkswapfile --size ${swap} /mnt/swapfile
+          btrfs filesystem mkswapfile --size ${swap} "$MNTPOINT/swapfile"
         )
       '';
     };
