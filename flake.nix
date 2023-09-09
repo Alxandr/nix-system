@@ -34,22 +34,24 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # disko is used to format the disks of the computers
+
+    # Format disks with nix-config
+    # https://github.com/nix-community/disko
     disko = {
       url = "github:nix-community/disko";
-      # The `follows` keyword in inputs is used for inheritance.
-      # Here, `inputs.nixpkgs` of home-manager is kept consistent with the `inputs.nixpkgs` of the current flake,
-      # to avoid problems caused by different versions of nixpkgs dependencies.
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # home-manager, used for managing user configuration
+    # Manage a user environment using Nix
+    # https://github.com/nix-community/home-manager
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
-      # The `follows` keyword in inputs is used for inheritance.
-      # Here, `inputs.nixpkgs` of home-manager is kept consistent with the `inputs.nixpkgs` of the current flake,
-      # to avoid problems caused by different versions of nixpkgs dependencies.
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    neovim-flake = {
+      url = "github:jordanisaacs/neovim-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # # modern window compositor
@@ -65,24 +67,32 @@
 
     # # secrets management, lock with git commit at 2023/7/15
     # agenix.url = "github:ryantm/agenix/0d8c5325fc81daf00532e3e26c6752f7bcde1143";
-
-    # # my private secrets, it's a private repository, you need to replace it with your own.
-    # # use ssh protocol to authenticate via ssh-agent/ssh-key, and shallow clone to save time
-    # mysecrets = { url = "git+ssh://git@github.com/ryan4yin/nix-secrets.git?shallow=1"; flake = false; };
   };
 
-  outputs = { self, nixpkgs, disko, home-manager, ... }@inputs:
+  outputs =
+    { self
+    , nixpkgs
+    , disko
+    , home-manager
+    , flake-utils
+    , neovim-flake
+    , ...
+    }:
     let
       flake = "github:Alxandr/nix-system";
       supportedSystems = [
         "x86_64-linux"
-        "i686-linux"
         "aarch64-linux"
         "riscv64-linux"
       ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
-      host-lib = import ./lib { lib = nixpkgs.lib; };
+      host-lib = import ./lib {
+        inherit supportedSystems neovim-flake;
+        inherit (nixpkgs) lib;
+        inherit (disko.nixosModules) disko;
+      };
+
       hosts = host-lib.mkHosts {
         dbost = ./hosts/servers/dbost;
       };
@@ -91,6 +101,8 @@
     in
     {
       inherit hosts hostnames;
+
+      nixosConfigurations = builtins.mapAttrs (name: host: host.nixosConfiguration) hosts;
 
       packages = forAllSystems (system:
         let
@@ -102,13 +114,13 @@
               host = host // { inherit name; };
               disko = disko.lib;
               inherit flake;
-            }))
+            }) // { inherit host; })
             hosts;
 
           setup-packages' = lib.mapAttrs' (name: pkg: lib.nameValuePair pkg.name pkg) setup-packages;
         in
         {
-          alxandr-nixos-installer = pkgs.callPackage ./packages/installer {
+          install = pkgs.callPackage ./packages/install {
             inherit setup-packages;
           };
         } // setup-packages'
@@ -117,7 +129,7 @@
       apps = forAllSystems (system: {
         install = {
           type = "app";
-          program = "${self.packages.${system}.alxandr-nixos-installer}/bin/install";
+          program = "${self.packages.${system}.install}/bin/install";
         };
       });
     };

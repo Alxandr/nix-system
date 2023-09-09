@@ -1,4 +1,19 @@
-{ stdenvNoCC, makeWrapper, lib, disko, host, coreutils, bash, flake, pkgs, openssl }:
+{ writeShellApplication
+, lib
+, system
+
+, disko
+, coreutils
+, bash
+, openssl
+, pkgs
+, nixos-install-tools
+, su
+
+, flake
+, host
+}:
+
 let
   diskoScript = disko.diskoScript host.diskoConfiguration pkgs;
   keyScripts =
@@ -60,45 +75,43 @@ let
       {
         inherit genKeys copyKeys;
       };
+
+  configureUserScripts = builtins.attrValues (
+    lib.mapAttrs
+      (name: user:
+        ''
+          echo "${name} password:"
+          ${su}/bin/passwd --root /mnt "${name}"
+        ''
+      )
+      host.users
+  );
+
+  configureUsers = builtins.concatStringsSep "\n" configureUserScripts;
 in
-stdenvNoCC.mkDerivation {
-  name = "setup-${ host. name}";
-  src = ./.;
-  env = {
-    DISKO_SCRIPT = diskoScript;
-    GEN_KEYS = keyScripts.genKeys;
-    COPY_KEYS = keyScripts.copyKeys;
-  };
-  nativeBuildInputs = [
-    makeWrapper
-  ];
-  installPhase = ''
-    set -e
-    mkdir -p $out/bin $out/bin
-    cat >"$out/bin/setup-${host.name}" <<EOF
-    #!/usr/bin/env bash
-    set -euo pipefail
+writeShellApplication {
+  name = "setup-${ host.name }";
 
-    # gen keys
-    $GEN_KEYS
+  text =
+    if !(host.supportsSystem system)
+    then "echo -e \"\x1b[1;31mSystem ${system} not supported for host ${host.name}\x1b[0m\""
+    else ''
+      # gen keys
+      ${keyScripts.genKeys}
 
-    echo -e "\x1b[1;32m === Formatting disks for host ${host.name} === \x1b[0m"
+      echo -e "\x1b[1;32m === Formatting disks for host ${host.name} === \x1b[0m"
 
-    # disko script
-    $DISKO_SCRIPT
+      # disko script
+      ${diskoScript}
 
-    # copy keys
-    $COPY_KEYS
-    EOF
-    chmod 755 "$out/bin/setup-${host.name}"
-  '';
-  postFixup = ''
-    wrapProgram "$out/bin/setup-${host.name}" --set PATH ${lib.makeBinPath [coreutils bash openssl]}
-  '';
-  meta = with lib; {
-    description = "Format disks with nix-config and installs NixOS for host ${host.name}";
-    homepage = "https://github.com/Alxandr/nix-system";
-    license = licenses.mit;
-    platforms = platforms.linux;
-  };
+      # copy keys
+      ${keyScripts.copyKeys}
+
+      echo -e "\x1b[1;32m === Install system === \x1b[0m"
+      ${nixos-install-tools}/bin/nixos-install --flake "${flake}#${host.name}.${system}" --no-root-password
+      # --extra-experimental-features "nix-command flakes"?
+
+      echo -e "\x1b[1;32m === Configuring users === \x1b[0m"
+      ${configureUsers}
+    '';
 }

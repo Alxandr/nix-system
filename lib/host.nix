@@ -1,14 +1,44 @@
-{ lib }:
+{ lib
+, disko
+, neovim
+, supportedSystems
+}:
 
-let mkDisks = import ./disks.nix { inherit lib; };
-
+let
+  mkDisks = import ./disks.nix { inherit lib; };
+  mkNixos = import ./nixos.nix { inherit lib disko; };
 in
 rec {
-  mkHost = dir:
+  mkHost = name: dir:
     let
       disks = mkDisks (import "${dir}/disks.nix");
-    in
-    { inherit (disks) diskoConfiguration keyFiles interactive; };
+      systems =
+        if builtins.pathExists "${dir}/systems.nix"
+        then import "${dir}/systems.nix" { inherit lib; }
+        else supportedSystems;
 
-  mkHosts = hosts: builtins.mapAttrs (name: dir: mkHost dir) hosts;
+      users = {
+        alxandr = import ../users/alxandr.nix;
+      };
+
+      hardware = import "${dir}/hardware.nix";
+
+      nixosConfiguration = builtins.listToAttrs (builtins.map
+        (system: {
+          name = system;
+          value = mkNixos {
+            inherit system users name hardware neovim;
+            inherit (disks) diskoConfiguration keyFiles interactive;
+          };
+        })
+        systems);
+
+      supportsSystem = system: builtins.elem system systems;
+    in
+    {
+      inherit systems users nixosConfiguration supportsSystem;
+      inherit (disks) diskoConfiguration keyFiles interactive;
+    };
+
+  mkHosts = hosts: builtins.mapAttrs mkHost hosts;
 }
