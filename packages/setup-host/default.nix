@@ -6,9 +6,9 @@
 , coreutils
 , bash
 , openssl
+, shadow
 , pkgs
 , nixos-install-tools
-, su
 
 , flake
 , host
@@ -81,7 +81,7 @@ let
       (name: user:
         ''
           ${coreutils}/bin/echo "${name} password:"
-          ${su}/bin/passwd --root /mnt "${name}"
+          ${shadow}/bin/passwd --root /mnt "${name}"
         ''
       )
       host.users
