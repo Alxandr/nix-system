@@ -21,6 +21,10 @@ let
       users;
   };
 
+  hostname-module = {
+    networking.hostName = lib.mkDefault name;
+  };
+
   disk-layout-modules = [
     disko
     diskoConfiguration
@@ -41,7 +45,7 @@ let
   modules = [ hardware ]
     ++ disk-layout-modules
     ++ disk-encryption-modules
-    ++ [ ./nixos/common.nix users-module ]
+    ++ [ ./nixos/common.nix users-module hostname-module ]
     ++ [ ({ pkgs, lib, ... }: neovim { inherit pkgs lib system; }) ];
 in
 
