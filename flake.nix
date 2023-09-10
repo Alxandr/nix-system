@@ -98,11 +98,15 @@
       };
 
       hostnames = builtins.attrNames hosts;
+
+      nixosConfigurationList = builtins.attrValues (builtins.mapAttrs (name: host: host.nixosConfigurations) hosts);
     in
     {
-      inherit hosts hostnames;
+      inherit hosts hostnames nixosConfigurationList;
 
-      nixosConfigurations = builtins.mapAttrs (name: host: host.nixosConfiguration) hosts;
+      # nixosConfigurations = builtins.mapAttrs (name: host: host.nixosConfiguration) hosts;
+      # nixosConfigurations = nixpkgs.lib.mergeAttrsList (builtins.attrValues (builtins.mapAttrs (name: host: host.nixosConfiguration) hosts));
+      nixosConfigurations = nixpkgs.lib.foldl nixpkgs.lib.mergeAttrs { } nixosConfigurationList;
 
       packages = forAllSystems (system:
         let

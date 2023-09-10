@@ -108,7 +108,7 @@ writeShellApplication {
       ${keyScripts.copyKeys}
 
       ${coreutils}/bin/echo -e "\x1b[1;32m === Install system === \x1b[0m"
-      ${nixos-install-tools}/bin/nixos-install --flake "${flake}#${host.name}.${system}" --no-root-password
+      ${nixos-install-tools}/bin/nixos-install --flake "${flake}#${host.name}-${system}" --no-root-password
       # --extra-experimental-features "nix-command flakes"?
 
       ${coreutils}/bin/echo -e "\x1b[1;32m === Configuring users === \x1b[0m"

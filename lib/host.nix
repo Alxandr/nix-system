@@ -23,9 +23,9 @@ rec {
 
       hardware = import "${dir}/hardware.nix";
 
-      nixosConfiguration = builtins.listToAttrs (builtins.map
+      nixosConfigurations = builtins.listToAttrs (builtins.map
         (system: {
-          name = system;
+          name = "${name}-${system}";
           value = mkNixos {
             inherit system users name hardware neovim;
             inherit (disks) diskoConfiguration keyFiles interactive;
@@ -36,7 +36,7 @@ rec {
       supportsSystem = system: builtins.elem system systems;
     in
     {
-      inherit systems users nixosConfiguration supportsSystem;
+      inherit systems users nixosConfigurations supportsSystem;
       inherit (disks) diskoConfiguration keyFiles interactive;
     };
 
