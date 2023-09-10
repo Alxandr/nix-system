@@ -18,7 +18,7 @@
     let
       neovim = import ./neovim.nix { inherit neovim-flake; };
       host = import ./host.nix {
-        inherit lib supportedSystems neovim;
+        inherit lib supportedSystems neovim flake;
         inherit (disko.nixosModules) disko;
       };
 

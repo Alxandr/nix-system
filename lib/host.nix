@@ -1,4 +1,5 @@
 { lib
+, flake
 , disko
 , neovim
 , supportedSystems
@@ -6,7 +7,7 @@
 
 let
   mkDisks = import ./disks.nix { inherit lib; };
-  mkNixos = import ./nixos.nix { inherit lib disko; };
+  mkNixos = import ./nixos.nix { inherit lib disko flake; };
 in
 rec {
   mkHost = name: dir:

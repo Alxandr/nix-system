@@ -1,4 +1,4 @@
-{ lib, disko }:
+{ lib, disko, flake }:
 { name
 , system
 , users
@@ -19,6 +19,14 @@ let
         openssh.authorizedKeys.keys = cfg.authorized-keys;
       })
       users;
+  };
+
+  auto-upgrade-module = {
+    system.autoUpgrade = {
+      enable = lib.mkDefault true;
+      flake = "${flake}#${name}-${system}";
+      allowReboot = lib.mkDefault true;
+    };
   };
 
   hostname-module = {
@@ -42,7 +50,7 @@ let
         boot.initrd.secrets = key-set;
       }];
 
-  modules = [ hardware ]
+  modules = [ hardware auto-upgrade-module ]
     ++ disk-layout-modules
     ++ disk-encryption-modules
     ++ [ ./nixos/common.nix users-module hostname-module ]
