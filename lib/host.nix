@@ -36,7 +36,7 @@ rec {
       supportsSystem = system: builtins.elem system systems;
     in
     {
-      inherit systems users nixosConfigurations supportsSystem;
+      inherit systems users nixosConfigurations supportsSystem name;
       inherit (disks) diskoConfiguration keyFiles interactive;
     };
 

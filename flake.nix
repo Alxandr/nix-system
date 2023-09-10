@@ -88,82 +88,15 @@
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
       host-lib = import ./lib {
-        inherit supportedSystems neovim-flake;
+        inherit neovim-flake nixpkgs disko;
         inherit (nixpkgs) lib;
-        inherit (disko.nixosModules) disko;
       };
 
-      hosts = host-lib.mkHosts {
+    in
+    host-lib.mkSystem {
+      inherit flake supportedSystems;
+      hosts = {
         dbost = ./hosts/servers/dbost;
       };
-
-      hostnames = builtins.attrNames hosts;
-
-      nixosConfigurationList = builtins.attrValues (builtins.mapAttrs (name: host: host.nixosConfigurations) hosts);
-    in
-    {
-      inherit hosts hostnames nixosConfigurationList;
-
-      # nixosConfigurations = builtins.mapAttrs (name: host: host.nixosConfiguration) hosts;
-      # nixosConfigurations = nixpkgs.lib.mergeAttrsList (builtins.attrValues (builtins.mapAttrs (name: host: host.nixosConfiguration) hosts));
-      nixosConfigurations = nixpkgs.lib.foldl nixpkgs.lib.mergeAttrs { } nixosConfigurationList;
-
-      packages = forAllSystems (system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-          lib = pkgs.lib;
-
-          setup-packages = lib.mapAttrs
-            (name: host: (pkgs.callPackage ./packages/setup-host {
-              host = host // { inherit name; };
-              disko = disko.lib;
-              inherit flake;
-            }) // { inherit host; })
-            hosts;
-
-          setup-packages' = lib.mapAttrs' (name: pkg: lib.nameValuePair pkg.name pkg) setup-packages;
-        in
-        {
-          install = pkgs.callPackage ./packages/install {
-            inherit setup-packages;
-          };
-        } // setup-packages'
-      );
-
-      apps = forAllSystems (system: {
-        install = {
-          type = "app";
-          program = "${self.packages.${system}.install}/bin/install";
-        };
-      });
     };
-  # let
-  #   # mkVM = import ./lib/mkvm.nix;
-
-  #   # Overlays is the list of overlays we want to apply from flake inputs.
-  #   overlays = [ ];
-
-  # in
-  # {
-  #   nixosConfigurations = {
-  #     # installer = nixpkgs.lib.nixosSystem rec {
-  #     # 	system = "x86_64-linux";
-  #     # 	modules = [
-  #     # 		./installer.nix
-  #     # 	];
-  #     # };
-
-  #     vm-test = mkVM "vm-test" rec {
-  #       inherit nixpkgs home-manager overlays disko;
-  #       system = "x86_64-linux";
-  #       users = [ "alxandr" ];
-  #       disko-args = {
-  #         disks = [ "/dev/sda" ];
-  #         memory = "8G";
-  #       };
-  #     };
-  #   };
-
-  #   hosts = builtins.attrNames self.nixosConfigurations;
-  # };
 }
