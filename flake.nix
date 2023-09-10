@@ -93,6 +93,10 @@
       };
 
     in
+    {
+      lib = host-lib;
+    }
+    //
     host-lib.mkSystem {
       inherit flake supportedSystems;
       hosts = {
