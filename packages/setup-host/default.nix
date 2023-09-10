@@ -26,15 +26,15 @@ let
       let
         cmdAttrs = lib.mapAttrs
           (name: path: {
-            mkdir = "mkdir -p ${builtins.dirOf path} # ${name}";
+            mkdir = "${coreutils}/bin/mkdir -p ${builtins.dirOf path} # ${name}";
             keygen = ''
               # ${name}
-              openssl genrsa -out "${path}" 4096
-              chmod -v 0400 "${path}"
-              chown root:root "${path}"
+              ${openssl}/bin/openssl genrsa -out "${path}" 4096
+              ${coreutils}/bin/chmod -v 0400 "${path}"
+              ${coreutils}/bin/chown root:root "${path}"
             '';
-            mkdist = "mkdir -p ${builtins.dirOf "/mnt${path}"} # ${name}";
-            copy = ''cp "${path}" "/mnt${path}" # ${name}'';
+            mkdist = "${coreutils}/bin/mkdir -p ${builtins.dirOf "/mnt${path}"} # ${name}";
+            copy = ''${coreutils}/bin/cp "${path}" "/mnt${path}" # ${name}'';
           })
           host.keyFiles;
 
@@ -53,7 +53,7 @@ let
         copy = builtins.concatStringsSep "\n" copys;
 
         genKeys = ''
-          echo -e "\x1b[1;32m === Generating key-files for host ${host.name} === \x1b[0m"
+          ${coreutils}/bin/echo -e "\x1b[1;32m === Generating key-files for host ${host.name} === \x1b[0m"
 
           # mkdirs
           ${mkdir}
@@ -63,7 +63,7 @@ let
         '';
 
         copyKeys = ''
-          echo -e "\x1b[1;32m === Copy key-files for host ${host.name} === \x1b[0m"
+          ${coreutils}/bin/echo -e "\x1b[1;32m === Copy key-files for host ${host.name} === \x1b[0m"
 
           #mkdir
           ${mkdist}
@@ -80,7 +80,7 @@ let
     lib.mapAttrs
       (name: user:
         ''
-          echo "${name} password:"
+          ${coreutils}/bin/echo "${name} password:"
           ${su}/bin/passwd --root /mnt "${name}"
         ''
       )
@@ -99,7 +99,7 @@ writeShellApplication {
       # gen keys
       ${keyScripts.genKeys}
 
-      echo -e "\x1b[1;32m === Formatting disks for host ${host.name} === \x1b[0m"
+      ${coreutils}/bin/echo -e "\x1b[1;32m === Formatting disks for host ${host.name} === \x1b[0m"
 
       # disko script
       ${diskoScript}
@@ -107,11 +107,11 @@ writeShellApplication {
       # copy keys
       ${keyScripts.copyKeys}
 
-      echo -e "\x1b[1;32m === Install system === \x1b[0m"
+      ${coreutils}/bin/echo -e "\x1b[1;32m === Install system === \x1b[0m"
       ${nixos-install-tools}/bin/nixos-install --flake "${flake}#${host.name}.${system}" --no-root-password
       # --extra-experimental-features "nix-command flakes"?
 
-      echo -e "\x1b[1;32m === Configuring users === \x1b[0m"
+      ${coreutils}/bin/echo -e "\x1b[1;32m === Configuring users === \x1b[0m"
       ${configureUsers}
     '';
 }

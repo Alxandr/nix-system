@@ -12,14 +12,14 @@ let
     (name: setup:
       if setup.host.supportsSystem system
       then "${name})\n    exec \"${setup}/bin/${setup.name}\"\n    ;;"
-      else "${name})\n    echo \"${setup.name} is not supported on ${system}\"\n    exit 1;    ;;")
+      else "${name})\n    ${coreutils}/bin/echo \"${setup.name} is not supported on ${system}\"\n    exit 1;    ;;")
     setup-packages;
   hostcases-string = builtins.concatStringsSep "\n  " (lib.attrValues hostcases);
   hostswitch = ''
     case "$1" in
       ${hostcases-string}
       *)
-        echo "Unknown host: $1"
+        ${coreutils}/bin/echo "Unknown host: $1"
         exit 1
         ;;
     esac
@@ -32,7 +32,7 @@ writeShellApplication {
 
   text = ''
     if [[ $# -eq 0 ]] || [[ $# -gt 1 ]]; then
-      echo "Must provide exactly one argument: the hostname"
+      ${coreutils}/bin/echo "Must provide exactly one argument: the hostname"
       exit 1
     fi
 
