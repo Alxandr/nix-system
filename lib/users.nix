@@ -27,6 +27,9 @@ let
       config = common // authorized-keys;
 
       home-manager = pkgs: {
+        programs.bash.enable = true;
+        programs.zsh.enable = true;
+
         # inherit pkgs;
         # modules = [{
         # home.username = name;
