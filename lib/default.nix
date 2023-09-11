@@ -2,6 +2,7 @@
 , nixpkgs
 , disko
 , neovim-flake
+, home-manager
 }:
 
 {
@@ -18,7 +19,7 @@
     let
       neovim = import ./neovim.nix { inherit neovim-flake; };
       host = import ./host.nix {
-        inherit lib supportedSystems neovim flake;
+        inherit lib supportedSystems neovim flake home-manager;
         inherit (disko.nixosModules) disko;
       };
 

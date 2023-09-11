@@ -2,12 +2,17 @@
 , flake
 , disko
 , neovim
+, home-manager
 , supportedSystems
 }:
 
 let
   mkDisks = import ./disks.nix { inherit lib; };
   mkNixos = import ./nixos.nix { inherit lib disko flake; };
+  mkUsers = import ./users.nix {
+    inherit lib;
+    inherit (home-manager.lib) homeManagerConfiguration;
+  };
 in
 rec {
   mkHost = name: dir:
@@ -18,8 +23,8 @@ rec {
         then import "${dir}/systems.nix" { inherit lib; }
         else supportedSystems;
 
-      users = {
-        alxandr = import ../users/alxandr.nix;
+      users = mkUsers {
+        alxandr = ../users/alxandr;
       };
 
       hardware = import "${dir}/hardware.nix";
@@ -30,6 +35,7 @@ rec {
           value = mkNixos {
             inherit system users name hardware neovim;
             inherit (disks) diskoConfiguration keyFiles interactive;
+            inherit (home-manager.nixosModules) home-manager;
           };
         })
         systems);

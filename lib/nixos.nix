@@ -4,6 +4,7 @@
 , users
 , hardware
 , neovim
+, home-manager
 , diskoConfiguration
 , keyFiles
 , interactive
@@ -12,13 +13,7 @@
 let
   users-module = {
     users.groups = lib.mapAttrs (name: cfg: { }) users;
-    users.users = lib.mapAttrs
-      (name: cfg: {
-        isNormalUser = true;
-        extraGroups = [ name "users" ] ++ cfg.groups;
-        openssh.authorizedKeys.keys = cfg.authorized-keys;
-      })
-      users;
+    users.users = lib.mapAttrs (name: cfg: cfg.config) users;
   };
 
   auto-upgrade-module = {
@@ -31,6 +26,13 @@ let
 
   hostname-module = {
     networking.hostName = lib.mkDefault name;
+  };
+
+  home-manager-config-module = { pkgs, ... }: {
+    home-manager.useGlobalPkgs = true;
+    home-manager.useUserPackages = true;
+
+    home-manager.users = lib.mapAttrs (name: cfg: cfg.home-manager pkgs) users;
   };
 
   disk-layout-modules = [
@@ -54,7 +56,8 @@ let
     ++ disk-layout-modules
     ++ disk-encryption-modules
     ++ [ ./nixos/common.nix users-module hostname-module ]
-    ++ [ ({ pkgs, lib, ... }: neovim { inherit pkgs lib system; }) ];
+    ++ [ ({ pkgs, lib, ... }: neovim { inherit pkgs lib system; }) ]
+    ++ [ home-manager home-manager-config-module ];
 in
 
 lib.nixosSystem {

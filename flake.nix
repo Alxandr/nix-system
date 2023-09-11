@@ -88,7 +88,7 @@
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
       host-lib = import ./lib {
-        inherit neovim-flake nixpkgs disko;
+        inherit neovim-flake home-manager nixpkgs disko;
         inherit (nixpkgs) lib;
       };
 
