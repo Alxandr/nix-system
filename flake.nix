@@ -34,11 +34,13 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
     # Format disks with nix-config
     # https://github.com/nix-community/disko
     disko = {
-      url = "github:nix-community/disko";
+      # using my own branch for swap support
+      url = "github:Alxandr/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -49,6 +51,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # A highly configurable nix flake for neovim.
+    # https://github.com/jordanisaacs/neovim-flake
     neovim-flake = {
       url = "github:jordanisaacs/neovim-flake";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -67,40 +71,28 @@
 
     # # secrets management, lock with git commit at 2023/7/15
     # agenix.url = "github:ryantm/agenix/0d8c5325fc81daf00532e3e26c6752f7bcde1143";
+
+    # # BASH-based DSL helpers for humans, sysadmins, and fun.
+    # # https://github.com/kigster/bashmatic
+    # gum = {
+    #   url = "github:charmbracelet/gum";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs =
-    { self
-    , nixpkgs
-    , disko
-    , home-manager
-    , flake-utils
-    , neovim-flake
-    , ...
-    }:
-    let
-      flake = "github:Alxandr/nix-system";
-      supportedSystems = [
+    inputs@{ flake-parts, disko, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        # ./vendor/disko
+        ./disks
+        ./test.nix
+      ];
+      # flake = { };
+      systems = [
         "x86_64-linux"
         "aarch64-linux"
         "riscv64-linux"
       ];
-      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-
-      host-lib = import ./lib {
-        inherit neovim-flake home-manager nixpkgs disko;
-        inherit (nixpkgs) lib;
-      };
-
-    in
-    {
-      lib = host-lib;
-    }
-    //
-    host-lib.mkSystem {
-      inherit flake supportedSystems;
-      hosts = {
-        dbost = ./hosts/servers/dbost;
-      };
     };
 }
