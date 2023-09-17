@@ -18,8 +18,8 @@ writeShellApplication {
         ${gum}/bin/gum format "❌ No password provided"
         exit 1
       fi
-      ${coreutils}/bin/chmod -v 0400 "$file"
-      ${coreutils}/bin/chown root:root "$file"
+      ${coreutils}/bin/chmod -v 0400 "$file" >/dev/null
+      ${coreutils}/bin/chown root:root "$file" >/dev/null
       ${gum}/bin/gum format "✔️ Password set"
     '';
 }

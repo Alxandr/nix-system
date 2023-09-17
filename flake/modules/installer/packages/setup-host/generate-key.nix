@@ -14,8 +14,8 @@ let
         dir=$(${coreutils}/bin/dirname "$file")
         ${coreutils}/bin/mkdir -p "$dir"
         ${openssl}/bin/openssl genrsa -out "$file" 4096
-        ${coreutils}/bin/chmod -v 0400 "$file"
-        ${coreutils}/bin/chown root:root "$file"
+        ${coreutils}/bin/chmod -v 0400 "$file" >/dev/null
+        ${coreutils}/bin/chown root:root "$file" >/dev/null
       '';
   };
 in

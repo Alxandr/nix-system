@@ -89,7 +89,7 @@
         ./test.nix
       ];
       # flake = { };
-      flake.path = "github:Alxandr/nix-system";
+      flake.path = "github:Alxandr/nix-system/feat/flake-parts";
       systems = [
         "x86_64-linux"
         "aarch64-linux"
