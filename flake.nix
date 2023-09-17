@@ -85,10 +85,11 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         # ./vendor/disko
-        ./disks
+        ./flake
         ./test.nix
       ];
       # flake = { };
+      flake.path = "github:Alxandr/nix-system";
       systems = [
         "x86_64-linux"
         "aarch64-linux"

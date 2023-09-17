@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, inputs, ... }:
 let
   # ESP partition (EFI boot)
   esp_partition = {
@@ -84,4 +84,18 @@ in
       };
     };
   };
+
+  config.perSystem.nixosTemplates.server = { system, ... }:
+    let
+      inherit (config.flake) nixosModules diskoConfigurations;
+    in
+    {
+      imports = [
+        nixosModules.disko
+        nixosModules.diskoKeys
+      ];
+
+      config.disko = diskoConfigurations.test.disko;
+      config.system.stateVersion = "23.05";
+    };
 }

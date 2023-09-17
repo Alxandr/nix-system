@@ -11,10 +11,9 @@
 , pkgs
 , nixos-install-tools
 
-  # , flake
-  # , host
 , config
 , name
+, flake
 }:
 
 let
@@ -36,8 +35,8 @@ let
         if cfg.interactive
         then [ ]
         else [
-          ''${coreutils}/bin/mkdir -p "/mnt${builtins.dirOf cfg.path}"''
-          ''${coreutils}/bin/cp "${cfg.path}" "/mnt${cfg.path}"''
+          ''${coreutils}/bin/mkdir -p "/mnt${builtins.dirOf cfg.path}" >/dev/null''
+          ''${coreutils}/bin/cp "${cfg.path}" "/mnt${cfg.path}" >/dev/null''
         ];
     })
     config.disko.keys;
@@ -146,11 +145,15 @@ writeShellApplication
       ${scriptLines keyLines}
 
       # format disk
-      ${gum}/bin/gum format "💾 Format disks"
-      ${diskoScript}
+      ${gum}/bin/gum spin --spinner line --title "Formatting disk..." --show-output -- ${diskoScript}
+      ${gum}/bin/gum format "✔️ Disk formatted"
 
       # copy keys to new system
       ${scriptLines copyLines}
+
+      # install system
+      ${gum}/bin/gum spin --spinner line --title "Installing system..." --show-output -- ${nixos-install-tools}/bin/nixos-install --flake "${flake.path}#${flake.name}" --no-root-password
+      ${gum}/bin/gum format "✔️ System installed"
     '';
   # if !(host.supportsSystem system)
   # then "echo -e \"\x1b[1;31mSystem ${system} not supported for host ${host.name}\x1b[0m\""
