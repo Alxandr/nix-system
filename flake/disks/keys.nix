@@ -59,11 +59,27 @@ let
     }];
   };
 
-  diskoKeysModule = { lib, ... }: {
+  diskoKeysModule = { lib, config, ... }: {
+    _file = ./keys.nix;
+
     options.disko.keys = lib.mkOption {
       type = types.attrsOf keyFileType;
       default = { };
     };
+
+    config.boot.initrd.secrets =
+      let
+        allSecrets = lib.mapAttrsToList
+          (name: secret: {
+            name = secret.path;
+            value = secret.path;
+            enabled = !secret.interactive;
+          })
+          config.disko.keys;
+        secrets = lib.filter (secret: secret.enabled) allSecrets;
+        secretsAttrs = lib.listToAttrs secrets;
+      in
+      lib.mkIf (builtins.length secrets != 0) secretsAttrs;
   };
 in
 {
