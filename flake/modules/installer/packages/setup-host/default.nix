@@ -154,6 +154,9 @@ writeShellApplication
       # install system
       ${gum}/bin/gum spin --spinner line --title "Installing system..." --show-output -- ${nixos-install-tools}/bin/nixos-install --flake "${flake.path}#${flake.name}" --no-root-password
       ${gum}/bin/gum format "✔️ System installed"
+
+      ${gum}/bin/gum format "configure root password"
+      ${shadow}/bin/passwd --root /mnt "root"
     '';
   # if !(host.supportsSystem system)
   # then "echo -e \"\x1b[1;31mSystem ${system} not supported for host ${host.name}\x1b[0m\""
