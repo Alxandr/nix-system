@@ -29,35 +29,45 @@ in
   config =
     let
       flakePath = config.flake.path;
+      configs = lib.mapAttrsToList
+        (cfgName: config:
+          let
+            inherit (config) pkgs;
+            inherit (pkgs) system;
+
+            name = lib.removeSuffix "-${system}" cfgName;
+            flake = {
+              path = flakePath;
+              name = cfgName;
+            };
+
+            setupPkg = pkgs.callPackage ./packages/setup-host {
+              inherit name flake;
+              inherit (config) config;
+              disko = disko.lib;
+            };
+
+            packages = {
+              setup = setupPkg;
+            };
+          in
+          {
+            inherit name config system flake packages;
+          })
+        config.flake.nixosConfigurations;
+
+      bySystem = lib.groupBy (c: c.system) configs;
+      setupBySystem = lib.mapAttrs
+        (name: system: lib.listToAttrs (builtins.map
+          (cfg: {
+            name = cfg.packages.setup.name;
+            value = cfg.packages.setup;
+          })
+          system))
+        bySystem;
     in
     {
-      flake.tmpFoo =
-        lib.mapAttrsToList
-          (cfgName: config:
-            let
-              inherit (config) pkgs;
-              inherit (pkgs) system;
-
-              name = lib.removeSuffix "-${system}" cfgName;
-              flake = {
-                path = flakePath;
-                name = cfgName;
-              };
-
-              setupPkg = pkgs.callPackage ./packages/setup-host {
-                inherit name flake;
-                inherit (config) config;
-                disko = disko.lib;
-              };
-
-              packages = {
-                setup = setupPkg;
-              };
-            in
-            {
-              inherit name config system flake packages;
-            })
-          config.flake.nixosConfigurations;
+      flake.packages = setupBySystem;
 
       # # config.flake.fff = disko.lib.diskoScript config.flake.diskoConfigurations.test inputs.nixpkgs.legacyPackages.x86_64-linux;
       # perSystem = { pkgs, ... }: {
