@@ -1,5 +1,5 @@
 # flake module
-{ lib, flake-parts-lib, inputs, ... }:
+{ lib, flake-parts-lib, inputs, config, ... }:
 let
   inherit (inputs) disko;
   inherit (lib) mkOption types literalExpression;
@@ -87,11 +87,11 @@ in
     ../vendor/disko
   ];
 
-  options.flake = mkSubmoduleOptions {
-    diskoConfigurations = mkOption {
-      type = types.attrsOf diskoConfigurationType;
-    };
-  };
-
   config.flake.nixosModules.diskoKeys = diskoKeysModule;
+  config.flake.nixosModules.disks = {
+    imports = [
+      config.flake.nixosModules.disko
+      config.flake.nixosModules.diskoKeys
+    ];
+  };
 }

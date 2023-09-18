@@ -1,7 +1,11 @@
 { ... }: {
   imports = [
-    ./disks
-    ./modules/templates
-    ./modules/installer
+    ./module.nix
   ];
+
+  flake.flakeModules = {
+    default = import ./module.nix;
+    disko = import ./vendor/disko;
+    disks = import ./disks;
+  };
 }
