@@ -23,7 +23,7 @@ writeShellApplication {
       indent = prefix "  ";
 
       mkHostExec = pkg: [
-        ''${gum}/bin/gum "Installing host '${pkg.setupMeta.name}'"''
+        ''${gum}/bin/gum format "Installing host '${pkg.setupMeta.name}'"''
         ''exec ${pkg}''
       ];
     in
