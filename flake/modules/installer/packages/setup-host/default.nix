@@ -92,7 +92,7 @@ writeShellApplication
       ${scriptLines userSetupLines}
 
       # install system
-      ${gum}/bin/gum spin --spinner line --title "Installing system..." --show-output -- ${nixos-install-tools}/bin/nixos-install --flake "${flake.path}#${flake.name}" --no-root-password
+      ${nixos-install-tools}/bin/nixos-install --flake "${flake.path}#${flake.name}" #--no-root-password
       ${gum}/bin/gum format "✔️ System installed"
     '';
 }
