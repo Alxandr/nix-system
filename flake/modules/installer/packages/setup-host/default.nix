@@ -11,17 +11,19 @@
 , pkgs
 , nixos-install-tools
 
-, config
+, nixosConfiguration
 , name
 , flake
 }:
 
 let
-  diskoScript = disko.diskoScript config pkgs;
+  diskoScript = disko.diskoScript nixosConfiguration pkgs;
   generateKeyPkg = pkgs.callPackage ./generate-key.nix { };
   generateKey = "${generateKeyPkg}/bin/generate-key";
   collectKeyPkg = pkgs.callPackage ./collect-key.nix { };
   collectKey = "${collectKeyPkg}/bin/collect-key";
+  setUserPasswordPkg = pkgs.callPackage ./set-user-password.nix { };
+  setUserPassword = "${setUserPasswordPkg}/bin/set-user-password";
   scriptLines = builtins.concatStringsSep "\n";
 
   keys = lib.mapAttrsToList
@@ -39,7 +41,7 @@ let
           ''${coreutils}/bin/cp "${cfg.path}" "/mnt${cfg.path}" >/dev/null''
         ];
     })
-    config.disko.keys;
+    nixosConfiguration.disko.keys;
 
   keyLines =
     let
@@ -48,9 +50,6 @@ let
     if builtins.length keyLines == 0
     then [ ]
     else [ ''${gum}/bin/gum format "🔑 Setup disk encryption"'' ] ++ keyLines;
-  # if builtins.length keys == 0
-  # then [ ]
-  # else [ ''${gum}/bin/gum format "🔑 Setup disk encryption"'' ] ++ (map (x: x.keyScript) keys);
 
   copyLines =
     let
@@ -59,81 +58,19 @@ let
     if builtins.length copyLines == 0
     then [ ]
     else [ ''${gum}/bin/gum format "📁 Copy keys to new system"'' ] ++ copyLines;
-  # if builtins.length keys == 0
-  # then [ ]
-  # else [ ''${gum}/bin/gum format "🔑 Copy keys to new system"'' ] ++ (map (x: x.copyScript) keys);
-  # keyScripts =
-  #   if host.interactive
-  #   then {
-  #     genKeys = "";
-  #     copyKeys = "";
-  #   }
-  #   else
-  #     let
-  #       cmdAttrs = lib.mapAttrs
-  #         (name: path: {
-  #           mkdir = "${coreutils}/bin/mkdir -p ${builtins.dirOf path} # ${name}";
-  #           keygen = ''
-  #             # ${name}
-  #             ${openssl}/bin/openssl genrsa -out "${path}" 4096
-  #             ${coreutils}/bin/chmod -v 0400 "${path}"
-  #             ${coreutils}/bin/chown root:root "${path}"
-  #           '';
-  #           mkdist = "${coreutils}/bin/mkdir -p ${builtins.dirOf "/mnt${path}"} # ${name}";
-  #           copy = ''${coreutils}/bin/cp "${path}" "/mnt${path}" # ${name}'';
-  #         })
-  #         host.keyFiles;
 
-  #       cmds = lib.attrValues cmdAttrs;
-
-  #       mkdirs = builtins.map (cmd: cmd.mkdir) cmds;
-  #       mkdir = builtins.concatStringsSep "\n" mkdirs;
-
-  #       keygens = builtins.map (cmd: cmd.keygen) cmds;
-  #       keygen = builtins.concatStringsSep "\n" keygens;
-
-  #       mkdists = builtins.map (cmd: cmd.mkdist) cmds;
-  #       mkdist = builtins.concatStringsSep "\n" mkdists;
-
-  #       copys = builtins.map (cmd: cmd.copy) cmds;
-  #       copy = builtins.concatStringsSep "\n" copys;
-
-  #       genKeys = ''
-  #         ${coreutils}/bin/echo -e "\x1b[1;32m === Generating key-files for host ${host.name} === \x1b[0m"
-
-  #         # mkdirs
-  #         ${mkdir}
-
-  #         # keygen
-  #         ${keygen}
-  #       '';
-
-  #       copyKeys = ''
-  #         ${coreutils}/bin/echo -e "\x1b[1;32m === Copy key-files for host ${host.name} === \x1b[0m"
-
-  #         #mkdir
-  #         ${mkdist}
-
-  #         # copy
-  #         ${copy}
-  #       '';
-  #     in
-  #     {
-  #       inherit genKeys copyKeys;
-  #     };
-
-  # configureUserScripts = builtins.attrValues (
-  #   lib.mapAttrs
-  #     (name: user:
-  #       ''
-  #         ${coreutils}/bin/echo "${name} password:"
-  #         ${shadow}/bin/passwd --root /mnt "${name}"
-  #       ''
-  #     )
-  #     host.users
-  # );
-
-  # configureUsers = builtins.concatStringsSep "\n" configureUserScripts;
+  normalUsers = lib.filterAttrs (name: cfg: cfg.isNormalUser) nixosConfiguration.users.users;
+  userSetupLines = lib.mapAttrsToList
+    (n: user:
+      let
+        name = user.name or n;
+        passwordFile = user.hashedPasswordFile or user.passwordFile;
+      in
+      if passwordFile == null
+      then ''${gum}/bin/gum format "warning: no password file configured for user '${name}' - it will not be possible to sign in as this user''
+      else ''${setUserPassword} "/mnt${passwordFile}" "${name}"''
+    )
+    normalUsers;
 in
 writeShellApplication
 {
@@ -151,32 +88,11 @@ writeShellApplication
       # copy keys to new system
       ${scriptLines copyLines}
 
+      # set users
+      ${scriptLines userSetupLines}
+
       # install system
       ${gum}/bin/gum spin --spinner line --title "Installing system..." --show-output -- ${nixos-install-tools}/bin/nixos-install --flake "${flake.path}#${flake.name}" --no-root-password
       ${gum}/bin/gum format "✔️ System installed"
-
-      ${gum}/bin/gum format "configure root password"
-      ${shadow}/bin/passwd --root /mnt "root"
     '';
-  # if !(host.supportsSystem system)
-  # then "echo -e \"\x1b[1;31mSystem ${system} not supported for host ${host.name}\x1b[0m\""
-  # else ''
-  #   # gen keys
-  #   ${keyScripts.genKeys}
-
-  #   ${coreutils}/bin/echo -e "\x1b[1;32m === Formatting disks for host ${host.name} === \x1b[0m"
-
-  #   # disko script
-  #   ${diskoScript}
-
-  #   # copy keys
-  #   ${keyScripts.copyKeys}
-
-  #   ${coreutils}/bin/echo -e "\x1b[1;32m === Install system === \x1b[0m"
-  #   ${nixos-install-tools}/bin/nixos-install --flake "${flake}#${host.name}-${system}" --no-root-password
-  #   # --extra-experimental-features "nix-command flakes"?
-
-  #   ${coreutils}/bin/echo -e "\x1b[1;32m === Configuring users === \x1b[0m"
-  #   ${configureUsers}
-  # '';
 }

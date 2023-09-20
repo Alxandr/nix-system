@@ -45,8 +45,8 @@ in
               pkgs.callPackage ./packages/setup-host
                 {
                   inherit name flake;
-                  inherit (config) config;
                   disko = disko.lib;
+                  nixosConfiguration = config.config;
                 }
             ) // {
               setupMeta = {

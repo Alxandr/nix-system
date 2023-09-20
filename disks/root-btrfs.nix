@@ -35,8 +35,7 @@ let
       };
       "@swap" = {
         mountpoint = "/.swapvol";
-        swap.enable = true;
-        swap.files = [{ size = "8G"; }];
+        swap.file.swapfile.size = "8G";
       };
     };
   };
@@ -51,14 +50,14 @@ let
       extraOpenArgs = [ "--allow-discards" ];
       # if you want to use the key for interactive login be sure there is no trailing newline
       # for example use `echo -n "password" > /tmp/secret.key`
-      settings.keyFile = config.flake.diskoConfigurations.test.disko.keys.root.path;
+      settings.keyFile = config.disko.keys.root.path;
       content = btrfs_content;
     };
   };
 
 in
 {
-  config.flake.diskoConfigurations.root-btrfs.disko = {
+  config.disko = {
     keys = {
       root = {
         # interactive = false;

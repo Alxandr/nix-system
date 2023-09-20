@@ -35,6 +35,14 @@
         # Set your time zone.
         time.timeZone = lib.mkDefault "Europe/Oslo";
 
+        # Setup users
+        users.mutableUsers = false;
+        users.users.alxandr = {
+          isNormalUser = true;
+          passwordFile = "/etc/nixos/users/alxandr/password";
+          extraGroups = [ "wheel" "networkmanager" ];
+        };
+
         # Select internationalisation properties.
         i18n.defaultLocale = "en_US.UTF-8";
         i18n.extraLocaleSettings = {
