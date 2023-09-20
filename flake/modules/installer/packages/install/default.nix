@@ -24,7 +24,7 @@ writeShellApplication {
 
       mkHostExec = pkg: [
         ''${gum}/bin/gum format "Installing host '${pkg.setupMeta.name}'"''
-        ''exec ${pkg}''
+        ''exec ${pkg}/bin/${pkg.meta.mainProgram}''
       ];
     in
     if isEmpty
