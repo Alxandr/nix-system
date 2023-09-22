@@ -15,7 +15,7 @@ writeShellApplication {
       dir=$(${coreutils}/bin/dirname "$file")
       ${coreutils}/bin/mkdir -p "$dir"
       PWD=$(${gum}/bin/gum input --password --header="$user password")
-      echo "$PWD" | ${mkpasswd}/bin/mkpasswd - >"$file"
+      echo -n "$PWD" | ${mkpasswd}/bin/mkpasswd - >"$file"
       if [ -z "$PWD" ]; then
         ${gum}/bin/gum format "❌ No password provided"
         exit 1
