@@ -87,6 +87,7 @@
         ./flake
         ./disks
         ./users
+        ./nixos
         ./test.nix
       ];
 

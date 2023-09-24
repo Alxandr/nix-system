@@ -9,6 +9,7 @@
 
       imports = [
         (modulesPath + "/profiles/qemu-guest.nix")
+        nixosModules.virtualbox-guest
         nixosModules.disks
         diskoConfigurations.root-btrfs
         nixosModules.users
@@ -16,10 +17,6 @@
       ];
 
       config = {
-        # makes local testing better
-        virtualisation.virtualbox.guest.enable = true;
-        virtualisation.virtualbox.guest.x11 = true;
-
         disko.devices.disk.root.device = "/dev/sda";
         disko.keys.root.interactive = false;
 
