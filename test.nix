@@ -16,6 +16,9 @@
       ];
 
       config = {
+        # makes local testing better
+        virtualisation.virtualbox.guest.enable = true;
+
         disko.devices.disk.root.device = "/dev/sda";
         disko.keys.root.interactive = false;
 
