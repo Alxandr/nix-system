@@ -11,6 +11,8 @@
         (modulesPath + "/profiles/qemu-guest.nix")
         nixosModules.disks
         diskoConfigurations.root-btrfs
+        nixosModules.users
+        (config.flake.lib.mkUser "alxandr" config.flake.users.alxandr)
       ];
 
       config = {
@@ -37,11 +39,6 @@
 
         # Setup users
         users.mutableUsers = false;
-        users.users.alxandr = {
-          isNormalUser = true;
-          passwordFile = "/etc/nixos/users/alxandr/password";
-          extraGroups = [ "wheel" "networkmanager" ];
-        };
 
         # Select internationalisation properties.
         i18n.defaultLocale = "en_US.UTF-8";

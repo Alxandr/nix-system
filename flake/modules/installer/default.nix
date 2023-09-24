@@ -13,19 +13,6 @@ in
     type = types.str;
   };
 
-  # options = {
-  #   perSystem = mkPerSystemOption {
-  #     _file = file;
-  #     options.nixosTemplates = mkOption {
-  #       type = types.lazyAttrsOf types.submoduleWith {
-  #         modules = [{
-  #           options.
-  #         }];
-  #       };
-  #     };
-  #   };
-  # };
-
   config =
     let
       flakePath = config.flake.path;
@@ -97,41 +84,5 @@ in
     {
       flake.packages = packages;
       flake.apps = apps;
-
-      # # config.flake.fff = disko.lib.diskoScript config.flake.diskoConfigurations.test inputs.nixpkgs.legacyPackages.x86_64-linux;
-      # perSystem = { pkgs, ... }: {
-      #   # packages.format-test = disko.lib.diskoScript config.flake.diskoConfigurations.test pkgs;
-      #   packages = lib.mapAttrs'
-      #     (name: config: {
-      #       name = "setup-${name}";
-      #       value = pkgs.callPackage ./packages/setup-host {
-      #         inherit config name;
-      #         disko = disko.lib;
-      #       }; # disko.lib.diskoScript config pkgs;
-      #     })
-      #     config.flake.diskoConfigurations;
-      # };
-      # lib.mapAttrs
-      #   (systemName: system:
-      #     lib.mapAttrs'
-      #       (templateName: template: {
-      #         name = "setup-${templateName}";
-      #         value = config.flake.nixosConfigurations."${templateName}-${systemName}".config;
-      #       })
-      #       system.nixosTemplates
-      #   )
-      #   config.allSystems;
-      # let
-      #   getTemplatesList = systemName: system: lib.mapAttrsToList
-      #     (templateName: template: {
-      #       name = "setup-${templateName}";
-      #       value = template;
-      #     })
-      #     system.nixosTemplates;
-
-      #   templatesListList = lib.mapAttrsToList getTemplatesList config.allSystems;
-      #   templatesList = lib.flatten templatesListList;
-      # in
-      # lib.listToAttrs templatesList;
     };
 }

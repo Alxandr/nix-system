@@ -86,6 +86,7 @@
       imports = [
         ./flake
         ./disks
+        ./users
         ./test.nix
       ];
 

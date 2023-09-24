@@ -89,6 +89,7 @@ in
 
   config.flake.nixosModules.diskoKeys = diskoKeysModule;
   config.flake.nixosModules.disks = {
+    _file = ./keys.nix;
     imports = [
       config.flake.nixosModules.disko
       config.flake.nixosModules.diskoKeys

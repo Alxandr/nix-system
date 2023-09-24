@@ -19,7 +19,6 @@ writeShellApplication {
         ${gum}/bin/gum format "❌ No password provided"
         exit 1
       fi
-      echo "Setting password for $user to '$PWD'"
       echo -n "$PWD" | ${mkpasswd}/bin/mkpasswd -s >"$file"
       ${coreutils}/bin/chmod -v 0400 "$file" >/dev/null
       ${coreutils}/bin/chown root:root "$file" >/dev/null
