@@ -6,6 +6,7 @@
     nixosModules.disko-keys
     nixosModules.home-manager
     nixosModules.usage
+    nixosModules.caches
     nixosModules.update-command
     diskoConfigurations.root-btrfs
     (flake.lib.mkUser "alxandr" flake.userConfigurations.alxandr)
@@ -13,6 +14,7 @@
 
   config = {
     usage.isServer = true;
+    system.update-command.enable = true;
 
     virtualisation.virtualbox.guest.enable = true;
     virtualisation.virtualbox.guest.x11 = true;
@@ -107,21 +109,6 @@
       # enable flakes globally
       experimental-features = [ "nix-command" "flakes" ];
       trusted-users = [ "alxandr" ];
-
-      substituters = [
-        "https://cache.nixos.org"
-      ];
-
-      # nix community's cache server
-      extra-substituters = [
-        "https://nix-community.cachix.org"
-        "https://nixpkgs-wayland.cachix.org"
-      ];
-      extra-trusted-public-keys = [
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-      ];
     };
 
     # Allow unfree packages

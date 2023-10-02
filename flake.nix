@@ -109,6 +109,7 @@
             disko-keys = importModule ./nixos-modules/disko-keys.nix;
             users = importModule ./nixos-modules/users.nix;
             usage = importModule ./nixos-modules/usage.nix;
+            caches = importModule ./nixos-modules/caches.nix;
             update-command = importModule ./nixos-modules/update-command;
           };
 
