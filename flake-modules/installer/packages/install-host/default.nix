@@ -93,7 +93,7 @@ writeShellApplication
       ${scriptLines userSetupLines}
 
       # install system
-      ${gum}/bin/gum spin --spinner line --title "Refresh flake..." --show-output -- ${nix}/bin/nix flake metadata --refresh -- ${flake.path} >/dev/null
+      ${gum}/bin/gum spin --spinner line --title "Refresh flake..." --show-output -- ${nix}/bin/nix --experimental-features "nix-command flakes" flake metadata --refresh -- ${flake.path} >/dev/null
       ${gum}/bin/gum spin --spinner line --title "Installing system..." --show-output -- ${nixos-install-tools}/bin/nixos-install --flake "${flake.path}#${flake.name}" --no-root-password
       ${gum}/bin/gum format "✔️ System installed"
     '';
