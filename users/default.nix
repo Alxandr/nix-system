@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.users = {
-    alxandr = import ./alxandr;
+  flake.userConfigurations = {
+    alxandr = ./alxandr;
   };
 }

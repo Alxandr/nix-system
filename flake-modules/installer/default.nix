@@ -28,8 +28,8 @@ in
               name = cfgName;
             };
 
-            setupPkg = (
-              pkgs.callPackage ./packages/setup-host
+            installPkg = (
+              pkgs.callPackage ./packages/install-host
                 {
                   inherit name flake;
                   disko = disko.lib;
@@ -42,7 +42,7 @@ in
             };
 
             packages = {
-              setup = setupPkg;
+              install = installPkg;
             };
           in
           {
@@ -55,20 +55,20 @@ in
         (system: systemConfigs:
           let
             inherit (inputs.nixpkgs.legacyPackages.${system}) pkgs;
-            setupPackages = lib.listToAttrs (builtins.map
+            installSpecificSystemPackages = lib.listToAttrs (builtins.map
               (cfg: {
-                name = cfg.packages.setup.name;
-                value = cfg.packages.setup;
+                name = cfg.packages.install.name;
+                value = cfg.packages.install;
               })
               systemConfigs);
 
             installPackages = {
               install = pkgs.callPackage ./packages/install {
-                inherit setupPackages;
+                installPackages = installSpecificSystemPackages;
               };
             };
 
-            packages = setupPackages // installPackages;
+            packages = installSpecificSystemPackages // installPackages;
           in
           packages)
         bySystem;

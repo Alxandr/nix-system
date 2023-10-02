@@ -5,7 +5,7 @@
 , gum
 , coreutils
 , bash
-, setupPackages
+, installPackages
 }:
 
 writeShellApplication {
@@ -13,7 +13,7 @@ writeShellApplication {
 
   text =
     let
-      pkgs = builtins.attrValues setupPackages;
+      pkgs = builtins.attrValues installPackages;
       len = builtins.length pkgs;
       isEmpty = len == 0;
       isSingle = len == 1;

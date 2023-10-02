@@ -75,7 +75,7 @@ let
 in
 writeShellApplication
 {
-  name = "setup-${name}";
+  name = "install-${name}";
 
   text =
     ''

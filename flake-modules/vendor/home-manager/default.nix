@@ -12,6 +12,11 @@ in
       type = types.lazyAttrsOf types.raw;
       default = { };
     };
+
+    homeModules = mkOption {
+      type = types.lazyAttrsOf types.deferredModule;
+      default = { };
+    };
   };
 
   config.flake.nixosModules.home-manager = home-manager.nixosModules.home-manager;

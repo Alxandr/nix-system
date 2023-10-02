@@ -1,4 +1,4 @@
-{ config, inputs, ... }:
+{ config, ... }:
 let
   # ESP partition (EFI boot)
   esp_partition = {
@@ -76,7 +76,7 @@ in
                 type = "EF02"; # for grub MBR
               };
               ESP = esp_partition;
-              luks = luks_partition;
+              root = luks_partition;
             };
           };
         };

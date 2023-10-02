@@ -81,21 +81,85 @@
   };
 
   outputs =
-    inputs@{ flake-parts, disko, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [
-        ./flake
-        ./disks
-        ./users
-        ./nixos
-        ./test.nix
-      ];
+    inputs@{ flake-parts, disko, nixpkgs, ... }:
+    let
+      inherit (nixpkgs) lib;
+      args = { inherit inputs; };
+      loc = args.inputs.self.outPath;
 
-      flake.path = "github:Alxandr/nix-system/feat/flake-parts";
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "riscv64-linux"
-      ];
-    };
+      evalFlakeModule = module: flake-parts.lib.evalFlakeModule args (lib.setDefaultModuleLocation loc module);
+
+      # Step 1. Build flakeModules and evaluate them to get nixosModules
+      base = evalFlakeModule (args@{ config, flake-parts-lib, ... }:
+        let
+          inherit (flake-parts-lib) importApply;
+
+          moduleImportArgs = args // { inherit (config.flake) nixosModules; };
+          importModule = path: importApply path moduleImportArgs;
+          flakeModules = {
+            lib = importModule ./flake-modules/lib.nix;
+            disko = importModule ./flake-modules/vendor/disko;
+            home-manager = importModule ./flake-modules/vendor/home-manager;
+            multi-arch-nixos = importModule ./flake-modules/multi-arch-nixos.nix;
+            installer = importModule ./flake-modules/installer;
+          };
+
+          nixosModules = {
+            flake-meta = importModule ./nixos-modules/flake-meta.nix;
+            disko-keys = importModule ./nixos-modules/disko-keys.nix;
+            users = importModule ./nixos-modules/users.nix;
+            usage = importModule ./nixos-modules/usage.nix;
+            update-command = importModule ./nixos-modules/update-command;
+          };
+
+          homeModules = {
+            neovim = importModule ./home-modules/neovim.nix;
+          };
+        in
+        {
+          imports = [
+            flakeModules.lib
+            flakeModules.disko
+            flakeModules.home-manager
+            flakeModules.multi-arch-nixos
+            flakeModules.installer
+          ];
+
+          flake = {
+            path = "github:Alxandr/nix-system/feat/flake-parts";
+            inherit flakeModules nixosModules homeModules;
+          };
+
+          systems = [
+            "x86_64-linux"
+            "aarch64-linux"
+            "riscv64-linux"
+          ];
+        }
+      );
+
+      nixosModules = base.config.flake.nixosModules;
+
+      # Step 2. Add nixosConfigurations (depending on nixosModules) to the flake
+      configurationModule = lib.setDefaultModuleLocation loc ({ config, ... }: {
+        imports = [
+          ./lib
+          ./disko-configurations
+          ./users
+        ];
+
+        nixosConfigurationsExtraSpecialArgs = {
+          inherit nixosModules;
+          inherit (config) flake;
+          inherit (config.flake) diskoConfigurations homeModules;
+        };
+
+        perSystem.nixosConfigurations.server = ./test.nix;
+      });
+
+      final = base.extendModules {
+        modules = [ configurationModule ];
+      };
+    in
+    final.config.flake;
 }
