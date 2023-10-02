@@ -38,6 +38,7 @@ in
               system = systemName;
               modules = [
                 {
+                  _module.args = { system = systemName; };
                   meta.flake.path = path;
                   meta.flake.configName = name;
                 }

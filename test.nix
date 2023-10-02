@@ -1,4 +1,4 @@
-{ lib, pkgs, nixosModules, diskoConfigurations, modulesPath, flake, ... }:
+{ lib, pkgs, nixosModules, diskoConfigurations, modulesPath, flake, system, ... }:
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -16,8 +16,10 @@
     usage.isServer = true;
     system.update-command.enable = true;
 
-    virtualisation.virtualbox.guest.enable = true;
-    virtualisation.virtualbox.guest.x11 = true;
+    virtualisation.virtualbox.guest = lib.mkIf (system == "x86_64-linux") {
+      enable = true;
+      x11 = true;
+    };
 
     disko.devices.disk.root.device = "/dev/sda";
     disko.keys.root.interactive = false;
