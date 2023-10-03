@@ -68,7 +68,7 @@ let
         passwordFile = user.hashedPasswordFile or user.passwordFile;
       in
       if passwordFile == null
-      then ''${gum}/bin/gum format "warning: no password file configured for user '${name}' - it will not be possible to sign in as this user''
+      then ''${gum}/bin/gum format "warning: no password file configured for user '${name}' - it will not be possible to sign in as this user"''
       else ''${setUserPassword} "/mnt${passwordFile}" "${name}"''
     )
     normalUsers;
