@@ -160,6 +160,7 @@
           inherit (config.flake) diskoConfigurations homeModules;
         };
 
+        perSystem.nixosConfigurations.builder = ./hosts/builder.nix;
         perSystem.nixosConfigurations.server = ./test.nix;
       });
 
