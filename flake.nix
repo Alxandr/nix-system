@@ -79,11 +79,11 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
-    attic = {
-      url = "github:zhaofengli/attic";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
-    };
+    # attic = {
+    #   url = "github:zhaofengli/attic";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.nixpkgs-stable.follows = "nixpkgs";
+    # };
   };
 
   outputs =
