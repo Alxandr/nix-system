@@ -79,6 +79,8 @@
       curl
       bash
       git
+      htop
+      btop
     ];
 
     # Environment variables

@@ -78,6 +78,12 @@
     #   url = "github:charmbracelet/gum";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
+
+    attic = {
+      url = "github:zhaofengli/attic";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
