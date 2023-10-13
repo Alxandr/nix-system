@@ -24,11 +24,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1696814493,
-        "narHash": "sha256-1qArVsJGG2RHbV2iKFpAmM5os3myvwpXMOdFy5nh54M=",
+        "lastModified": 1697073574,
+        "narHash": "sha256-Np603TUNj+fzQYmaNPS7pmsy52KHq4fpWP5GCpTJ38Y=",
         "owner": "nix-community",
         "repo": "disko",
-        "rev": "32ce057c183506cecb0b84950e4eaf39f37e8c75",
+        "rev": "3c41ae36ff12afbada9396c7d8282c2c74f74e06",
         "type": "github"
       },
       "original": {
@@ -170,6 +170,7 @@
         "plugin-plenary-nvim": "plugin-plenary-nvim",
         "plugin-registers": "plugin-registers",
         "plugin-rust-tools": "plugin-rust-tools",
+        "plugin-scnvim": "plugin-scnvim",
         "plugin-sqls-nvim": "plugin-sqls-nvim",
         "plugin-telescope": "plugin-telescope",
         "plugin-telescope-file-browser": "plugin-telescope-file-browser",
@@ -182,11 +183,11 @@
         "tidalcycles": "tidalcycles"
       },
       "locked": {
-        "lastModified": 1693894760,
-        "narHash": "sha256-Y018QyommvqocEI3dsU0nZQvxkxz/69NpHbIczR1rRE=",
+        "lastModified": 1697069767,
+        "narHash": "sha256-k39Mdf/Ugpsgv6vOxdv6xMnbfsyb+x9Ei814uAAFj+c=",
         "owner": "jordanisaacs",
         "repo": "neovim-flake",
-        "rev": "60950c0905e09fc8b3a414cdb47b8cb4975541b4",
+        "rev": "84d40158a0040b90c48537abc983c8a68c9d5b74",
         "type": "github"
       },
       "original": {
@@ -255,11 +256,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1696697597,
-        "narHash": "sha256-q26Qv4DQ+h6IeozF2o1secyQG0jt2VUT3V0K58jr3pg=",
+        "lastModified": 1696983906,
+        "narHash": "sha256-L7GyeErguS7Pg4h8nK0wGlcUTbfUMDu+HMf1UcyP72k=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "5a237aecb57296f67276ac9ab296a41c23981f56",
+        "rev": "bd1cde45c77891214131cbbea5b1203e485a9d51",
         "type": "github"
       },
       "original": {
@@ -1035,6 +1036,22 @@
       "original": {
         "owner": "simrat39",
         "repo": "rust-tools.nvim",
+        "type": "github"
+      }
+    },
+    "plugin-scnvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1687884269,
+        "narHash": "sha256-z0r8M0L5aZ2ugqjAfHAUPWaVVfn91B7xNG3oXJiIcl0=",
+        "owner": "davidgranstrom",
+        "repo": "scnvim",
+        "rev": "c44d57aeadc4b01888bc10a249f8867df8d1a461",
+        "type": "github"
+      },
+      "original": {
+        "owner": "davidgranstrom",
+        "repo": "scnvim",
         "type": "github"
       }
     },
