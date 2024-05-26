@@ -33,12 +33,12 @@ in {
               '';
             };
 
-            nixpkgs = mkOption {
-              type = types.raw;
+            unstable = mkOption {
+              type = types.bool;
               description = ''
-                The Nixpkgs to use for the NixOS configuration.
+                Whether to use the unstable version of NixOS.
               '';
-              default = inputs.nixpkgs;
+              default = false;
             };
           };
         });
@@ -56,7 +56,15 @@ in {
     flake.nixosConfigurations = let
       getTemplatesList = systemName: system:
         lib.mapAttrsToList (templateName: template:
-          let nixpkgs = template.nixpkgs;
+          let
+            nixpkgs = if template.unstable then
+              inputs.nixpkgs-unstable
+            else
+              inputs.nixpkgs;
+            home-manager = if template.unstable then
+              inputs.home-manager-unstable
+            else
+              inputs.home-manager;
           in rec {
             name = "${templateName}-${systemName}";
             value = nixpkgs.lib.nixosSystem {
@@ -71,6 +79,7 @@ in {
                 nixosModules.flake-meta
                 nixosModules.nixos-meta
                 config.allNixosConfigurations
+                home-manager.nixosModules.home-manager
                 template.config
               ];
               specialArgs = config.nixosConfigurationsExtraSpecialArgs;

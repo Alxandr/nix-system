@@ -29,7 +29,7 @@
     # Pin our primary nixpkgs repository. This is the main nixpkgs repository
     # we'll use for our configurations. Be very careful changing this because
     # it'll impact your entire system.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -45,6 +45,10 @@
     # Manage a user environment using Nix
     # https://github.com/nix-community/home-manager
     home-manager = {
+      url = "github:nix-community/home-manager/release-24.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    home-manager-unstable = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
@@ -144,7 +148,7 @@
         };
 
         perSystem.nixosConfigurations.tv = {
-          nixpkgs = nixpkgs-unstable;
+          unstable = true;
           config = ./systems/tv;
         };
       });

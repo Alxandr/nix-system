@@ -17,7 +17,4 @@ in {
       default = { };
     };
   };
-
-  config.flake.nixosModules.home-manager =
-    home-manager.nixosModules.home-manager;
 }

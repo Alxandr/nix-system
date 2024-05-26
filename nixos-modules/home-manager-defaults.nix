@@ -1,6 +1,6 @@
-{ nixosModules, ... }:
+{ ... }:
 { ... }: {
-  imports = [ nixosModules.home-manager ];
+  imports = [ ];
 
   config = {
     home-manager.useGlobalPkgs = true;
