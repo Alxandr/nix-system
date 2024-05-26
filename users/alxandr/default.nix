@@ -2,7 +2,13 @@
   config = {
     trusted = true;
     user.extraGroups = [ "wheel" "networkmanager" ];
-    user.packages = with pkgs; [ brave vlc jellyfin-media-player ];
+    user.packages = with pkgs; [
+      brave
+      vlc
+      jellyfin-media-player
+      _1password
+      _1password-gui
+    ];
     home = { imports = [ ./home.nix ]; };
   };
 }
