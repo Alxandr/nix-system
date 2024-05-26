@@ -5,7 +5,6 @@ writeShellApplication {
 
   text = ''
     cmd=''${1:-switch}
-    ${nix}/bin/nix flake update "${flakeMeta.path}"
-    ${nixos-rebuild}/bin/nixos-rebuild "$cmd" --flake "${flakeMeta.configPath}"
+    ${nixos-rebuild}/bin/nixos-rebuild "$cmd" --flake "${flakeMeta.configPath}" --refresh
   '';
 }
