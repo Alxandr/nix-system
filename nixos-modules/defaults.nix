@@ -1,5 +1,5 @@
 { ... }:
-{ lib, ... }: {
+{ lib, pkgs, ... }: {
   config = {
     # Set your time zone.
     time.timeZone = lib.mkDefault "Europe/Oslo";
@@ -33,6 +33,9 @@
       XDG_BIN_HOME = lib.mkDefault "$HOME/.local/bin";
       PATH = [ "$XDG_BIN_HOME" ];
     };
+
+    # Setup GPG
+    programs.gnupg.agent.enable = true;
 
     nix.settings = {
       # enable flakes globally
