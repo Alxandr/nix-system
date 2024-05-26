@@ -57,6 +57,9 @@
     # hyprland.url = "github:hyprwm/Hyprland/v0.27.0";
     # # community wayland nixpkgs
     # nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+
+    # Hardware support
+    inputs.nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
   outputs = inputs@{ flake-parts, disko, nixpkgs, nixpkgs-unstable, ... }:
