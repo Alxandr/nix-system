@@ -1,5 +1,8 @@
-{ user, host, homeModules, ... }: {
-  config.trusted = true;
-  config.user.extraGroups = [ "wheel" "networkmanager" ];
-  config.home = { imports = [ ./home.nix ]; };
+{ user, host, homeModules, pkgs, ... }: {
+  config = {
+    trusted = true;
+    user.extraGroups = [ "wheel" "networkmanager" ];
+    user.packages = with pkgs; [ brave vlc jellyfin-media-player ];
+    home = { imports = [ ./home.nix ]; };
+  };
 }

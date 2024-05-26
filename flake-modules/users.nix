@@ -27,6 +27,11 @@ in {
         user = mkOption {
           type = types.submodule {
             options = {
+              packages = mkOption {
+                type = types.listOf types.package;
+                default = [ ];
+              };
+
               extraGroups = mkOption {
                 type = types.listOf types.str;
                 default = [ ];
@@ -41,13 +46,13 @@ in {
 
     getUserNixosModuleList = userName: userModule: {
       name = userName;
-      value = args@{ config, ... }:
+      value = args@{ config, pkgs, ... }:
         let
           host = config;
           user = config.users.users.${userName};
           group = config.users.groups.${userName};
           argsModule = {
-            config._module.args = args // { inherit user group host; };
+            config._module.args = args // { inherit user group host pkgs; };
           };
           userDefModule = lib.evalModules {
             modules = [ argsModule userConfigModule userModule ];

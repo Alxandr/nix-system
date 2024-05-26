@@ -22,6 +22,7 @@
     services.displayManager.autoLogin.user = "alxandr";
 
     # Setup auto-upgrade
+    system.update-command.enable = true;
     system.autoUpgrade = {
       enable = true;
       dates = "05:00";

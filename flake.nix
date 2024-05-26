@@ -98,7 +98,7 @@
             home-manager-defaults =
               importNixosModule ./nixos-modules/home-manager-defaults.nix;
             caches = importNixosModule ./nixos-modules/caches.nix;
-            # update-command = importModule ./nixos-modules/update-command;
+            update-command = importNixosModule ./nixos-modules/update-command;
             defaults = importNixosModule ./nixos-modules/defaults.nix;
             default-gc = importNixosModule ./nixos-modules/default-gc.nix;
             plasma = importNixosModule ./nixos-modules/plasma.nix;
@@ -146,6 +146,7 @@
             nixosModules.default-gc
             nixosModules.defaults
             nixosModules.disko
+            nixosModules.update-command
             users.alxandr
           ];
         };
