@@ -8,6 +8,9 @@
       jellyfin-media-player
       _1password
       _1password-gui
+      spotify
+      signal-desktop
+      element-desktop
     ];
     home = { imports = [ ./home.nix ]; };
   };

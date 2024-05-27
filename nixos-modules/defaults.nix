@@ -38,7 +38,7 @@
     programs.gnupg.agent.enable = true;
 
     # Programs for all systems
-    environment.systemPackages = with pkgs; [ btop ];
+    environment.systemPackages = with pkgs; [ btop htop zoxide eza ];
 
     nix.settings = {
       # enable flakes globally
