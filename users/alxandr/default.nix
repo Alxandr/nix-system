@@ -8,8 +8,6 @@ in {
       brave
       vlc
       jellyfin-media-player
-      _1password
-      _1password-gui
       (mkIf (system == "x86_64-linux") spotify)
       signal-desktop
       element-desktop

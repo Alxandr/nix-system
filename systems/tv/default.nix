@@ -34,6 +34,13 @@ in {
 
     # Programs
     programs.steam.enable = mkIf (system == "x86_64-linux") true;
+    programs._1password.enable = true;
+    programs._1password-gui = {
+      enable = true;
+      # Certain features, including CLI integration and system authentication support,
+      # require enabling PolKit integration on some desktop environments (e.g. Plasma).
+      polkitPolicyOwners = [ "alxandr" ];
+    };
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
