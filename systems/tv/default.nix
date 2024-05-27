@@ -41,6 +41,11 @@ in {
       # require enabling PolKit integration on some desktop environments (e.g. Plasma).
       polkitPolicyOwners = [ "alxandr" ];
     };
+    environment.systemPackages = mkIf (system == "x86_64-linux")
+      (with pkgs; [ wineWowPackages.waylandFull winetricks ]);
+
+    # wayland support for electron applications
+    environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
