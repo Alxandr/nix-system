@@ -1,5 +1,7 @@
 { lib, pkgs, nixosModules, diskoConfigurations, modulesPath, flake, system, ...
-}: {
+}:
+let inherit (lib) mkIf;
+in {
   imports = [ ./hardware.nix diskoConfigurations.btrfs nixosModules.plasma ];
 
   config = {
@@ -31,7 +33,7 @@
     };
 
     # Programs
-    programs.steam.enable = true;
+    programs.steam.enable = mkIf (system == "x86_64-linux") true;
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions

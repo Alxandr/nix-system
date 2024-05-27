@@ -46,13 +46,15 @@ in {
 
     getUserNixosModuleList = userName: userModule: {
       name = userName;
-      value = args@{ config, pkgs, ... }:
+      value = args@{ config, pkgs, system, lib, ... }:
         let
           host = config;
           user = config.users.users.${userName};
           group = config.users.groups.${userName};
           argsModule = {
-            config._module.args = args // { inherit user group host pkgs; };
+            config._module.args = args // {
+              inherit user group host pkgs system lib;
+            };
           };
           userDefModule = lib.evalModules {
             modules = [ argsModule userConfigModule userModule ];

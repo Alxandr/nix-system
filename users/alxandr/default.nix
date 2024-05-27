@@ -1,4 +1,6 @@
-{ user, host, homeModules, pkgs, ... }: {
+{ lib, user, host, homeModules, pkgs, system, ... }:
+let inherit (lib) mkIf;
+in {
   config = {
     trusted = true;
     user.extraGroups = [ "wheel" "networkmanager" ];
@@ -8,7 +10,7 @@
       jellyfin-media-player
       _1password
       _1password-gui
-      spotify
+      (mkIf (system == "x86_64-linux") spotify)
       signal-desktop
       element-desktop
     ];
