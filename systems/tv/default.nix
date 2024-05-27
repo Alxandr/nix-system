@@ -42,7 +42,7 @@ in {
       polkitPolicyOwners = [ "alxandr" ];
     };
     environment.systemPackages = mkIf (system == "x86_64-linux")
-      (with pkgs; [ wineWowPackages.waylandFull winetricks ]);
+      (with pkgs; [ wineWowPackages.waylandFull winetricks q4wine ]);
 
     # wayland support for electron applications
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
