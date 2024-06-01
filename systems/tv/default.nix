@@ -20,8 +20,8 @@ in {
     networking.networkmanager.enable = true;
 
     # Enable automatic login for the user.
-    services.displayManager.autoLogin.enable = true;
-    services.displayManager.autoLogin.user = "alxandr";
+    # services.displayManager.autoLogin.enable = false;
+    # services.displayManager.autoLogin.user = "alxandr";
 
     # Setup auto-upgrade
     system.update-command.enable = true;
