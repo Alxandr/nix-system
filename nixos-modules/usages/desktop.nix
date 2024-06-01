@@ -10,6 +10,10 @@ in {
       programs._1password = {
         enable = mkDependentEnableOption "1password" config.enable;
       };
+
+      programs.brave = {
+        enable = mkDependentEnableOption "brave" config.enable;
+      };
     };
   });
 
@@ -21,5 +25,8 @@ in {
     programs._1password-gui = {
       enable = mkDefault cfg.programs._1password.enable;
     };
+
+    environment.systemPackages = with pkgs;
+      lib.optional cfg.programs.brave.enable brave;
   };
 }
