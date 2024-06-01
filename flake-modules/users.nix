@@ -24,6 +24,11 @@ in {
           default = false;
         };
 
+        _1password = mkOption {
+          type = types.bool;
+          default = true;
+        };
+
         user = mkOption {
           type = types.submodule {
             options = {
@@ -73,6 +78,8 @@ in {
             config = {
               nix.settings.trusted-users =
                 lib.mkIf userDefModule.config.trusted [ userName ];
+              programs._1password-gui.polkitPolicyOwners =
+                lib.mkIf userDefModule.config._1password [ userName ];
               users.users.${userName} = userDefModule.config.user;
               home-manager.users.${userName} = {
                 imports = [ argsModule userDefModule.config.home ];

@@ -32,17 +32,9 @@ in {
       allowReboot = false;
     };
 
-    # Programs
-    programs.steam.enable = mkIf (system == "x86_64-linux") true;
-    programs._1password.enable = true;
-    programs._1password-gui = {
-      enable = true;
-      # Certain features, including CLI integration and system authentication support,
-      # require enabling PolKit integration on some desktop environments (e.g. Plasma).
-      polkitPolicyOwners = [ "alxandr" ];
-    };
-    environment.systemPackages = mkIf (system == "x86_64-linux")
-      (with pkgs; [ wineWowPackages.waylandFull winetricks q4wine ]);
+    # Workloads
+    usage.desktop.enable = true;
+    usage.gaming.enable = true;
 
     # wayland support for electron applications
     environment.sessionVariables.NIXOS_OZONE_WL = "1";

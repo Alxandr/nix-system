@@ -4,14 +4,6 @@ in {
   config = {
     trusted = true;
     user.extraGroups = [ "wheel" "networkmanager" ];
-    user.packages = with pkgs; [
-      brave
-      vlc
-      jellyfin-media-player
-      (mkIf (system == "x86_64-linux") spotify)
-      signal-desktop
-      element-desktop
-    ];
     home = { imports = [ ./home.nix ]; };
   };
 }

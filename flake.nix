@@ -102,6 +102,7 @@
             defaults = importNixosModule ./nixos-modules/defaults.nix;
             default-gc = importNixosModule ./nixos-modules/default-gc.nix;
             plasma = importNixosModule ./nixos-modules/plasma.nix;
+            usages = importNixosModule ./nixos-modules/usages.nix;
           };
 
           homeModules = {
@@ -147,6 +148,7 @@
             nixosModules.defaults
             nixosModules.disko
             nixosModules.update-command
+            nixosModules.usages
             users.alxandr
           ];
         };
