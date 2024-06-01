@@ -4,7 +4,7 @@ writeShellApplication {
   name = "update-system";
 
   text = ''
-    cmd=''${1:-switch}
+    cmd=''${1:-boot}
     ${nixos-rebuild}/bin/nixos-rebuild "$cmd" --flake "${flakeMeta.configPath}" --refresh
   '';
 }
