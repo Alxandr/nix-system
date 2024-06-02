@@ -14,10 +14,6 @@ in {
       programs.brave = {
         enable = mkDependentEnableOption "brave" config.enable;
       };
-
-      programs.vesktop = {
-        enable = mkDependentEnableOption "vesktop" config.enable;
-      };
     };
   });
 
@@ -31,7 +27,6 @@ in {
     };
 
     environment.systemPackages = with pkgs;
-      lib.optional cfg.programs.brave.enable brave
-      ++ lib.optional cfg.programs.vesktop.enable vesktop;
+      lib.optional cfg.programs.brave.enable brave;
   };
 }
