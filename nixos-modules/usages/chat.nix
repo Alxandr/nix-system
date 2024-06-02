@@ -15,6 +15,10 @@ in {
         enable = mkDependentEnableOption "signal" config.enable;
       };
 
+      programs.discord = {
+        enable = mkDependentEnableOption "discord" config.enable;
+      };
+
       programs.slack = {
         enable = mkDependentEnableOption "slack" config.enable;
       };
@@ -25,6 +29,8 @@ in {
     environment.systemPackages = with pkgs;
       lib.optional cfg.programs.element.enable element-desktop
       ++ lib.optional cfg.programs.signal.enable signal-desktop
+      ++ lib.optional (cfg.programs.discord.enable && system == "x86_64-linux")
+      discord
       ++ lib.optional (cfg.programs.slack.enable && system == "x86_64-linux")
       slack;
   };
