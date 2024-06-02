@@ -1,4 +1,5 @@
-{ lib, flake-parts-lib, config, inputs, nixosModules, ... }:
+{ flake-parts-lib, nixosModules, ... }:
+{ lib, config, inputs, ... }:
 with lib;
 let
   inherit (flake-parts-lib) mkPerSystemOption;

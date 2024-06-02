@@ -1,4 +1,5 @@
-{ lib, flake-parts-lib, config, ... }:
+{ flake-parts-lib, nixosModules, ... }:
+{ lib, config, ... }:
 let
   inherit (lib) mkOption types;
   inherit (flake-parts-lib) mkSubmoduleOptions;

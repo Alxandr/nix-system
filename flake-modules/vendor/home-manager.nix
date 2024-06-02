@@ -1,5 +1,6 @@
 # flake module
-{ lib, flake-parts-lib, inputs, ... }:
+{ flake-parts-lib, inputs, ... }:
+{ lib, ... }:
 let
   inherit (inputs) home-manager;
   inherit (lib) mkOption types;

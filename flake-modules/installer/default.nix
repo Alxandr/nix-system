@@ -1,11 +1,12 @@
-{ lib, flake-parts-lib, config, inputs, ... }:
+{ flake-parts-lib, inputs, flakeModules, ... }:
+{ lib, config, ... }:
 let
   inherit (inputs) disko;
   inherit (lib) mkOption types literalExpression;
   inherit (flake-parts-lib) mkPerSystemOption;
 
 in {
-  imports = [ ../flake-path.nix ];
+  imports = [ flakeModules.flake-path ];
 
   config = let
     flakePath = config.flake.path;

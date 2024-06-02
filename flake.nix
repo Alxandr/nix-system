@@ -77,10 +77,18 @@
         let
           inherit (flake-parts-lib) importApply;
 
-          moduleImportArgs = args // { inherit (config.flake) nixosModules; };
-          importFlakeModule = path: importApply path moduleImportArgs;
+          moduleImportArgs = args // {
+            inherit (config.flake) nixosModules;
+            inherit flakeModules;
+          };
+          # importFlakeModule = path: importApply path moduleImportArgs;
+          importFlakeModule = path:
+            lib.setDefaultModuleLocation path
+            (importApply path moduleImportArgs);
           importNixosModule = path:
-            lib.setDefaultModuleLocation path (importFlakeModule path);
+            lib.setDefaultModuleLocation path
+            (importApply path moduleImportArgs);
+
           flakeModules = {
             flake-path = importFlakeModule ./flake-modules/flake-path.nix;
             disko = importFlakeModule ./flake-modules/vendor/disko.nix;
