@@ -168,5 +168,5 @@
       });
 
       final = base.extendModules { modules = [ configurationModule ]; };
-    in final.config.flake;
+    in final.config.flake // { _raw = final.config; };
 }
