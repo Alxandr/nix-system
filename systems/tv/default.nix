@@ -27,6 +27,7 @@ in {
     system.update-command.enable = true;
     system.autoUpgrade = {
       enable = true;
+      operation = "boot";
       dates = "05:00";
       randomizedDelaySec = "45min";
       allowReboot = false;
