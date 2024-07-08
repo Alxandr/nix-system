@@ -20,7 +20,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v4
 
       - name: Setup Nix cache
-        uses: DeterminateSystems/magic-nix-cache-action@v2
+        uses: DeterminateSystems/magic-nix-cache-action@v7
 
       - name: Update flake.lock
         uses: DeterminateSystems/update-flake-lock@v20
