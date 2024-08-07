@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  sound.enable = false;
   hardware.pulseaudio.enable = false;
 
   # rtkit is optional but recommended
