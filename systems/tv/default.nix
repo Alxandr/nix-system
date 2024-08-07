@@ -2,7 +2,12 @@
 }:
 let inherit (lib) mkIf;
 in {
-  imports = [ ./hardware.nix diskoConfigurations.btrfs nixosModules.plasma ];
+  imports = [
+    ./hardware.nix
+    diskoConfigurations.btrfs
+    nixosModules.plasma
+    ./samba.nix
+  ];
 
   config = {
     # Disko configuration.
