@@ -15,6 +15,10 @@
       hosts deny = 0.0.0.0/0
       guest account = nobody
       map to guest = bad user
+      create mask = 0664
+      force create mode = 0664
+      directory mask = 0775
+      force directory mode = 0775
     '';
     shares = {
       alxandr = {
@@ -22,10 +26,6 @@
         browseable = "yes";
         "read only" = "no";
         "guest ok" = "no";
-        "create mask" = "0644";
-        "directory mask" = "0755";
-        "force user" = "alxandr";
-        "force group" = "alxandr";
       };
     };
   };
