@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   programs.bash.enable = true;
   programs.zsh.enable = true;
 
@@ -9,6 +9,34 @@
       jnoortheen.nix-ide
 
     ];
+  };
+
+  programs.git = {
+    enable = true;
+    extraConfig = {
+      gpg = {
+        format = "ssh";
+      };
+
+      "gpg \"ssh\"" = {
+        program = "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
+      };
+
+      commit = {
+        gpgsign = true;
+      };
+
+      tag = {
+        gpgsign = true;
+      };
+
+      user = {
+        useConfigOnly = true;
+        name = "Aleksander Heintz";
+        email = "alxandr@alxandr.me";
+        signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA49cjFMWbxCAjTsK7H/r0biiBV0EGZHJR1xmik/arxA";
+      };
+    };
   };
 
   home.packages = with pkgs; [
