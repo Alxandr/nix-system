@@ -20,33 +20,33 @@
     '';
   };
 
-  # programs.git = {
-  #   enable = true;
-  #   extraConfig = {
-  #     gpg = {
-  #       format = "ssh";
-  #     };
+  programs.git = {
+    enable = true;
+    extraConfig = {
+      gpg = {
+        format = "ssh";
+      };
 
-  #     "gpg \"ssh\"" = {
-  #       program = "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
-  #     };
+      "gpg \"ssh\"" = {
+        program = "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
+      };
 
-  #     commit = {
-  #       gpgsign = true;
-  #     };
+      commit = {
+        gpgsign = true;
+      };
 
-  #     tag = {
-  #       gpgsign = true;
-  #     };
+      tag = {
+        gpgsign = true;
+      };
 
-  #     user = {
-  #       useConfigOnly = true;
-  #       name = "Aleksander Heintz";
-  #       email = "alxandr@alxandr.me";
-  #       signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA49cjFMWbxCAjTsK7H/r0biiBV0EGZHJR1xmik/arxA";
-  #     };
-  #   };
-  # };
+      user = {
+        useConfigOnly = true;
+        name = "Aleksander Heintz";
+        email = "alxandr@alxandr.me";
+        signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA49cjFMWbxCAjTsK7H/r0biiBV0EGZHJR1xmik/arxA";
+      };
+    };
+  };
 
   home.packages = with pkgs; [
     nixpkgs-fmt
