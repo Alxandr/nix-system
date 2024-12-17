@@ -165,6 +165,11 @@
           unstable = true;
           config = ./systems/tv;
         };
+
+        perSystem.nixosConfigurations.laptop = {
+          unstable = true;
+          config = ./systems/laptop;
+        };
       });
 
       final = base.extendModules { modules = [ configurationModule ]; };
