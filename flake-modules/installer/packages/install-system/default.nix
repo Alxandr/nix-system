@@ -28,7 +28,8 @@ in (writeShellApplication {
     ${""} # scriptLines keyLines}
 
     # format disk
-    ${gum}/bin/gum spin --spinner line --title "Formatting disk..." --show-output -- ${diskoScript}
+    ${diskoScript}
+    # ${gum}/bin/gum spin --spinner line --title "Formatting disk..." --show-output -- ${diskoScript}
     ${gum}/bin/gum format "✔️ Disk formatted"
 
     # copy keys to new system
