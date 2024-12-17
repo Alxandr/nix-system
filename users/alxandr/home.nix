@@ -23,6 +23,53 @@
   programs.git = {
     enable = true;
     extraConfig = {
+      core = {
+        symlinks = true;
+      };
+
+      alias = {
+        wip = "commit -am 'WIP'";
+      };
+
+      color = {
+        ui = "auto";
+      };
+
+      "color \"grep\"" = {
+        match = "cyan bold";
+        selected = "blue";
+        context = "normal";
+        filename = "magenta";
+        linenumber = "green";
+        separator = "yellow";
+        function = "blue";
+      };
+
+      pretty = {
+        line = "%C(auto)%h %<|(60,trunc)%s %C(green)%ad%C(auto)%d";
+        detail = "%C(auto)%h %s%n  %C(yellow)by %C(blue)%an %C(magenta)<%ae> [%G?] %C(green)%ad%n %C(auto)%d%n";
+      };
+
+      init = {
+        defaultBranch = "main";
+      };
+
+      push = {
+        default = "upstream";
+        autoSetupRemote = true;
+      };
+
+      credential = {
+        helper = "cache --timeout=3600";
+      };
+
+      user = {
+        useConfigOnly = true;
+        name = "Aleksander Heintz";
+        email = "alxandr@alxandr.me";
+        signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA49cjFMWbxCAjTsK7H/r0biiBV0EGZHJR1xmik/arxA";
+      };
+
       gpg = {
         format = "ssh";
       };
@@ -39,11 +86,12 @@
         gpgsign = true;
       };
 
-      user = {
-        useConfigOnly = true;
-        name = "Aleksander Heintz";
-        email = "alxandr@alxandr.me";
-        signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA49cjFMWbxCAjTsK7H/r0biiBV0EGZHJR1xmik/arxA";
+      gitbutler = {
+        signCommits = true;
+      };
+
+      http = {
+        cookieFile = "~/.gitcookies";
       };
     };
   };
