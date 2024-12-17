@@ -94,6 +94,23 @@
         cookieFile = "~/.gitcookies";
       };
     };
+    ignores = [
+      # Logs and databases #
+      ######################
+      "*.log"
+      "*.sqlite"
+
+      # OS generated files #
+      ######################
+      ".DS_Store"
+      ".DS_Store?"
+      "._*"
+      ".Spotlight-V100"
+      ".Trashes"
+      "Icon?"
+      "ehthumbs.db"
+      "Thumbs.db"
+    ];
   };
 
   home.packages = with pkgs; [
