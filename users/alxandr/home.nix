@@ -1,6 +1,20 @@
-{ ... }: {
+{ pkgs, ... }: {
   programs.bash.enable = true;
   programs.zsh.enable = true;
+
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+      editorconfig.editorconfig
+      jnoortheen.nix-ide
+
+    ];
+  };
+
+  packages = with pkgs; [
+    nixpkgs-fmt
+    nil
+  ];
 
   # This value determines the home-manager release from which the default
   # settings for stateful data, like file locations and database versions
