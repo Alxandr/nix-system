@@ -21,9 +21,9 @@
       "workbench.iconTheme" = "material-icon-theme";
       "nix.enableLanguageServer" = true;
       "nix.formatterPath" = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
-      "nix.serverSettings.nil" = {
-        "formatting.command" = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
-        "nix.flake" = {
+      "nix.serverSettings"."nil" = {
+        "formatting"."command" = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
+        "nix"."flake" = {
           "autoArchive" = true;
           "autoEvalInputs" = true;
         };
