@@ -119,6 +119,7 @@
 
   home.packages = with pkgs; [
     nixpkgs-fmt
+    nixfmt-rfc-style
     nil
   ];
 
