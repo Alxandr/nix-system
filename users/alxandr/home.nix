@@ -1,4 +1,5 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+{
   programs.bash.enable = true;
   programs.zsh.enable = true;
   programs.zoxide.enable = true;
@@ -14,6 +15,20 @@
       eamodio.gitlens
       pkief.material-icon-theme
     ];
+    userSettings = {
+      "editor.formatOnSave" = true;
+      "editor.tabSize" = 2;
+      "workbench.iconTheme" = "material-icon-theme";
+      "nix.enableLanguageServer" = true;
+      "nix.formatterPath" = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
+      "nix.serverSettings.nil" = {
+        "formatting.command" = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
+        "nix.flake" = {
+          "autoArchive" = true;
+          "autoEvalInputs" = true;
+        };
+      };
+    };
   };
 
   programs.ssh = {
