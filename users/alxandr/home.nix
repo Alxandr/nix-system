@@ -12,6 +12,7 @@
       github.copilot-chat
       github.vscode-github-actions
       eamodio.gitlens
+      pkief.material-icon-theme
     ];
   };
 
