@@ -8,7 +8,10 @@
     extensions = with pkgs.vscode-extensions; [
       editorconfig.editorconfig
       jnoortheen.nix-ide
-
+      github.copilot
+      github.copilot-chat
+      github.vscode-github-actions
+      eamodio.gitlens
     ];
   };
 
