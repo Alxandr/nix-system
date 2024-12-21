@@ -39,6 +39,8 @@
     '';
   };
 
+  programs.gh.enable = true;
+  programs.gh-dash.enable = true;
   programs.git = {
     enable = true;
     extraConfig = {
