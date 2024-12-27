@@ -23,6 +23,7 @@
       "nix.formatterPath" = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
       "nix.serverSettings"."nil" = {
         "formatting"."command" = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
+        "nix"."maxMemoryMB" = 12560;
         "nix"."flake" = {
           "autoArchive" = true;
           "autoEvalInputs" = true;
