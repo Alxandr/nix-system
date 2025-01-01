@@ -3,7 +3,10 @@
 
   # the nixConfig here only affects the flake itself, not the system configuration!
   nixConfig = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     trusted-users = [ "alxandr" ];
 
     substituters = [ "https://cache.nixos.org" ];
@@ -62,18 +65,25 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = inputs@{ flake-parts, disko, nixpkgs, nixpkgs-unstable, ... }:
+  outputs =
+    inputs@{
+      flake-parts,
+      disko,
+      nixpkgs,
+      nixpkgs-unstable,
+      ...
+    }:
     let
       inherit (nixpkgs) lib;
       args = { inherit inputs; };
       loc = "github:Alxandr/nix-system";
 
-      evalFlakeModule = module:
-        flake-parts.lib.evalFlakeModule args
-        (lib.setDefaultModuleLocation loc module);
+      evalFlakeModule =
+        module: flake-parts.lib.evalFlakeModule args (lib.setDefaultModuleLocation loc module);
 
       # Step 1. Build flakeModules and evaluate them to get nixosModules
-      base = evalFlakeModule (args@{ config, flake-parts-lib, ... }:
+      base = evalFlakeModule (
+        args@{ config, flake-parts-lib, ... }:
         let
           inherit (flake-parts-lib) importApply;
 
@@ -82,20 +92,14 @@
             inherit flakeModules;
           };
           # importFlakeModule = path: importApply path moduleImportArgs;
-          importFlakeModule = path:
-            lib.setDefaultModuleLocation path
-            (importApply path moduleImportArgs);
-          importNixosModule = path:
-            lib.setDefaultModuleLocation path
-            (importApply path moduleImportArgs);
+          importFlakeModule = path: lib.setDefaultModuleLocation path (importApply path moduleImportArgs);
+          importNixosModule = path: lib.setDefaultModuleLocation path (importApply path moduleImportArgs);
 
           flakeModules = {
             flake-path = importFlakeModule ./flake-modules/flake-path.nix;
             disko = importFlakeModule ./flake-modules/vendor/disko.nix;
-            home-manager =
-              importFlakeModule ./flake-modules/vendor/home-manager.nix;
-            multi-arch-nixos =
-              importFlakeModule ./flake-modules/multi-arch-nixos.nix;
+            home-manager = importFlakeModule ./flake-modules/vendor/home-manager.nix;
+            multi-arch-nixos = importFlakeModule ./flake-modules/multi-arch-nixos.nix;
             users = importFlakeModule ./flake-modules/users.nix;
             installer = importFlakeModule ./flake-modules/installer;
           };
@@ -103,20 +107,21 @@
           nixosModules = {
             flake-meta = importNixosModule ./nixos-modules/flake-meta.nix;
             nixos-meta = importNixosModule ./nixos-modules/nixos-meta.nix;
-            home-manager-defaults =
-              importNixosModule ./nixos-modules/home-manager-defaults.nix;
+            home-manager-defaults = importNixosModule ./nixos-modules/home-manager-defaults.nix;
             caches = importNixosModule ./nixos-modules/caches.nix;
             update-command = importNixosModule ./nixos-modules/update-command;
             defaults = importNixosModule ./nixos-modules/defaults.nix;
             default-gc = importNixosModule ./nixos-modules/default-gc.nix;
             plasma = importNixosModule ./nixos-modules/plasma.nix;
             usages = importNixosModule ./nixos-modules/usages.nix;
+            shell = importNixosModule ./nixos-modules/shell.nix;
           };
 
           homeModules = {
             # neovim = importModule ./home-modules/neovim.nix;
           };
-        in {
+        in
+        {
           imports = [
             flakeModules.flake-path
             flakeModules.disko
@@ -134,44 +139,53 @@
             inherit flakeModules nixosModules homeModules;
           };
 
-          systems = [ "x86_64-linux" "aarch64-linux" ];
-        });
+          systems = [
+            "x86_64-linux"
+            "aarch64-linux"
+          ];
+        }
+      );
 
       nixosModules = base.config.flake.nixosModules;
       users = base.config.flake.users;
 
       # Step 2. Add nixosConfigurations (depending on nixosModules) to the flake
-      configurationModule = lib.setDefaultModuleLocation loc ({ config, ... }: {
-        nixosConfigurationsExtraSpecialArgs = {
-          inherit nixosModules;
-          inherit (config) flake;
-          inherit (config.flake) diskoConfigurations homeModules;
-        };
+      configurationModule = lib.setDefaultModuleLocation loc (
+        { config, ... }:
+        {
+          nixosConfigurationsExtraSpecialArgs = {
+            inherit nixosModules;
+            inherit (config) flake;
+            inherit (config.flake) diskoConfigurations homeModules;
+          };
 
-        allNixosConfigurations = {
-          imports = [
-            nixosModules.caches
-            nixosModules.home-manager-defaults
-            nixosModules.default-gc
-            nixosModules.defaults
-            nixosModules.disko
-            nixosModules.update-command
-            nixosModules.usages
-            users.alxandr
-          ];
-        };
+          allNixosConfigurations = {
+            imports = [
+              nixosModules.caches
+              nixosModules.home-manager-defaults
+              nixosModules.default-gc
+              nixosModules.defaults
+              nixosModules.disko
+              nixosModules.update-command
+              nixosModules.usages
+              nixosModules.shell
+              users.alxandr
+            ];
+          };
 
-        perSystem.nixosConfigurations.tv = {
-          unstable = true;
-          config = ./systems/tv;
-        };
+          perSystem.nixosConfigurations.tv = {
+            unstable = true;
+            config = ./systems/tv;
+          };
 
-        perSystem.nixosConfigurations.laptop = {
-          unstable = true;
-          config = ./systems/laptop;
-        };
-      });
+          perSystem.nixosConfigurations.laptop = {
+            unstable = true;
+            config = ./systems/laptop;
+          };
+        }
+      );
 
       final = base.extendModules { modules = [ configurationModule ]; };
-    in final.config.flake // { _raw = final.config; };
+    in
+    final.config.flake // { _raw = final.config; };
 }

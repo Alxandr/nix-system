@@ -1,19 +1,39 @@
 { pkgs, lib, ... }:
 {
   programs.bash.enable = true;
-  programs.zsh.enable = true;
   programs.zoxide.enable = true;
+  programs.starship.enable = true;
+  programs.fzf.enable = true;
+
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+    history.size = 10000;
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
 
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-extensions; [
+      eamodio.gitlens
       editorconfig.editorconfig
-      jnoortheen.nix-ide
+      fill-labs.dependi
       github.copilot
       github.copilot-chat
       github.vscode-github-actions
-      eamodio.gitlens
+      jnoortheen.nix-ide
+      mkhl.direnv
       pkief.material-icon-theme
+      rust-lang.rust-analyzer
+      tamasfe.even-better-toml
     ];
     userSettings = {
       "editor.formatOnSave" = true;

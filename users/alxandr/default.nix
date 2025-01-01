@@ -1,9 +1,25 @@
-{ lib, user, host, homeModules, pkgs, system, ... }:
-let inherit (lib) mkIf;
-in {
+{
+  lib,
+  user,
+  host,
+  homeModules,
+  pkgs,
+  system,
+  ...
+}:
+let
+  inherit (lib) mkIf;
+in
+{
   config = {
     trusted = true;
-    user.extraGroups = [ "wheel" "networkmanager" ];
-    home = { imports = [ ./home.nix ]; };
+    user.extraGroups = [
+      "wheel"
+      "networkmanager"
+    ];
+    user.shell = pkgs.zsh;
+    home = {
+      imports = [ ./home.nix ];
+    };
   };
 }
