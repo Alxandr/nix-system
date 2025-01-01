@@ -25,6 +25,7 @@
     extensions = with pkgs.vscode-extensions; [
       eamodio.gitlens
       editorconfig.editorconfig
+      esbenp.prettier-vscode
       fill-labs.dependi
       github.copilot
       github.copilot-chat
