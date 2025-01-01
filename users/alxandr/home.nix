@@ -1,5 +1,6 @@
 { pkgs, lib, ... }:
 {
+  programs.home-manager.enable = true;
   programs.bash.enable = true;
   programs.zoxide.enable = true;
   programs.starship.enable = true;
@@ -22,6 +23,7 @@
 
   programs.vscode = {
     enable = true;
+    mutableExtensionsDir = false;
     extensions = with pkgs.vscode-extensions; [
       eamodio.gitlens
       editorconfig.editorconfig
