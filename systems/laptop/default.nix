@@ -1,7 +1,17 @@
-{ lib, pkgs, nixosModules, diskoConfigurations, modulesPath, flake, system, ...
+{
+  lib,
+  pkgs,
+  nixosModules,
+  diskoConfigurations,
+  modulesPath,
+  flake,
+  system,
+  ...
 }:
-let inherit (lib) mkIf;
-in {
+let
+  inherit (lib) mkIf;
+in
+{
   imports = [
     ./hardware.nix
     diskoConfigurations.luks-btrfs
@@ -45,7 +55,10 @@ in {
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
     # Some packages
-    environment.systemPackages = with pkgs; [ unzip ];
+    environment.systemPackages = with pkgs; [
+      unzip
+      calibre
+    ];
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
