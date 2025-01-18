@@ -58,6 +58,7 @@ in
     environment.systemPackages = with pkgs; [
       unzip
       calibre
+      wget
     ];
 
     # This value determines the NixOS release from which the default
