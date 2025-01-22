@@ -1,5 +1,6 @@
 { ... }:
-{ lib, pkgs, ... }: {
+{ lib, pkgs, ... }:
+{
   config = {
     # Set your time zone.
     time.timeZone = lib.mkDefault "Europe/Oslo";
@@ -38,11 +39,20 @@
     programs.gnupg.agent.enable = true;
 
     # Programs for all systems
-    environment.systemPackages = with pkgs; [ btop htop zoxide eza ];
+    environment.systemPackages = with pkgs; [
+      btop
+      htop
+      zoxide
+      eza
+    ];
 
     nix.settings = {
       # enable flakes globally
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "pipe-operators"
+      ];
     };
 
     # Allow unfree packages
