@@ -162,6 +162,7 @@
     nixpkgs-fmt
     nixfmt-rfc-style
     nil
+    nh
   ];
 
   # This value determines the home-manager release from which the default
