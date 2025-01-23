@@ -1,6 +1,0 @@
-{ ... }:
-{ ... }:
-
-{
-  imports = [ ./desktops/plasma.nix ];
-}
