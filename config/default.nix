@@ -29,6 +29,10 @@ in
     ];
     flake.path = "github:Alxandr/nix-system";
 
+    systemConfigurations.sharedModules = [
+      ./theme
+    ];
+
     systemConfigurations.systems.tv = {
       unstable = true;
       hardware = ./systems/tv/hardware.nix;

@@ -57,6 +57,17 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    stylix = {
+      url = "github:danth/stylix/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+    stylix-unstable = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.home-manager.follows = "home-manager-unstable";
+    };
+
     # # modern window compositor
     # hyprland.url = "github:hyprwm/Hyprland/v0.27.0";
     # # community wayland nixpkgs
@@ -74,6 +85,8 @@
       disko,
       home-manager,
       home-manager-unstable,
+      stylix,
+      stylix-unstable,
       ...
     }:
     let
@@ -102,6 +115,8 @@
             nixpkgs-unstable
             home-manager
             home-manager-unstable
+            stylix
+            stylix-unstable
             ;
         };
       };

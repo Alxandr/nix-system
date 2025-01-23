@@ -14,6 +14,8 @@ let
     nixpkgs-unstable
     home-manager
     home-manager-unstable
+    stylix
+    stylix-unstable
     ;
 
   cfg = config.systemConfigurations;
@@ -121,12 +123,13 @@ in
       m =
         if !systemConfiguration.unstable then
           {
-            inherit nixpkgs home-manager;
+            inherit nixpkgs home-manager stylix;
           }
         else
           {
             nixpkgs = nixpkgs-unstable;
             home-manager = home-manager-unstable;
+            stylix = stylix-unstable;
           };
     in
     m.nixpkgs.lib.nixosSystem {
@@ -135,6 +138,7 @@ in
       modules = [
         # common modules
         m.home-manager.nixosModules.home-manager
+        m.stylix.nixosModules.stylix
         disko.nixosModules.disko
         users.nixosModules.user-manager
         workloads.nixosModules.workloads
