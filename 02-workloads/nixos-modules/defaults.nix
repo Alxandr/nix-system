@@ -19,6 +19,9 @@
       PATH = [ "$XDG_BIN_HOME" ];
     };
 
+    # Setup GPG
+    programs.gnupg.agent.enable = true;
+
     # Programs for all systems
     environment.systemPackages = with pkgs; [
       btop

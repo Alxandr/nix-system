@@ -33,9 +33,14 @@ in
         };
       }
     );
+    module.options.package = mkOption {
+      type = types.package;
+      default = pkgs.wineWowPackages.full;
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
+    { environment.systemPackages = [ cfg.package ]; }
     (mkIf (system == "x86_64-linux" && cfg.programs.winetricks.enable) {
       environment.systemPackages = [ cfg.programs.winetricks.package ];
     })
