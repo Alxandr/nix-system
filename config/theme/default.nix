@@ -4,6 +4,6 @@
     enable = lib.mkDefault true;
     image = ./bg.jpg;
     polarity = "dark";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/chalk.yaml";
   };
 }
