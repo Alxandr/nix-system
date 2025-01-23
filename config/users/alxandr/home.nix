@@ -169,12 +169,19 @@ in
     ];
   };
 
-  home.packages = with pkgs; [
-    nixpkgs-fmt
-    nixfmt-rfc-style
-    nil
-    nh
-  ];
+  home.packages =
+    with pkgs;
+    (
+      [
+        nixpkgs-fmt
+        nixfmt-rfc-style
+        nil
+        nh
+      ]
+      ++ optionals isDesktop [
+        gitbutler
+      ]
+    );
 
   # This value determines the home-manager release from which the default
   # settings for stateful data, like file locations and database versions
