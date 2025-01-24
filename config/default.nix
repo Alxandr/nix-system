@@ -30,9 +30,9 @@ in
     perSystem =
       { pkgs, ... }:
       rec {
-        # packages.fira-code = pkgs.callPackage ./packages/fira-code/package.nix { src = fira-code; };
         packages = {
-          inherit (pkgs) nh fira-code;
+          inherit (pkgs) cascadia-code;
+          fira-code = pkgs.callPackage ./packages/fira-code/package.nix { src = fira-code; };
         };
 
         apps = {
@@ -41,6 +41,16 @@ in
       };
 
     systemConfigurations.sharedModules = [
+      (
+        { pkgs, alxandrPackages, ... }:
+        {
+          config._module.args.alxandrPackages = config.flake.packages.${pkgs.system};
+          config.fonts.packages = [
+            pkgs.cascadia-code
+            alxandrPackages.fira-code
+          ];
+        }
+      )
       ./theme
     ];
 

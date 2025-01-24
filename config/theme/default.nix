@@ -1,10 +1,20 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  alxandrPackages,
+  ...
+}:
 {
   config.stylix = {
     enable = lib.mkDefault true;
     image = ./bg.jpg;
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/chalk.yaml";
+
+    fonts.monospace = {
+      name = "Fira Code";
+      package = alxandrPackages.fira-code;
+    };
   };
 
   config.home-manager.sharedModules = [

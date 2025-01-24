@@ -137,7 +137,7 @@
             fira-code
             ;
 
-          nixpkgs = nixpkgs-unstable;
+          nixpkgs = nixpkgs;
         };
       };
     in
