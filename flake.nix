@@ -75,6 +75,12 @@
 
     # Hardware support
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    # Fira Code source
+    fira-code = {
+      url = "github:tonsky/FiraCode/master";
+      flake = false;
+    };
   };
 
   outputs =
@@ -87,6 +93,7 @@
       home-manager-unstable,
       stylix,
       stylix-unstable,
+      fira-code,
       ...
     }:
     let
@@ -124,16 +131,13 @@
         name = "config";
         inputs = {
           inherit
-            nixpkgs
-            nixpkgs-unstable
-            disko
-            home-manager
-            home-manager-unstable
             base
             users
-            workloads
             systems
+            fira-code
             ;
+
+          nixpkgs = nixpkgs-unstable;
         };
       };
     in

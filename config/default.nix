@@ -3,10 +3,8 @@ let
   inherit (inputs)
     base
     users
-    workloads
-    disko
     systems
-    home-manager-unstable
+    fira-code
     ;
   inherit (config.flake) diskoConfigurations;
 in
@@ -28,6 +26,19 @@ in
       "aarch64-linux"
     ];
     flake.path = "github:Alxandr/nix-system";
+
+    perSystem =
+      { pkgs, ... }:
+      rec {
+        # packages.fira-code = pkgs.callPackage ./packages/fira-code/package.nix { src = fira-code; };
+        packages = {
+          inherit (pkgs) nh fira-code;
+        };
+
+        apps = {
+          nh.program = "${packages.nh}/bin/nh";
+        };
+      };
 
     systemConfigurations.sharedModules = [
       ./theme
@@ -66,6 +77,5 @@ in
         };
       };
     };
-
   };
 }
