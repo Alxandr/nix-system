@@ -19,6 +19,7 @@ in
   programs.starship.enable = true;
   programs.fzf.enable = true;
   programs.bat.enable = true;
+  programs.eza.enable = true;
   programs.kitty.enable = isDesktop;
 
   home.shellAliases = {
