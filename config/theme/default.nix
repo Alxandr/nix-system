@@ -4,10 +4,15 @@
   alxandrPackages,
   ...
 }:
+
+let
+  wallpaper = ./bg.jpg;
+
+in
 {
   config.stylix = {
     enable = lib.mkDefault true;
-    image = ./bg.jpg;
+    image = wallpaper;
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/chalk.yaml";
 
@@ -16,6 +21,14 @@
       package = alxandrPackages.fira-code;
     };
   };
+
+  config.environment.systemPackages = [
+    (pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
+      [General]
+      background=${wallpaper}
+      type=image
+    '')
+  ];
 
   config.home-manager.sharedModules = [
     (

@@ -18,6 +18,32 @@ in
   programs.zoxide.enable = true;
   programs.starship.enable = true;
   programs.fzf.enable = true;
+  programs.bat.enable = true;
+  programs.kitty.enable = isDesktop;
+
+  home.shellAliases = {
+    # Add color to commands
+    grep = "grep --color=auto";
+
+    # Protect against overwriting
+    cp = "cp -i";
+    mv = "mv -i";
+
+    # cd to git root directory
+    cdg = "cd \"$(git root)\"";
+
+    # Mirror stdout to stderr, useful for seeing data going through a pipe
+    peek = "tee >(cat 1>&2)";
+
+    # Bat
+    cat = "bat --style=plain --paging=never";
+    catmore = "bat --style=plain --paging=always";
+
+    # eza
+    ls = "eza";
+    ll = "eza -lh";
+    tree = "eza --tree";
+  };
 
   programs.zsh = {
     enable = true;
