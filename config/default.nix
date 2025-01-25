@@ -36,7 +36,7 @@ in
         };
 
         apps = {
-          nh.program = "${packages.nh}/bin/nh";
+          nh.program = "${pkgs.nh}/bin/nh";
         };
       };
 
