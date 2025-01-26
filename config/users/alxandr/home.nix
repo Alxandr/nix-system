@@ -13,51 +13,12 @@ let
 in
 
 {
+  imports = [
+    ./home/shell.nix
+  ];
+
   programs.home-manager.enable = true;
-  programs.bash.enable = true;
-  programs.zoxide.enable = true;
-  programs.starship.enable = true;
-  programs.fzf.enable = true;
-  programs.bat.enable = true;
-  programs.eza.enable = true;
   programs.kitty.enable = isDesktop;
-
-  home.shellAliases = {
-    # Add color to commands
-    grep = "grep --color=auto";
-
-    # Protect against overwriting
-    cp = "cp -i";
-    mv = "mv -i";
-
-    # cd to git root directory
-    cdg = "cd \"$(git root)\"";
-
-    # Mirror stdout to stderr, useful for seeing data going through a pipe
-    peek = "tee >(cat 1>&2)";
-
-    # Bat
-    cat = "bat --style=plain --paging=never";
-    catmore = "bat --style=plain --paging=always";
-
-    # eza
-    ls = "eza";
-    ll = "eza -lh";
-    tree = "eza --tree";
-  };
-
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
-    history.size = 10000;
-  };
-
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-  };
 
   programs.vscode = mkIf isDesktop {
     enable = true;
@@ -101,8 +62,6 @@ in
     '';
   };
 
-  programs.gh.enable = true;
-  programs.gh-dash.enable = true;
   programs.git = {
     enable = true;
     extraConfig = {
