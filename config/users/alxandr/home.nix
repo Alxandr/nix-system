@@ -15,6 +15,7 @@ in
 {
   imports = [
     ./home/shell.nix
+    ./home/hypr.nix
   ];
 
   programs.home-manager.enable = true;

@@ -7,6 +7,7 @@ let
     fira-code
     ;
   inherit (config.flake) diskoConfigurations;
+  inherit (config.flake) nixosModules;
 in
 {
   imports = [
@@ -29,9 +30,9 @@ in
 
     perSystem =
       { pkgs, ... }:
-      rec {
+      {
         packages = {
-          inherit (pkgs) cascadia-code;
+          inherit (pkgs) cascadia-code xkeyboard_config;
           fira-code = pkgs.callPackage ./packages/fira-code/package.nix { src = fira-code; };
         };
 
@@ -39,6 +40,10 @@ in
           nh.program = "${pkgs.nh}/bin/nh";
         };
       };
+
+    flake.nixosModules = {
+      keyboard = ./nixos-modules/keyboard;
+    };
 
     systemConfigurations.sharedModules = [
       (
@@ -52,6 +57,7 @@ in
         }
       )
       ./theme
+      nixosModules.keyboard
     ];
 
     systemConfigurations.systems.tv = {

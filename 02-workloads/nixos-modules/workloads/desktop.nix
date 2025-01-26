@@ -42,6 +42,12 @@ in
         name = "PeaZip";
         package = "peazip";
       };
+
+      libva-utils = mkProgramOption {
+        inherit pkgs;
+        name = "libva-utils";
+        package = "libva-utils";
+      };
     };
   };
 
@@ -59,6 +65,9 @@ in
     })
     (mkIf cfg.programs.peazip.enable {
       environment.systemPackages = [ cfg.programs.peazip.package ];
+    })
+    (mkIf cfg.programs.libva-utils.enable {
+      environment.systemPackages = [ cfg.programs.libva-utils.package ];
     })
   ]);
 }

@@ -21,4 +21,8 @@
   hardware.enableRedistributableFirmware = lib.mkDefault true;
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  hardware.graphics = {
+    enable = lib.mkDefault true;
+  };
 }

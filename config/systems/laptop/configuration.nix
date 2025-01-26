@@ -14,6 +14,7 @@
     # Workloads
     workloads.desktop.enable = true;
     workloads.desktop.environment.plasma.enable = true;
+    workloads.desktop.environment.hyprland.enable = true;
     workloads.gaming.enable = true;
 
     # Some packages
