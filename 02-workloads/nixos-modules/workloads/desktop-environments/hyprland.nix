@@ -23,5 +23,13 @@ in
       withUWSM = true;
       xwayland.enable = true;
     };
+
+    workloads.wayland.xdg.portal.extraPortals.hyprland.enable = true;
+    workloads.wayland.xdg.portal.config.hyprland = {
+      default = [
+        "hyprland"
+        "wlr"
+      ];
+    };
   };
 }

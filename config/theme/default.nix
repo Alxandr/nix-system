@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  alxandrPackages,
   ...
 }:
 
@@ -18,7 +17,7 @@ in
 
     fonts.monospace = {
       name = "Fira Code";
-      package = alxandrPackages.fira-code;
+      package = pkgs.fira-code;
     };
   };
 
@@ -38,6 +37,7 @@ in
         # to fail activation. This forces the file location elsewhere such that there is no
         # conflict.
         config.gtk.gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+        config.stylix.targets.hyprland.enable = false;
       }
     )
   ];

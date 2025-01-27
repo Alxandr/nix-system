@@ -9,6 +9,7 @@ with lib;
 
 let
   isDesktop = osConfig.workloads.desktop.enable;
+  terminalFont = "Cascadia Code NF";
 
 in
 
@@ -19,10 +20,18 @@ in
   ];
 
   programs.home-manager.enable = true;
-  programs.kitty.enable = isDesktop;
+  programs.kitty = mkIf isDesktop {
+    enable = true;
+    font.name = mkForce terminalFont;
+    font.package = mkForce pkgs.cascadia-code;
+  };
 
   programs.vscode = mkIf isDesktop {
     enable = true;
+    package = pkgs.vscode.override {
+      commandLineArgs = "--password-store=\"kwallet5\"";
+    };
+
     mutableExtensionsDir = false;
     extensions = with pkgs.vscode-extensions; [
       eamodio.gitlens
@@ -38,21 +47,45 @@ in
       rust-lang.rust-analyzer
       tamasfe.even-better-toml
     ];
-    userSettings = {
-      "editor.formatOnSave" = true;
-      "editor.tabSize" = 2;
-      "workbench.iconTheme" = "material-icon-theme";
-      "nix.enableLanguageServer" = true;
-      "nix.formatterPath" = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
-      "nix.serverSettings"."nil" = {
-        "formatting"."command" = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
-        "nix"."maxMemoryMB" = 12560;
-        "nix"."flake" = {
-          "autoArchive" = true;
-          "autoEvalInputs" = true;
-        };
-      };
-    };
+
+    userSettings =
+      let
+        perLang = langs: conf: genAttrs (langs |> map (l: "[${l}]")) (v: conf);
+
+      in
+      [
+        {
+          "terminal.integrated.fontFamily" = terminalFont;
+          "editor.formatOnSave" = true;
+          "editor.tabSize" = 2;
+          "workbench.iconTheme" = "material-icon-theme";
+          "nix.enableLanguageServer" = true;
+          "nix.formatterPath" = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
+          "nix.serverSettings"."nil" = {
+            "formatting"."command" = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
+            "nix"."maxMemoryMB" = 12560;
+            "nix"."flake" = {
+              "autoArchive" = true;
+              "autoEvalInputs" = true;
+            };
+          };
+        }
+        (
+          {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          }
+          |> perLang [
+            "jsonc"
+            "json"
+            "js"
+            "jsx"
+            "ts"
+            "tsx"
+          ]
+        )
+      ]
+      |> flatten
+      |> mkMerge;
   };
 
   programs.ssh = {
@@ -167,6 +200,8 @@ in
       ]
       ++ optionals isDesktop [
         gitbutler
+        kdePackages.kwallet
+        kdePackages.kwallet-pam
       ]
     );
 

@@ -1,10 +1,16 @@
-{ inputs, config, ... }:
+{
+  inputs,
+  config,
+  lib,
+  ...
+}:
 let
   inherit (inputs)
     base
     users
     systems
     fira-code
+    ags
     ;
   inherit (config.flake) diskoConfigurations;
   inherit (config.flake) nixosModules;
@@ -29,15 +35,45 @@ in
     flake.path = "github:Alxandr/nix-system";
 
     perSystem =
-      { pkgs, ... }:
-      {
+      { pkgs, inputs', ... }:
+      rec {
         packages = {
-          inherit (pkgs) cascadia-code xkeyboard_config;
+          inherit (pkgs) cascadia-code;
+          ags = inputs'.ags.packages.ags // {
+            full = inputs'.ags.packages.agsFull;
+            inherit (inputs'.ags.packages)
+              hyprland
+              battery
+              bluetooth
+              mpris
+              network
+              powerprofiles
+              tray
+              wireplumber
+              ;
+          };
           fira-code = pkgs.callPackage ./packages/fira-code/package.nix { src = fira-code; };
         };
 
         apps = {
           nh.program = "${pkgs.nh}/bin/nh";
+        };
+
+        devShells.default = pkgs.mkShell {
+          packages = [
+            (packages.ags.override {
+              extraPackages = with packages.ags; [
+                hyprland
+                battery
+                bluetooth
+                mpris
+                network
+                powerprofiles
+                tray
+                wireplumber
+              ];
+            })
+          ];
         };
       };
 
@@ -47,12 +83,17 @@ in
 
     systemConfigurations.sharedModules = [
       (
-        { pkgs, alxandrPackages, ... }:
+        { pkgs, ... }:
         {
-          config._module.args.alxandrPackages = config.flake.packages.${pkgs.system};
+          config.nixpkgs.overlays = [
+            (final: prev: {
+              inherit (config.flake.packages.${pkgs.system}) fira-code ags;
+            })
+          ];
+
           config.fonts.packages = [
             pkgs.cascadia-code
-            alxandrPackages.fira-code
+            pkgs.fira-code
           ];
         }
       )

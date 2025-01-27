@@ -17,10 +17,19 @@
     workloads.desktop.environment.hyprland.enable = true;
     workloads.gaming.enable = true;
 
+    # Screen configuration in hyprland
+    home-manager.sharedModules = [
+      {
+        wayland.windowManager.hyprland.settings.monitor = [
+          "eDP-1, preferred, 0x0, 1.5"
+          "desc:Samsung Electric Company LS27A600U HNMWA01347, preferred, auto-left, 1"
+        ];
+      }
+    ];
+
     # Some packages
     environment.systemPackages = with pkgs; [
       unzip
-      uwsm
     ];
 
     # Setup auto-upgrade

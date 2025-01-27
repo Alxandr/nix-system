@@ -30,6 +30,7 @@ in
 
     environment.systemPackages = with pkgs; [ kwallet-pam ];
 
+    workloads.wayland.xdg.portal.extraPortals.kde.enable = true;
     workloads.wayland.xdg.portal.config.kde = {
       default = [
         "kde"

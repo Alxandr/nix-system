@@ -37,7 +37,11 @@ in
       LC_TIME = lib.mkDefault "nb_NO.UTF-8";
     };
 
-    # Configure console keymap
-    console.keyMap = lib.mkDefault "en";
+    # Configure console
+    console = {
+      earlySetup = true;
+      keyMap = lib.mkDefault "eurkey";
+      useXkbConfig = lib.mkDefault true;
+    };
   });
 }

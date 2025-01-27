@@ -68,6 +68,11 @@
       inputs.home-manager.follows = "home-manager-unstable";
     };
 
+    ags = {
+      url = "github:aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     # # modern window compositor
     # hyprland.url = "github:hyprwm/Hyprland/v0.27.0";
     # # community wayland nixpkgs
@@ -94,6 +99,7 @@
       stylix,
       stylix-unstable,
       fira-code,
+      ags,
       ...
     }:
     let
@@ -135,6 +141,7 @@
             users
             systems
             fira-code
+            ags
             ;
 
           nixpkgs = nixpkgs;

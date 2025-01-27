@@ -77,7 +77,7 @@ in
             inherit pkgs;
             name = "Hyprland Portal";
             package = "xdg-desktop-portal-hyprland";
-            defaultEnable = true;
+            defaultEnable = false;
           };
         };
 
