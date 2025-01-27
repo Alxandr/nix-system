@@ -80,6 +80,12 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    # Hyprland QT support lib
+    hyprland-qt-support = {
+      url = "github:hyprwm/hyprland-qt-support";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     # # modern window compositor
     # hyprland.url = "github:hyprwm/Hyprland/v0.27.0";
     # # community wayland nixpkgs
@@ -108,6 +114,7 @@
       fira-code,
       ags,
       nil,
+      hyprland-qt-support,
       ...
     }:
     let
@@ -151,6 +158,7 @@
             fira-code
             ags
             nil
+            hyprland-qt-support
             ;
 
           nixpkgs = nixpkgs;

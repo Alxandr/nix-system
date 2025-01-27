@@ -10,8 +10,6 @@ let
     users
     systems
     fira-code
-    ags
-    nil
     ;
   inherit (config.flake) diskoConfigurations;
   inherit (config.flake) nixosModules;
@@ -41,6 +39,7 @@ in
         packages = {
           inherit (pkgs) cascadia-code;
           inherit (inputs'.nil.packages) nil;
+          inherit (inputs'.hyprland-qt-support.packages) hyprland-qt-support;
           ags = inputs'.ags.packages.ags // {
             full = inputs'.ags.packages.agsFull;
             inherit (inputs'.ags.packages)
@@ -90,7 +89,12 @@ in
         {
           config.nixpkgs.overlays = [
             (final: prev: {
-              inherit (config.flake.packages.${pkgs.system}) fira-code ags nil;
+              inherit (config.flake.packages.${pkgs.system})
+                fira-code
+                ags
+                nil
+                hyprland-qt-support
+                ;
             })
           ];
 

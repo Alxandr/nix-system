@@ -15,6 +15,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = [ pkgs.hyprland-qt-support ];
     systemd.user.services.hyprpolkitagent = {
       Install = {
         WantedBy = [ config.wayland.systemd.target ];
