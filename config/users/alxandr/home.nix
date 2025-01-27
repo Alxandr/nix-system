@@ -55,6 +55,7 @@ in
       in
       [
         {
+          "window.titleBarStyle" = "custom";
           "terminal.integrated.fontFamily" = terminalFont;
           "editor.formatOnSave" = true;
           "editor.tabSize" = 2;
