@@ -77,10 +77,11 @@ in
           |> perLang [
             "jsonc"
             "json"
-            "js"
-            "jsx"
-            "ts"
-            "tsx"
+            "javascript"
+            "javascriptreact"
+            "typescript"
+            "typescriptreact"
+            "scss"
           ]
         )
       ]

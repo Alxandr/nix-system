@@ -23,7 +23,7 @@ jobs:
         uses: DeterminateSystems/flake-checker-action@main
 
       - name: Show flake
-        run: nix flake show
+        run: nix flake show --extra-experimental-features pipe-operators
 
       - name: Check flake
-        run: nix flake check
+        run: nix flake check --extra-experimental-features pipe-operators
