@@ -205,6 +205,14 @@ in
       ]
     );
 
+  # temp hack
+  xdg.configFile."autostart/kde-theme-activate.desktop".text = ''
+    [Desktop Entry]
+    Exec=${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply stylix
+    Name=1password
+    Type=Application
+  '';
+
   # This value determines the home-manager release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
