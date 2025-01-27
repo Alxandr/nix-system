@@ -9,7 +9,7 @@ let
 in
 {
   options.services.hyprpolkitagent = {
-    enable = lib.mkEnableOption "Hypridle, Hyprland's idle daemon";
+    enable = lib.mkEnableOption "Hyprpolkitagent, Hyprland's polkit agent";
 
     package = lib.mkPackageOption pkgs "hyprpolkitagent" { };
   };

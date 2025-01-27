@@ -9,14 +9,6 @@
 with lib;
 
 let
-  inherit (pkgs)
-    uwsm
-    kitty
-    swaynotificationcenter
-    tofi
-    _1password-gui
-    ;
-
   isDesktop = osConfig.workloads.desktop.enable;
   enableHyprland = isDesktop && osConfig.workloads.desktop.environment.hyprland.enable;
 
@@ -25,6 +17,7 @@ in
 {
   imports = [
     ./hyprpolkitagent.nix
+    ./1password.nix
   ];
 
   config = mkIf enableHyprland {
@@ -36,12 +29,13 @@ in
 
       settings =
         let
-          app = cmd: "${uwsm}/bin/uwsm app -- ${cmd}";
+          app = cmd: "${pkgs.uwsm}/bin/uwsm app -- ${cmd}";
           mainMod = "SUPER";
 
-          terminal = app "${kitty}/bin/kitty";
-          swaync-client = app "${swaynotificationcenter}/bin/swaync-client";
-          tofi-drun = app "${tofi}/bin/tofi-drun";
+          terminal = app "${pkgs.kitty}/bin/kitty";
+          swaync-client = app "${pkgs.swaynotificationcenter}/bin/swaync-client";
+          tofi-drun = app "${pkgs.tofi}/bin/tofi-drun";
+          uwsm = "${pkgs.uwsm}/bin/uwsm";
         in
         {
           ################
@@ -190,7 +184,7 @@ in
             # See https://wiki.hyprland.org/Configuring/Binds/ for more
             "${mainMod}, RETURN, exec, ${terminal}"
             "${mainMod}, Q, killactive,"
-            "${mainMod}, M, exit," # TODO: replace with uwsm exit
+            "${mainMod}, M, exec, ${uwsm} stop"
             "${mainMod}, N, exec, ${swaync-client} -t"
             "${mainMod}, V, togglefloating,"
             "${mainMod}, F, fullscreen, 1"
@@ -280,6 +274,7 @@ in
     services.hypridle.enable = true;
     services.hyprpolkitagent.enable = true;
     services.network-manager-applet.enable = true;
+    autostart._1password-gui.enable = true;
 
     programs.tofi = {
       enable = true;
@@ -427,6 +422,9 @@ in
       };
     };
 
-    home.packages = [ pkgs.fira-code ];
+    xdg.configFile."uwsm/env-hyprland".text = ''
+      export XDG_CURRENT_DESKTOP="$XDG_CURRENT_DESKTOP:KDE"
+      export KDE_SESSION_VERSION="6"
+    '';
   };
 }

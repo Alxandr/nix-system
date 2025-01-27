@@ -33,6 +33,16 @@ in
       ];
     };
 
-    security.pam.services.kwallet.kwallet.enable = true;
+    security.pam.services.login.kwallet.enable = true;
+
+    environment.systemPackages = with pkgs; [
+      libsForQt5.kwalletmanager
+      libsForQt5.kwallet-pam
+      libsForQt5.kwallet
+
+      kdePackages.kwalletmanager
+      kdePackages.kwallet-pam
+      kdePackages.kwallet
+    ];
   };
 }

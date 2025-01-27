@@ -28,9 +28,9 @@ in
 
   programs.vscode = mkIf isDesktop {
     enable = true;
-    package = pkgs.vscode.override {
-      commandLineArgs = "--password-store=\"kwallet5\"";
-    };
+    # package = pkgs.vscode.override {
+    #   commandLineArgs = "--password-store=\"kwallet5\"";
+    # };
 
     mutableExtensionsDir = false;
     extensions = with pkgs.vscode-extensions; [
