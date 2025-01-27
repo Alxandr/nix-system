@@ -18,7 +18,10 @@
     workloads.gaming.enable = true;
 
     # Some packages
-    environment.systemPackages = with pkgs; [ unzip ];
+    environment.systemPackages = with pkgs; [
+      unzip
+      uwsm
+    ];
 
     # Setup auto-upgrade
     system.autoUpgrade = {
