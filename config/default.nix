@@ -73,6 +73,7 @@ in
                 powerprofiles
                 tray
                 wireplumber
+                pkgs.gtk-layer-shell
               ];
             })
           ];

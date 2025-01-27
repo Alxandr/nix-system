@@ -201,8 +201,6 @@ in
       ]
       ++ optionals isDesktop [
         gitbutler
-        kdePackages.kwallet
-        kdePackages.kwallet-pam
       ]
     );
 

@@ -17,5 +17,6 @@ ags.lib.bundle {
     powerprofiles
     tray
     wireplumber
+    pkgs.gtk-layer-shell
   ];
 }

@@ -2,6 +2,7 @@
   workloads-lib,
   lib,
   config,
+  pkgs,
   ...
 }:
 
@@ -31,5 +32,7 @@ in
         "wlr"
       ];
     };
+
+    security.pam.services.kwallet.kwallet.enable = true;
   };
 }

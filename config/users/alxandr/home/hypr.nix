@@ -23,6 +23,10 @@ let
 in
 
 {
+  imports = [
+    ./hyprpolkitagent.nix
+  ];
+
   config = mkIf enableHyprland {
     wayland.windowManager.hyprland = {
       enable = true;
@@ -274,6 +278,8 @@ in
 
     services.swaync.enable = true;
     services.hypridle.enable = true;
+    services.hyprpolkitagent.enable = true;
+    services.network-manager-applet.enable = true;
 
     programs.tofi = {
       enable = true;
