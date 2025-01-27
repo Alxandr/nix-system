@@ -68,8 +68,15 @@
       inputs.home-manager.follows = "home-manager-unstable";
     };
 
+    # Widgets (bar and similar)
     ags = {
       url = "github:aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    # Nix language server
+    nil = {
+      url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
@@ -100,6 +107,7 @@
       stylix-unstable,
       fira-code,
       ags,
+      nil,
       ...
     }:
     let
@@ -142,6 +150,7 @@
             systems
             fira-code
             ags
+            nil
             ;
 
           nixpkgs = nixpkgs;

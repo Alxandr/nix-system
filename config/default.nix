@@ -11,6 +11,7 @@ let
     systems
     fira-code
     ags
+    nil
     ;
   inherit (config.flake) diskoConfigurations;
   inherit (config.flake) nixosModules;
@@ -39,6 +40,7 @@ in
       rec {
         packages = {
           inherit (pkgs) cascadia-code;
+          inherit (inputs'.nil.packages) nil;
           ags = inputs'.ags.packages.ags // {
             full = inputs'.ags.packages.agsFull;
             inherit (inputs'.ags.packages)
@@ -87,7 +89,7 @@ in
         {
           config.nixpkgs.overlays = [
             (final: prev: {
-              inherit (config.flake.packages.${pkgs.system}) fira-code ags;
+              inherit (config.flake.packages.${pkgs.system}) fira-code ags nil;
             })
           ];
 
