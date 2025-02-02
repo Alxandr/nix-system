@@ -56,6 +56,13 @@ in
               ;
           };
           fira-code = pkgs.callPackage ./packages/fira-code/package.nix { src = fira-code; };
+          fira-code-nerdfont = pkgs.callPackage ./packages/fira-code-nerdfont/package.nix {
+            inherit (packages) fira-code;
+            # fira-code = pkgs.callPackage ./packages/fira-code/package.nix {
+            #   src = fira-code;
+            #   useVariableFont = false;
+            # };
+          };
           # alxandr-bar = pkgs.callPackage ./packages/bar/package.nix { inherit (packages) ags; };
         };
 
@@ -93,6 +100,7 @@ in
             (final: prev: {
               inherit (config.flake.packages.${pkgs.system})
                 fira-code
+                fira-code-nerdfont
                 ags
                 nil
                 hyprland-qt-support
@@ -103,6 +111,7 @@ in
           config.fonts.packages = [
             pkgs.cascadia-code
             pkgs.fira-code
+            pkgs.fira-code-nerdfont
           ];
         }
       )

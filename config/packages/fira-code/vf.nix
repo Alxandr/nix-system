@@ -9,8 +9,8 @@ let
 
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "fira-code";
-  version = "git";
+  pname = "fira-code-vf";
+  version = "git-${src.shortRev}";
   src = src;
 
   buildPhase = ''

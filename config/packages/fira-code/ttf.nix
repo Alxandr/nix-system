@@ -10,8 +10,8 @@ let
 
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "fira-code";
-  version = "git";
+  pname = "fira-code-ttf";
+  version = "git-${src.shortRev}";
   src = src;
 
   buildPhase = ''
