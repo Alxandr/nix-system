@@ -1,0 +1,177 @@
+{
+  pkgs,
+  lib,
+  osConfig,
+  ...
+}:
+
+with lib;
+
+let
+  isDesktop = osConfig.workloads.desktop.enable;
+  brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
+in
+
+{
+  config.programs.waybar = mkIf isDesktop {
+    enable = true;
+    systemd.enable = true;
+    style = mkForce ./style.css;
+    settings = {
+      main_bar = {
+        "layer" = "top";
+        "position" = "top";
+        "height" = 34;
+        "modules-left" = [ "hyprland/workspaces" ];
+        "modules-center" = [ "hyprland/window" ];
+        "modules-right" = [
+          "tray"
+          "backlight"
+          # "custom/storage"
+          "cpu"
+          "memory"
+          "temperature"
+          "pulseaudio"
+          # "network"
+          "battery"
+          "clock"
+        ];
+        "hyprland/window" = {
+          "max-length" = 80;
+          "tooltip" = false;
+        };
+        "clock" = {
+          "format" = "{:%d.%m.%Y · %H:%M}";
+          "tooltip" = false;
+        };
+        "cpu" = {
+          "interval" = 10;
+          "format" = "{}% ";
+          # "max-length" = 10;
+        };
+        "memory" = {
+          "interval" = 30;
+          "format" = "{percentage}% ";
+          # "max-length" = 10;
+          # "tooltip" = false;
+        };
+        "battery" = {
+          "bat" = "BAT0";
+          "format" = "{capacity}% {icon}";
+          "format-alt" = "{time} {icon}";
+          "format-icons" = [
+            "󰁺"
+            "󰁻"
+            "󰁼"
+            "󰁽"
+            "󰁾"
+            "󰁿"
+            "󰂀"
+            "󰂁"
+            "󰂂"
+          ];
+          "format-charging" = "{capacity}% 󰂄";
+          "interval" = 30;
+          "states" = {
+            "warning" = 25;
+            "critical" = 10;
+          };
+          "tooltip" = true;
+        };
+        "temperature" = {
+          "hwmon-path" = "/sys/class/hwmon/hwmon5/temp1_input";
+          "critical-threshold" = 80;
+          "format-critical" = "{temperatureC}° ";
+          "format" = "{temperatureC}° ";
+        };
+        # "network" = {
+        #   "format" = "{icon}";
+        #   "format-alt" = "{ipaddr}/{cidr} {icon}";
+        #   "format-alt-click" = "click-right";
+        #   "format-icons" = {
+        #     "wifi" = [
+        #       "睊"
+        #       "直"
+        #       ""
+        #     ];
+        #     "ethernet" = [ "" ];
+        #     "disconnected" = [ "" ];
+        #   };
+        #   "on-click" = "alacritty -e nmtui";
+        #   "tooltip" = false;
+        # };
+        "pulseaudio" = {
+          "format" = "{volume}% {icon}";
+          "format-bluetooth" = "{volume}% {icon}";
+          "format-muted" = "";
+          "format-icons" = {
+            "headphone" = "";
+            # "hands-free" = "";
+            # "headset" = "";
+            "phone" = "";
+            "portable" = "";
+            "default" = "";
+          };
+          "scroll-step" = 1;
+          "on-click" = "pavucontrol";
+          "tooltip" = false;
+        };
+        # "custom/spotify" = {
+        #   "interval" = 1;
+        #   "return-type" = "json";
+        #   "exec" = "~/.config/waybar/modules/spotify.sh";
+        #   "exec-if" = "pgrep spotify";
+        #   "escape" = true;
+        # };
+        # "custom/storage" = {
+        #   "format" = "{} ";
+        #   "format-alt" = "{percentage}% ";
+        #   "format-alt-click" = "click-right";
+        #   "return-type" = "json";
+        #   "interval" = 60;
+        #   "exec" = "~/.config/waybar/modules/storage.sh";
+        # };
+        "backlight" = {
+          "device" = "intel_backlight";
+          "format" = "{percent}% {icon}";
+          "format-alt" = "{percent}% {icon}";
+          "format-alt-click" = "click-right";
+          "format-icons" = [
+            "󱩎"
+            "󱩏"
+            "󱩐"
+            "󱩑"
+            "󱩒"
+            "󱩓"
+            "󱩔"
+            "󱩕"
+            "󱩖"
+            "󰛨"
+          ];
+          "on-scroll-down" = "${brightnessctl} s -- +1%";
+          "on-scroll-up" = "${brightnessctl} s -- -1%";
+        };
+        # "custom/weather" = {
+        #   "format" = "{}";
+        #   "format-alt" = "{alt}: {}";
+        #   "format-alt-click" = "click-right";
+        #   "interval" = 1800;
+        #   "return-type" = "json";
+        #   "exec" = "~/.config/waybar/modules/weather.sh";
+        #   "exec-if" = "ping wttr.in -c1";
+        # };
+        # "idle_inhibitor" = {
+        #   "format" = "{icon}";
+        #   "format-icons" = {
+        #     "activated" = "";
+        #     "deactivated" = "";
+        #   };
+        #   "tooltip" = false;
+        # };
+        "tray" = {
+          "icon-size" = 18;
+        };
+      };
+    };
+  };
+}

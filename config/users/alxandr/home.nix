@@ -17,6 +17,7 @@ in
   imports = [
     ./home/shell.nix
     ./home/hypr.nix
+    ./home/waybar
   ];
 
   programs.home-manager.enable = true;
@@ -83,6 +84,7 @@ in
             "typescript"
             "typescriptreact"
             "scss"
+            "css"
           ]
         )
       ]
