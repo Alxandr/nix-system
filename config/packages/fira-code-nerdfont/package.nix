@@ -31,6 +31,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         --variable-width-glyphs \
         --quiet \
         $font
+
+      ${nerd-font-patcher}/bin/nerd-font-patcher \
+        -out out \
+        --no-progressbars \
+        --complete \
+        --quiet \
+        $font
     done
 
     runHook postBuild

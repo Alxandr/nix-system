@@ -9,9 +9,9 @@
 with lib;
 
 let
+  inherit (pkgs) hyprlock hyprland;
   isDesktop = osConfig.workloads.desktop.enable;
   enableHyprland = isDesktop && osConfig.workloads.desktop.environment.hyprland.enable;
-
 in
 
 {
@@ -271,10 +271,50 @@ in
     };
 
     services.swaync.enable = true;
-    services.hypridle.enable = true;
     services.hyprpolkitagent.enable = true;
     services.network-manager-applet.enable = true;
     autostart._1password-gui.enable = true;
+
+    services.hypridle = {
+      enable = true;
+      settings = {
+        general = {
+          after_sleep_cmd = "${hyprland}/bin/hyprctl dispatch dpms on";
+          ignore_dbus_inhibit = false;
+          lock_cmd = "${hyprlock}/bin/hyprlock";
+        };
+
+        listener = [
+          {
+            timeout = 900;
+            on-timeout = "${hyprlock}/bin/hyprlock";
+          }
+          {
+            timeout = 1200;
+            on-timeout = "${hyprland}/bin/hyprctl dispatch dpms off";
+            on-resume = "${hyprland}/bin/hyprctl dispatch dpms on";
+          }
+        ];
+      };
+    };
+
+    programs.hyprlock = {
+      enable = true;
+      settings = {
+        general = {
+          disable_loading_bar = true;
+          ignore_empty_input = true;
+          grace = 300;
+          hide_cursor = true;
+          no_fade_in = false;
+        };
+
+        background = {
+          blur_passes = 2;
+          blur_size = 8;
+        };
+      };
+    };
 
     programs.tofi = {
       enable = true;
