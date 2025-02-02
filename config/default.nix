@@ -10,6 +10,7 @@ let
     users
     systems
     fira-code
+    ragenix
     ;
   inherit (config.flake) diskoConfigurations;
   inherit (config.flake) nixosModules;
@@ -42,6 +43,7 @@ in
           inherit (inputs'.hyprland-qt-support.packages) hyprland-qt-support;
           ags = inputs'.ags.packages.ags // {
             full = inputs'.ags.packages.agsFull;
+            inherit (inputs.ags) lib;
             inherit (inputs'.ags.packages)
               hyprland
               battery
@@ -54,6 +56,7 @@ in
               ;
           };
           fira-code = pkgs.callPackage ./packages/fira-code/package.nix { src = fira-code; };
+          # alxandr-bar = pkgs.callPackage ./packages/bar/package.nix { inherit (packages) ags; };
         };
 
         apps = {
@@ -72,7 +75,6 @@ in
                 powerprofiles
                 tray
                 wireplumber
-                pkgs.gtk-layer-shell
               ];
             })
           ];
@@ -106,6 +108,7 @@ in
       )
       ./theme
       nixosModules.keyboard
+      ragenix.nixosModules.default
     ];
 
     systemConfigurations.systems.tv = {

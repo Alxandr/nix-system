@@ -2,8 +2,7 @@
 ags.lib.bundle {
   inherit pkgs;
   src = ./src;
-  pname = "bar";
-  version = "git";
+  name = "shell";
   entry = "app.ts";
   gtk4 = true;
 
@@ -17,6 +16,5 @@ ags.lib.bundle {
     powerprofiles
     tray
     wireplumber
-    pkgs.gtk-layer-shell
   ];
 }
