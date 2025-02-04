@@ -10,12 +10,13 @@ with lib;
 
 let
   isDesktop = osConfig.workloads.desktop.enable;
+  enableHyprland = isDesktop && osConfig.workloads.desktop.environment.hyprland.enable;
   brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
 in
 
 {
   config.stylix.targets.waybar.enable = false;
-  config.programs.waybar = mkIf isDesktop {
+  config.programs.waybar = mkIf enableHyprland {
     enable = true;
     systemd.enable = true;
     style = ''
