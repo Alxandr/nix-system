@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   osConfig,
   ...
 }:
@@ -15,9 +16,12 @@ in
 
 {
   imports = [
+    ./home/colors.nix
     ./home/shell.nix
     ./home/hypr.nix
     ./home/waybar
+    ./home/wofi
+    ./home/swaync
   ];
 
   programs.home-manager.enable = true;

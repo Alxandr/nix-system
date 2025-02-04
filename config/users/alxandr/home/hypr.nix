@@ -9,7 +9,7 @@
 with lib;
 
 let
-  inherit (pkgs) hyprlock hyprland;
+  inherit (pkgs) hyprlock hyprland systemd;
   isDesktop = osConfig.workloads.desktop.enable;
   enableHyprland = isDesktop && osConfig.workloads.desktop.environment.hyprland.enable;
 in
@@ -282,6 +282,7 @@ in
           after_sleep_cmd = "${hyprland}/bin/hyprctl dispatch dpms on";
           ignore_dbus_inhibit = false;
           lock_cmd = "${hyprlock}/bin/hyprlock";
+          before_sleep_cmd = "${systemd}/bin/loginctl lock-session";
         };
 
         listener = [
@@ -343,7 +344,7 @@ in
         ### Colors
         #
         # Window background
-        background-color = mkDefault "#000A";
+        background-color = mkDefault "#0005";
 
         # Border outlines
         outline-color = mkDefault "#080800";

@@ -1,38 +1,3 @@
-/* =============================================================================
- *
- * Waybar configuration
- *
- * Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
- *
- * =========================================================================== */
-
-/* -----------------------------------------------------------------------------
- * Keyframes
- * -------------------------------------------------------------------------- */
-
-/*
-Polar Night
-nord0  #2e3440
-nord1  #3b4252
-nord2  #434c5e
-nord3  #4c566a
-Snow Storm
-nord4  #d8dee9
-nord5  #e5e9f0
-nord6  #eceff4
-Frost
-nord7  #8fbcbb
-nord8  #88c0d0
-nord9  #81a1c1
-nord10 #5e81ac
-Aurora
-nord11 #bf616a
-nord12 #d08770
-nord13 #ebcb8b
-nord14 #a3be8c
-nord15 #b48ead
-*/
-
 /* -----------------------------------------------------------------------------
  * Base styles
  * -------------------------------------------------------------------------- */
@@ -40,93 +5,140 @@ nord15 #b48ead
 /* Reset all styles */
 
 * {
-	color: #eceff4;
-	border: 0;
-	border-radius: 0;
-	padding: 0 0;
-	font-family: "FiraCode Nerd Font Propo, FiraCode Nerd Font, Fira Code";
+	font-family: "FiraCode Nerd Font Propo", "FiraCode Nerd Font", "Fira Code",
+		monospace;
 	font-size: 15px;
-	margin-right: 5px;
-	margin-left: 5px;
-	padding-bottom: 3px;
 }
 
 window#waybar {
-	background: rgba (0, 0, 0, 0.55);
+	all: unset;
+}
+
+.modules-left {
+	padding: 7px;
+	margin: 5px;
+	border-radius: 10px;
+	background: alpha(@background, 0.5);
+	box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+}
+
+.modules-center {
+	padding: 7px;
+	margin: 5px;
+	border-radius: 10px;
+	background: alpha(@background, 0.5);
+	box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+}
+
+.modules-right {
+	padding: 7px;
+	margin: 5px;
+	border-radius: 10px;
+	background: alpha(@background, 0.5);
+	box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+}
+
+tooltip {
+	background: @background;
+	color: @color7;
+}
+
+#clock:hover,
+#custom-pacman:hover,
+#custom-notification:hover,
+#bluetooth:hover,
+#network:hover,
+#battery:hover,
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#backlight:hover,
+#pulseaudio:hover {
+	transition: all 0.3s ease;
+	color: @color9;
+}
+
+#custom-notification {
+	padding: 0px 5px;
+	transition: all 0.3s ease;
+	color: @color7;
+}
+
+#clock {
+	padding: 0px 5px;
+	color: @color7;
+	transition: all 0.3s ease;
+}
+
+#custom-pacman {
+	padding: 0px 5px;
+	transition: all 0.3s ease;
+	color: @color7;
+}
+
+#workspaces {
+	padding: 0px 5px;
 }
 
 #workspaces button {
-	padding: 2px 0px;
-	border-bottom: 2px;
-	color: #eceff4;
-	border-color: #d8dee9;
-	border-style: solid;
-	margin-top: 2px;
+	all: unset;
+	padding: 0px 5px;
+	color: alpha(@color9, 0.4);
+	transition: all 0.2s ease;
 }
 
-#workspaces button.focused {
-	border-color: #81a1c1;
+#workspaces button:hover {
+	color: rgba(0, 0, 0, 0);
+	border: none;
+	text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 0.5);
+	transition: all 1s ease;
 }
 
-#mode {
-	color: #ebcb8b;
+#workspaces button.active {
+	color: @color9;
+	border: none;
+	text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
 }
 
-#clock,
-#battery,
-#upower,
-#cpu,
-#memory,
-#idle_inhibitor,
-#temperature,
-#custom-keyboard-layout,
-#backlight,
+#workspaces button.empty {
+	color: rgba(0, 0, 0, 0);
+	border: none;
+	text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 0.2);
+}
+
+#workspaces button.empty:hover {
+	color: rgba(0, 0, 0, 0);
+	border: none;
+	text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 0.5);
+	transition: all 1s ease;
+}
+
+#workspaces button.empty.active {
+	color: @color9;
+	border: none;
+	text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+}
+
+#bluetooth,
 #network,
-#pulseaudio,
-#mode,
-#tray,
-#window,
-#custom-launcher,
-#custom-power,
-#custom-pacman {
-	padding: 0 3px;
-	border-bottom: 2px;
-	border-style: solid;
-}
-
-/* -----------------------------------------------------------------------------
-* Module styles
-* -------------------------------------------------------------------------- */
-
-#clock {
-	color: #a3be8c;
-}
-
-#backlight {
-	color: #ebcb8b;
-}
-
 #battery,
-#upower {
-	color: #d8dee9;
+#backlight,
+#pulseaudio {
+	padding: 0px 5px;
+	transition: all 0.3s ease;
+	color: @color7;
 }
 
-#battery.charging,
-#upower.charging {
-	color: #81a1c1;
+#battery.charging {
+	color: #26a65b;
 }
 
-@keyframes blink {
-	to {
-		color: #4c566a;
-		background-color: #eceff4;
-	}
+#battery.warning:not(.charging) {
+	color: #ffbe61;
 }
 
-#battery.critical:not(.charging),
-#upower.critical:not(.charging) {
-	background: #bf616a;
-	color: #eceff4;
+#battery.critical:not(.charging) {
+	color: #f53c3c;
 	animation-name: blink;
 	animation-duration: 0.5s;
 	animation-timing-function: linear;
@@ -134,63 +146,51 @@ window#waybar {
 	animation-direction: alternate;
 }
 
-#cpu {
-	color: #a3be8c;
+#group-expand {
+	padding: 0px 5px;
+	transition: all 0.3s ease;
 }
 
-#memory {
-	color: #d3869b;
+#custom-expand {
+	padding: 0px 5px;
+	color: alpha(@foreground, 0.2);
+	text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7);
+	transition: all 0.3s ease;
 }
 
-#network.disabled {
-	color: #bf616a;
+#custom-expand:hover {
+	color: rgba(255, 255, 255, 0.2);
+	text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5);
 }
 
-#network {
-	color: #a3be8c;
+#custom-colorpicker {
+	padding: 0px 5px;
 }
 
-#network.disconnected {
-	color: #bf616a;
-}
-
-#pulseaudio {
-	color: #b48ead;
-}
-
-#pulseaudio.muted {
-	color: #3b4252;
-}
-
+#cpu,
+#memory,
 #temperature {
-	color: #8fbcbb;
+	padding: 0px 5px;
+	transition: all 0.3s ease;
+	color: @color7;
 }
 
-#temperature.critical {
-	color: #bf616a;
-}
-
-#idle_inhibitor {
-	color: #ebcb8b;
+#custom-endpoint {
+	color: transparent;
+	text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 1);
 }
 
 #tray {
+	padding: 0px 5px;
+	transition: all 0.3s ease;
 }
 
-#custom-launcher,
-#custom-power {
-	border-style: hidden;
-	margin-top: 2px;
+#tray menu * {
+	padding: 0px 5px;
+	transition: all 0.3s ease;
 }
 
-#window {
-	border-style: hidden;
-	margin-top: 1px;
-}
-#mode {
-	margin-bottom: 3px;
-}
-
-#custom-keyboard-layout {
-	color: #d08770;
+#tray menu separator {
+	padding: 0px 5px;
+	transition: all 0.3s ease;
 }
