@@ -19,6 +19,11 @@ in
       name = "Fira Code";
       package = pkgs.fira-code;
     };
+
+    cursor = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+    };
   };
 
   config.environment.systemPackages = [
