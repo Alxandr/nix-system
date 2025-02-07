@@ -292,6 +292,10 @@ in
             "nomaxsize, class:^steam_app_.*, xwayland:1"
             # Fix some dragging issues with XWayland
             "nofocus, class:^$, title:^$, xwayland:1, floating:1, fullscreen:0, pinned:0"
+
+            # Make the 1Password quick access retain focus
+            "stayfocused, class:^1Password$, title:^Quick Access — 1Password$"
+            "center, class:^1Password$, title:^Quick Access — 1Password$"
           ];
 
           #############

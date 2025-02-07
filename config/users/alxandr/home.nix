@@ -209,7 +209,7 @@ in
         nh
       ]
       ++ optionals isDesktop [
-        gitbutler
+        # gitbutler
       ]
     );
 
