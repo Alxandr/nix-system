@@ -40,7 +40,6 @@ in
         packages = {
           inherit (pkgs) cascadia-code;
           inherit (inputs'.nil.packages) nil;
-          inherit (inputs'.hyprland-qt-support.packages) hyprland-qt-support;
           ags = inputs'.ags.packages.ags // {
             full = inputs'.ags.packages.agsFull;
             inherit (inputs.ags) lib;
@@ -103,7 +102,6 @@ in
                 fira-code-nerdfont
                 ags
                 nil
-                hyprland-qt-support
                 ;
             })
           ];

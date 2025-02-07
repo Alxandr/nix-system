@@ -82,12 +82,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    # Hyprland QT support lib
-    hyprland-qt-support = {
-      url = "github:hyprwm/hyprland-qt-support";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
     # Encrypted files
     ragenix = {
       url = "github:yaxitech/ragenix";
@@ -123,7 +117,6 @@
       ags,
       nil,
       ragenix,
-      hyprland-qt-support,
       ...
     }:
     let
@@ -168,7 +161,6 @@
             ags
             nil
             ragenix
-            hyprland-qt-support
             ;
 
           nixpkgs = nixpkgs;
