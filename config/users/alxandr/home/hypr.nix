@@ -12,6 +12,14 @@ let
   inherit (pkgs) hyprlock hyprland systemd;
   isDesktop = osConfig.workloads.desktop.enable;
   enableHyprland = isDesktop && osConfig.workloads.desktop.environment.hyprland.enable;
+
+  kwallet-pam-init = pkgs.writeShellApplication {
+    name = "kwallet-pam-init";
+    text = ''
+      ${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init
+      ${pkgs.libsForQt5.kwallet-pam}/libexec/pam_kwallet_init
+    '';
+  };
 in
 
 {
@@ -21,6 +29,24 @@ in
   ];
 
   config = mkIf enableHyprland {
+    # systemd.user.targets.hyprland.Unit = {
+    #   Description = "Hyprland Wayland Compositor";
+    #   BindsTo = [ "wayland-session@Hyprland.target" ];
+    # };
+    systemd.user.targets.tray.Unit.After = [ "wayland-session@Hyprland.target" ];
+    systemd.user.services.kwallet-pam-init = {
+      Service = {
+        ExecStart = "${kwallet-pam-init}/bin/kwallet-pam-init";
+      };
+      Install = {
+        WantedBy = [ "wayland-session@Hyprland.target" ];
+      };
+      Unit = {
+        After = [ "wayland-session@Hyprland.target" ];
+        PartOf = [ "wayland-session@Hyprland.target" ];
+      };
+    };
+
     wayland.windowManager.hyprland = {
       enable = true;
 
@@ -35,6 +61,7 @@ in
           terminal = app "${pkgs.kitty}/bin/kitty";
           swaync-client = app "${pkgs.swaynotificationcenter}/bin/swaync-client";
           tofi-drun = app "${pkgs.tofi}/bin/tofi-drun";
+          _1password = app "${pkgs._1password-gui}/bin/1password";
           uwsm = "${pkgs.uwsm}/bin/uwsm";
         in
         {
@@ -137,7 +164,7 @@ in
           #############
           # https://wiki.hyprland.org/Configuring/Variables/#input
           input = {
-            kb_layout = "us";
+            kb_layout = "eurkey";
             kb_variant = "";
             kb_model = "";
             kb_options = "";
@@ -229,6 +256,9 @@ in
 
             # move workspace to next monitor
             "${mainMod} SHIFT, W, movecurrentworkspacetomonitor,+1"
+
+            # 1password quick access
+            "CTRL SHIFT, space, exec, ${_1password} --quick-access"
           ];
 
           # Special key binds (media keys)
@@ -256,6 +286,10 @@ in
           ### WINDOWS AND WORKSPACES ###
           ##############################
           windowrulev2 = [
+            # Make XWayland steam games fullscreen
+            "fullscreen, class:^steam_app_.*, xwayland:1"
+            # "content game, class:^steam_app_.*, xwayland:1"
+            "nomaxsize, class:^steam_app_.*, xwayland:1"
             # Fix some dragging issues with XWayland
             "nofocus, class:^$, title:^$, xwayland:1, floating:1, fullscreen:0, pinned:0"
           ];

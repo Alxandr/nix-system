@@ -26,5 +26,10 @@
     enable = lib.mkDefault true;
   };
 
+  hardware.amdgpu.amdvlk = {
+    enable = lib.mkDefault true;
+    support32Bit.enable = lib.mkDefault true;
+  };
+
   hardware.bluetooth.enable = lib.mkDefault true;
 }

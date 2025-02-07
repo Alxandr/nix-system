@@ -19,6 +19,7 @@ in
   config.programs.waybar = mkIf enableHyprland {
     enable = true;
     systemd.enable = true;
+    systemd.target = "tray.target";
     style = ''
       @import "${config.lib.alxandr.colors.path}";
 

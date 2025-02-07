@@ -72,7 +72,9 @@ in
             };
 
             gamescopeSession = {
-              enable = mkEnableOption "GameScope Session";
+              enable = mkEnableOption "GameScope Session" // {
+                default = true;
+              };
               args = mkOption {
                 type = types.listOf types.str;
                 default = [ ];

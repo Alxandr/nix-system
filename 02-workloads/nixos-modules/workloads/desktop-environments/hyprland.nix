@@ -10,6 +10,7 @@ with lib;
 
 let
   inherit (workloads-lib) mkDesktopEnvironmentOption;
+  inherit (pkgs) kdePackages;
 
   cfg = config.workloads.desktop.environment.hyprland;
 in
@@ -33,7 +34,19 @@ in
       ];
     };
 
-    security.pam.services.login.kwallet.enable = true;
+    security.pam.services = {
+      login.kwallet = {
+        enable = true;
+        # package = kdePackages.kwallet-pam;
+      };
+      kde = {
+        allowNullPassword = true;
+        kwallet = {
+          enable = true;
+          # package = kdePackages.kwallet-pam;
+        };
+      };
+    };
 
     environment.systemPackages = with pkgs; [
       libsForQt5.kwalletmanager
