@@ -103,6 +103,11 @@ in
                 ags
                 nil
                 ;
+
+              # https://github.com/NixOS/nixpkgs/issues/380196
+              lldb = prev.lldb.overrideAttrs {
+                dontCheckForBrokenSymlinks = true;
+              };
             })
           ];
 
