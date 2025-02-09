@@ -104,9 +104,26 @@ in
                 nil
                 ;
 
-              # https://github.com/NixOS/nixpkgs/issues/380196
-              lldb = prev.lldb.overrideAttrs {
+              # # https://github.com/NixOS/nixpkgs/issues/380196
+              lldb_14 = prev.lldb_14.overrideAttrs (old: {
+                version = "${old.version}-symfix";
                 dontCheckForBrokenSymlinks = true;
+              });
+              lldb = prev.lldb.overrideAttrs (old: {
+                version = "${old.version}-symfix";
+                dontCheckForBrokenSymlinks = true;
+              });
+              llvmPackages = prev.llvmPackages // {
+                lldb = prev.llvmPackages.lldb.overrideAttrs (old: {
+                  version = "${old.version}-symfix";
+                  dontCheckForBrokenSymlinks = true;
+                });
+              };
+              llvmPackages_14 = prev.llvmPackages_14 // {
+                lldb = prev.llvmPackages_14.lldb.overrideAttrs (old: {
+                  version = "${old.version}-symfix";
+                  dontCheckForBrokenSymlinks = true;
+                });
               };
             })
           ];
