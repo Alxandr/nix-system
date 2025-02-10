@@ -50,6 +50,7 @@ in
       mkhl.direnv
       pkief.material-icon-theme
       rust-lang.rust-analyzer
+      skellock.just
       tamasfe.even-better-toml
       vadimcn.vscode-lldb
     ];
