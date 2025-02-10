@@ -216,12 +216,21 @@ in
     );
 
   # temp hack
-  xdg.configFile."autostart/kde-theme-activate.desktop".text = ''
-    [Desktop Entry]
-    Exec=${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply stylix
-    Name=1password
-    Type=Application
-  '';
+  xdg.configFile."autostart/kde-theme-activate.desktop".text =
+    let
+      apply = pkgs.writeShellApplication {
+        name = "apply-kde-lookandfeel";
+        text = ''
+          ${pkgs.xvfb-run}/bin/xvfb-run ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply stylix
+        '';
+      };
+    in
+    ''
+      [Desktop Entry]
+      Exec=${apply}/bin/apply-kde-lookandfeel
+      Name=apply-kde-lookandfeel
+      Type=Application
+    '';
 
   # This value determines the home-manager release from which the default
   # settings for stateful data, like file locations and database versions
