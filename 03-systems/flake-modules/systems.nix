@@ -30,6 +30,14 @@ let
       default = cfg.defaults.unstable;
     };
 
+    options.isoImage.enable = mkOption {
+      type = types.bool;
+      default = cfg.defaults.isoImage.enable;
+      description = ''
+        Enable ISO image generation.
+      '';
+    };
+
     options.extraSpecialArgs = mkOption {
       type = types.attrs;
       default = { };
@@ -107,6 +115,14 @@ in
         '';
       };
 
+      defaults.isoImage.enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          Enable ISO image generation.
+        '';
+      };
+
       systems = mkOption {
         type = types.lazyAttrsOf systemType;
         default = { };
@@ -135,27 +151,64 @@ in
     m.nixpkgs.lib.nixosSystem {
       system = systemConfiguration.system;
       specialArgs = config.systemConfigurations.extraSpecialArgs // systemConfiguration.extraSpecialArgs;
-      modules = [
-        # common modules
-        m.home-manager.nixosModules.home-manager
-        m.stylix.nixosModules.stylix
-        disko.nixosModules.disko
-        users.nixosModules.user-manager
-        workloads.nixosModules.workloads
-        workloads.nixosModules.defaults
-        (importApply ./modules/flake-meta.nix {
-          inherit name;
-          inherit (config.flake) path;
-        })
-        (importApply ./modules/users.nix {
-          inherit (systemConfiguration) users;
-        })
+      modules =
+        [
+          # common modules
+          m.home-manager.nixosModules.home-manager
+          m.stylix.nixosModules.stylix
+          disko.nixosModules.disko
+          users.nixosModules.user-manager
+          workloads.nixosModules.workloads
+          workloads.nixosModules.defaults
+          (importApply ./modules/flake-meta.nix {
+            inherit name;
+            inherit (config.flake) path;
+          })
+          (importApply ./modules/users.nix {
+            inherit (systemConfiguration) users;
+          })
 
-        # per-system modules
-        systemConfiguration.hardware
-        systemConfiguration.drives
-        systemConfiguration.configuration
-      ] ++ config.systemConfigurations.sharedModules;
+          # per-system modules
+          systemConfiguration.hardware
+          systemConfiguration.drives
+          systemConfiguration.configuration
+        ]
+        ++ lib.optional systemConfiguration.isoImage.enable (importApply ./modules/iso-image.nix { })
+        ++ config.systemConfigurations.sharedModules;
     }
   );
+
+  config.flake.packages =
+    let
+      images = flip mapAttrs config.systemConfigurations.systems (
+        name: systemConfiguration:
+        let
+          inherit (systemConfiguration) system;
+          isoPkg = config.flake.nixosConfigurations.${name}.config.system.build.isoImage;
+          isoPath = "${isoPkg}/iso/${isoPkg.isoName}";
+        in
+        {
+          inherit system name;
+          package =
+            config.flake.nixosConfigurations.${name}.pkgs.runCommand "iso-${name}"
+              {
+                iso = isoPath;
+              }
+              ''
+                mkdir $out
+                ln -s $iso $out/${name}.iso
+              '';
+        }
+      );
+
+    in
+    lib.attrsets.foldlAttrs (
+      acc: name: value:
+      acc
+      // {
+        ${value.system} = (acc.${value.system} or { }) // {
+          "iso-${value.name}" = value.package;
+        };
+      }
+    ) { } images;
 }
