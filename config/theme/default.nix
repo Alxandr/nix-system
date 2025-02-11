@@ -33,14 +33,14 @@ in
         background=${wallpaper}
         type=image
       '')
-      # https://github.com/danth/stylix/issues/835
-      pkgs.kdePackages.breeze
+      # # https://github.com/danth/stylix/issues/835
+      # pkgs.kdePackages.breeze
     ];
 
-    # https://github.com/danth/stylix/issues/835
-    qt = {
-      style = lib.mkForce "breeze";
-    };
+    # # https://github.com/danth/stylix/issues/835
+    # qt = {
+    #   style = lib.mkForce "breeze";
+    # };
 
     home-manager.sharedModules = [
       (
@@ -53,23 +53,23 @@ in
             gtk.gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
             stylix.targets.hyprland.enable = false;
 
-            # https://github.com/danth/stylix/issues/835
-            qt = {
-              enable = true;
-              platformTheme.package = with pkgs.kdePackages; [
-                plasma-integration
-                # I don't remember why I put this is here, maybe it fixes the theme of the system setttings
-                systemsettings
-                breeze
-              ];
-              style = {
-                package = pkgs.kdePackages.breeze;
-                name = lib.mkForce "breeze";
-              };
-            };
-            systemd.user.sessionVariables = {
-              QT_QPA_PLATFORMTHEME = lib.mkForce "kde";
-            };
+            # # https://github.com/danth/stylix/issues/835
+            # qt = {
+            #   enable = true;
+            #   platformTheme.package = with pkgs.kdePackages; [
+            #     plasma-integration
+            #     # I don't remember why I put this is here, maybe it fixes the theme of the system setttings
+            #     systemsettings
+            #     breeze
+            #   ];
+            #   style = {
+            #     package = pkgs.kdePackages.breeze;
+            #     name = lib.mkForce "breeze";
+            #   };
+            # };
+            # systemd.user.sessionVariables = {
+            #   QT_QPA_PLATFORMTHEME = lib.mkForce "kde";
+            # };
           };
         }
       )
