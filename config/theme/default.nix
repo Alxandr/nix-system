@@ -33,8 +33,11 @@ in
         background=${wallpaper}
         type=image
       '')
+      # https://github.com/danth/stylix/issues/835
+      pkgs.kdePackages.breeze
     ];
 
+    # https://github.com/danth/stylix/issues/835
     qt = {
       style = lib.mkForce "breeze";
     };
