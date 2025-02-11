@@ -178,37 +178,37 @@ in
     }
   );
 
-  config.flake.packages =
-    let
-      images = flip mapAttrs config.systemConfigurations.systems (
-        name: systemConfiguration:
-        let
-          inherit (systemConfiguration) system;
-          isoPkg = config.flake.nixosConfigurations.${name}.config.system.build.isoImage;
-          isoPath = "${isoPkg}/iso/${isoPkg.isoName}";
-        in
-        {
-          inherit system name;
-          package =
-            config.flake.nixosConfigurations.${name}.pkgs.runCommand "iso-${name}"
-              {
-                iso = isoPath;
-              }
-              ''
-                mkdir $out
-                ln -s $iso $out/${name}.iso
-              '';
-        }
-      );
+  # config.flake.packages =
+  #   let
+  #     images = flip mapAttrs config.systemConfigurations.systems (
+  #       name: systemConfiguration:
+  #       let
+  #         inherit (systemConfiguration) system;
+  #         isoPkg = config.flake.nixosConfigurations.${name}.config.system.build.isoImage;
+  #         isoPath = "${isoPkg}/iso/${isoPkg.isoName}";
+  #       in
+  #       {
+  #         inherit system name;
+  #         package =
+  #           config.flake.nixosConfigurations.${name}.pkgs.runCommand "iso-${name}"
+  #             {
+  #               iso = isoPath;
+  #             }
+  #             ''
+  #               mkdir $out
+  #               ln -s $iso $out/${name}.iso
+  #             '';
+  #       }
+  #     );
 
-    in
-    lib.attrsets.foldlAttrs (
-      acc: name: value:
-      acc
-      // {
-        ${value.system} = (acc.${value.system} or { }) // {
-          "iso-${value.name}" = value.package;
-        };
-      }
-    ) { } images;
+  #   in
+  #   lib.attrsets.foldlAttrs (
+  #     acc: name: value:
+  #     acc
+  #     // {
+  #       ${value.system} = (acc.${value.system} or { }) // {
+  #         "iso-${value.name}" = value.package;
+  #       };
+  #     }
+  #   ) { } images;
 }

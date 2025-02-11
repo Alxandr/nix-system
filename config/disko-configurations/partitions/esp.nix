@@ -2,7 +2,7 @@
 {
   label = "EFI";
   name = "ESP";
-  size = "512M";
+  size = "5G";
   type = "EF00";
   content = {
     type = "filesystem";
