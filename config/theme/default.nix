@@ -41,8 +41,27 @@ in
         # Something overwrites the default gtk2 config location, which causes home-manager
         # to fail activation. This forces the file location elsewhere such that there is no
         # conflict.
-        config.gtk.gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-        config.stylix.targets.hyprland.enable = false;
+        config = {
+          gtk.gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+          stylix.targets.hyprland.enable = false;
+
+          # https://github.com/danth/stylix/issues/835
+          qt = {
+            enable = true;
+            platformTheme.package = with pkgs.kdePackages; [
+              plasma-integration
+              # I don't remember why I put this is here, maybe it fixes the theme of the system setttings
+              systemsettings
+            ];
+            style = {
+              package = pkgs.kdePackages.breeze;
+              name = lib.mkForce "Breeze";
+            };
+          };
+          systemd.user.sessionVariables = {
+            QT_QPA_PLATFORMTHEME = lib.mkForce "kde";
+          };
+        };
       }
     )
   ];

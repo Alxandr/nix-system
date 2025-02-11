@@ -28,7 +28,10 @@ in
 
     programs.dconf.enable = true;
 
-    environment.systemPackages = with pkgs; [ kwallet-pam ];
+    environment.systemPackages = with pkgs; [
+      kwallet-pam
+      kdePackages.qtstyleplugin-kvantum
+    ];
 
     workloads.wayland.xdg.portal.extraPortals.kde.enable = true;
     workloads.wayland.xdg.portal.config.kde = {
