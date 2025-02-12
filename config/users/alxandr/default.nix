@@ -7,6 +7,7 @@
   user.extraGroups = [
     "wheel"
     "networkmanager"
+    "keys"
   ];
 
   home = ./home.nix;

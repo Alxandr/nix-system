@@ -118,19 +118,30 @@ in
             pkgs.fira-code
             pkgs.fira-code-nerdfont
           ];
-
-          config.sops = {
-            defaultSopsFile = ../secrets/secrets.yaml;
-            age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-            secrets = {
-              "nix/access-tokens/github.com" = { };
-            };
-          };
         }
       )
       ./theme
       nixosModules.keyboard
       sops-nix.nixosModules.sops
+      (
+        { config, pkgs, ... }:
+        {
+          config.sops = {
+            defaultSopsFile = ../secrets/secrets.yaml;
+            age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+            secrets = {
+              "nix/access-tokens" = {
+                mode = "0440";
+                group = config.users.groups.keys.name;
+              };
+            };
+          };
+
+          config.nix.extraOptions = ''
+            !include ${config.sops.secrets."nix/access-tokens".path}
+          '';
+        }
+      )
     ];
 
     systemConfigurations.systems.tv = {
