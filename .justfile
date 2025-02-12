@@ -1,5 +1,7 @@
-# memory        := `grep MemTotal /proc/meminfo | awk '{print $2}'` + "k"
-
+[private]
 @default:
-	# just --list
-	#nix run github:nix-community/disko -- --mode disko "{{justfile_directory()}}/disko-config.nix"
+	just --list
+
+# Update sops secrets with new keys
+@update-keys:
+	sops updatekeys secrets/*

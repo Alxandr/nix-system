@@ -10,7 +10,7 @@ let
     users
     systems
     fira-code
-    ragenix
+    sops-nix
     ;
   inherit (config.flake) diskoConfigurations;
   inherit (config.flake) nixosModules;
@@ -69,22 +69,7 @@ in
           nh.program = "${pkgs.nh}/bin/nh";
         };
 
-        devShells.default = pkgs.mkShell {
-          packages = [
-            (packages.ags.override {
-              extraPackages = with packages.ags; [
-                hyprland
-                battery
-                bluetooth
-                mpris
-                network
-                powerprofiles
-                tray
-                wireplumber
-              ];
-            })
-          ];
-        };
+        devShells.default = import ./dev-shell.nix { inherit pkgs packages; };
       };
 
     flake.nixosModules = {
@@ -133,11 +118,19 @@ in
             pkgs.fira-code
             pkgs.fira-code-nerdfont
           ];
+
+          config.sops = {
+            defaultSopsFile = ../secrets/secrets.yaml;
+            age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+            secrets = {
+              "nix/access-tokens/github.com" = { };
+            };
+          };
         }
       )
       ./theme
       nixosModules.keyboard
-      ragenix.nixosModules.default
+      sops-nix.nixosModules.sops
     ];
 
     systemConfigurations.systems.tv = {

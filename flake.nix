@@ -41,6 +41,12 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
+    # Secret management
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     # Format disks with nix-config
     # https://github.com/nix-community/disko
     disko = {
@@ -82,12 +88,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    # Encrypted files
-    ragenix = {
-      url = "github:yaxitech/ragenix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
     # # modern window compositor
     # hyprland.url = "github:hyprwm/Hyprland/v0.27.0";
     # # community wayland nixpkgs
@@ -108,6 +108,7 @@
       flake-parts,
       nixpkgs,
       nixpkgs-unstable,
+      sops-nix,
       disko,
       home-manager,
       home-manager-unstable,
@@ -116,7 +117,6 @@
       fira-code,
       ags,
       nil,
-      ragenix,
       ...
     }:
     let
@@ -160,7 +160,7 @@
             fira-code
             ags
             nil
-            ragenix
+            sops-nix
             ;
 
           nixpkgs = nixpkgs;
