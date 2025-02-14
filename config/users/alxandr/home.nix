@@ -52,6 +52,7 @@ in
       rust-lang.rust-analyzer
       skellock.just
       tamasfe.even-better-toml
+      usernamehw.errorlens
       vadimcn.vscode-lldb
     ];
 
