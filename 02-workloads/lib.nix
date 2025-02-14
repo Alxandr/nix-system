@@ -120,7 +120,7 @@ with lib;
   mkProgramOption =
     {
       name,
-      package,
+      package ? null,
       pkgs,
       defaultEnable ? true,
       module ? null,
@@ -134,19 +134,17 @@ with lib;
           description = "Whether to enable ${name}.";
           type = types.bool;
         };
-
-        options.package = mkPackageOption pkgs name {
-          default = package;
-        };
       };
       modules =
-        if module == null then
-          [ defaultModule ]
-        else
-          [
-            defaultModule
-            module
-          ];
+        [ defaultModule ]
+        ++ optionals (package != null) [
+          {
+            options.package = mkPackageOption pkgs name {
+              default = package;
+            };
+          }
+        ]
+        ++ optionals (module != null) [ module ];
 
       type = types.submoduleWith {
         shorthandOnlyDefinesConfig = true;

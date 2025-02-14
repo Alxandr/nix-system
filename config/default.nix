@@ -11,6 +11,7 @@ let
     systems
     fira-code
     sops-nix
+    nixos-hardware
     ;
   inherit (config.flake) diskoConfigurations;
   inherit (config.flake) nixosModules;
@@ -74,6 +75,10 @@ in
 
     flake.nixosModules = {
       keyboard = ./nixos-modules/keyboard;
+    };
+
+    systemConfigurations.extraSpecialArgs = {
+      nixos-hardware = nixos-hardware.nixosModules;
     };
 
     systemConfigurations.sharedModules = [

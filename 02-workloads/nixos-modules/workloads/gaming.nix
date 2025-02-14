@@ -32,6 +32,11 @@ in
             name = "Moonlight-Qt";
             package = "moonlight-qt";
           };
+
+          gamemode = mkProgramOption {
+            inherit pkgs;
+            name = "GameMode";
+          };
         }
       ]
       ++ optional (system == "x86_64-linux") {
@@ -115,6 +120,9 @@ in
     })
     (mkIf (cfg.programs.moonlight-qt.enable) {
       environment.systemPackages = [ cfg.programs.moonlight-qt.package ];
+    })
+    (mkIf (cfg.programs.gamemode.enable) {
+      programs.gamemode.enable = true;
     })
     (mkIf (system == "x86_64-linux" && cfg.programs.steam.enable) {
       programs.steam = {

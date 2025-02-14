@@ -1,5 +1,14 @@
-{ lib, config, ... }:
 {
+  lib,
+  config,
+  nixos-hardware,
+  ...
+}:
+{
+  imports = [
+    nixos-hardware.lenovo-thinkpad-z13-gen1
+  ];
+
   boot.initrd.availableKernelModules = [
     "nvme"
     "xhci_pci"

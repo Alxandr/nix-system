@@ -117,6 +117,7 @@
       fira-code,
       ags,
       nil,
+      nixos-hardware,
       ...
     }:
     let
@@ -161,6 +162,7 @@
             ags
             nil
             sops-nix
+            nixos-hardware
             ;
 
           nixpkgs = nixpkgs;
