@@ -111,18 +111,24 @@ in
     enable = true;
     lfs.enable = true;
 
+    userName = "Aleksander Heintz";
+    userEmail = "alxandr@alxandr.me";
+
+    aliases = {
+      wip = "commit -am 'WIP'";
+    };
+
+    signing = {
+      format = "ssh";
+      signByDefault = true;
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA49cjFMWbxCAjTsK7H/r0biiBV0EGZHJR1xmik/arxA";
+      signer = "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
+    };
+
     extraConfig = {
-      core = {
-        symlinks = true;
-      };
+      core.symlinks = true;
 
-      alias = {
-        wip = "commit -am 'WIP'";
-      };
-
-      color = {
-        ui = "auto";
-      };
+      color.ui = "auto";
 
       "color \"grep\"" = {
         match = "cyan bold";
@@ -139,49 +145,24 @@ in
         detail = "%C(auto)%h %s%n  %C(yellow)by %C(blue)%an %C(magenta)<%ae> [%G?] %C(green)%ad%n %C(auto)%d%n";
       };
 
-      init = {
-        defaultBranch = "main";
-      };
+      init.defaultBranch = "main";
 
       push = {
         default = "upstream";
         autoSetupRemote = true;
       };
 
-      credential = {
-        helper = "cache --timeout=3600";
-      };
+      credential.helper = "cache --timeout=3600";
 
       user = {
         useConfigOnly = true;
-        name = "Aleksander Heintz";
-        email = "alxandr@alxandr.me";
         signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA49cjFMWbxCAjTsK7H/r0biiBV0EGZHJR1xmik/arxA";
       };
 
-      gpg = {
-        format = "ssh";
-      };
+      gitbutler.signCommits = true;
 
-      "gpg \"ssh\"" = {
-        program = "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
-      };
+      http.cookieFile = "~/.gitcookies";
 
-      commit = {
-        gpgsign = true;
-      };
-
-      tag = {
-        gpgsign = true;
-      };
-
-      gitbutler = {
-        signCommits = true;
-      };
-
-      http = {
-        cookieFile = "~/.gitcookies";
-      };
     };
     ignores = [
       # Logs and databases #
