@@ -12,6 +12,7 @@ let
     fira-code
     sops-nix
     nixos-hardware
+    nix-vscode-extensions
     ;
   inherit (config.flake) diskoConfigurations;
   inherit (config.flake) nixosModules;
@@ -86,6 +87,7 @@ in
         { pkgs, ... }:
         {
           config.nixpkgs.overlays = [
+            nix-vscode-extensions.overlays.default
             (final: prev: {
               inherit (config.flake.packages.${pkgs.system})
                 fira-code

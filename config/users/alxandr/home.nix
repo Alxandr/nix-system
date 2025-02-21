@@ -38,23 +38,27 @@ in
     # };
 
     mutableExtensionsDir = false;
-    extensions = with pkgs.vscode-extensions; [
-      eamodio.gitlens
-      editorconfig.editorconfig
-      esbenp.prettier-vscode
-      fill-labs.dependi
-      github.copilot
-      github.copilot-chat
-      github.vscode-github-actions
-      jnoortheen.nix-ide
-      mkhl.direnv
-      pkief.material-icon-theme
-      rust-lang.rust-analyzer
-      skellock.just
-      tamasfe.even-better-toml
-      usernamehw.errorlens
-      vadimcn.vscode-lldb
-    ];
+    extensions =
+      (with pkgs.vscode-extensions; [
+        eamodio.gitlens
+        editorconfig.editorconfig
+        esbenp.prettier-vscode
+        fill-labs.dependi
+        github.copilot
+        github.copilot-chat
+        github.vscode-github-actions
+        jnoortheen.nix-ide
+        mkhl.direnv
+        pkief.material-icon-theme
+        rust-lang.rust-analyzer
+        skellock.just
+        tamasfe.even-better-toml
+        usernamehw.errorlens
+        vadimcn.vscode-lldb
+      ])
+      ++ (with pkgs.vscode-marketplace; [
+        jscearcy.rust-doc-viewer
+      ]);
 
     userSettings =
       let

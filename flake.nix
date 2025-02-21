@@ -65,6 +65,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     stylix = {
       url = "github:danth/stylix/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -118,6 +123,7 @@
       ags,
       nil,
       nixos-hardware,
+      nix-vscode-extensions,
       ...
     }:
     let
@@ -163,6 +169,7 @@
             nil
             sops-nix
             nixos-hardware
+            nix-vscode-extensions
             ;
 
           nixpkgs = nixpkgs;
