@@ -254,6 +254,9 @@ in
             "${mainMod}, S, togglespecialworkspace, scratchpad"
             "${mainMod} SHIFT, S, movetoworkspace, special:scratchpad"
 
+            # Open the game workspace
+            "${mainMod}, G, togglespecialworkspace, steam"
+
             # move workspace to next monitor
             "${mainMod} SHIFT, W, movecurrentworkspacetomonitor,+1"
 
@@ -286,6 +289,9 @@ in
           ### WINDOWS AND WORKSPACES ###
           ##############################
           windowrulev2 = [
+            # Make gamescope run on it's own special workspace
+            "workspace special:steam silent, class:^gamescope$"
+            "maximize, class:^gamescope$"
             # Make XWayland steam games fullscreen
             "fullscreen, class:^steam_app_.*, xwayland:1"
             # "content game, class:^steam_app_.*, xwayland:1"
