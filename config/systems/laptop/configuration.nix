@@ -19,6 +19,7 @@
     workloads.desktop.environment.plasma.enable = true;
     workloads.desktop.environment.hyprland.enable = true;
     workloads.gaming.enable = true;
+    workloads.podman.enable = true;
 
     # Screen configuration in hyprland
     home-manager.sharedModules = [
