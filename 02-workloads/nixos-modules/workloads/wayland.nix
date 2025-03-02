@@ -55,7 +55,10 @@ in
           kde = mkProgramOption {
             inherit pkgs;
             name = "KDE Portal";
-            package = "xdg-desktop-portal-kde";
+            package = [
+              "kdePackages"
+              "xdg-desktop-portal-kde"
+            ];
             defaultEnable = false;
           };
 

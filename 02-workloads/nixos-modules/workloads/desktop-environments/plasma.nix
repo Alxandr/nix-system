@@ -29,7 +29,7 @@ in
     programs.dconf.enable = true;
 
     environment.systemPackages = with pkgs; [
-      kwallet-pam
+      kdePackages.kwallet-pam
       kdePackages.qtstyleplugin-kvantum
     ];
 

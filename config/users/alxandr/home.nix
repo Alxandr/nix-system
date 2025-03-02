@@ -24,6 +24,9 @@ in
     ./home/swaync
   ];
 
+  # TODO: https://github.com/danth/stylix/issues/865
+  nixpkgs.overlays = lib.mkForce null;
+
   programs.home-manager.enable = true;
   programs.kitty = mkIf isDesktop {
     enable = true;
