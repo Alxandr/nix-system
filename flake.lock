@@ -803,16 +803,16 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1738278499,
-        "narHash": "sha256-q1SUyXSQ9znHTME53/vPLe+Ga3V1wW3X3gWfa8JsBUM=",
-        "owner": "danth",
+        "lastModified": 1744909468,
+        "narHash": "sha256-BODuMcz1W8g7HmepcuWdDbQsK8adBTIuBsxvsQBkcd8=",
+        "owner": "lordkekz",
         "repo": "stylix",
-        "rev": "b00c9f46ae6c27074d24d2db390f0ac5ebcc329f",
+        "rev": "f61debdb5cd8eb4df55fca8f344a1b6884291b20",
         "type": "github"
       },
       "original": {
-        "owner": "danth",
-        "ref": "b00c9f46ae6c27074d24d2db390f0ac5ebcc329f",
+        "owner": "lordkekz",
+        "ref": "f61debdb5cd8eb4df55fca8f344a1b6884291b20",
         "repo": "stylix",
         "type": "github"
       }
