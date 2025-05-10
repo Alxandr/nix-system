@@ -20,7 +20,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v17
 
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@v23
+        uses: DeterminateSystems/update-flake-lock@v24
         with:
           git-author-name: "lockfile-updater[bot]"
           git-author-email: "lockfile-updater[bot]@users.noreply.github.com"
