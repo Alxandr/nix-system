@@ -26,7 +26,7 @@
       {
         wayland.windowManager.hyprland.settings.monitor = [
           "eDP-1, preferred, 0x0, 1.5"
-          "desc:Samsung Electric Company LS27A600U HNMWA01347, preferred, auto-left, 1"
+          "desc:Advanced Micro Peripherals Ltd ES07D03 EVE213500529, preferred, auto-left, 1"
         ];
       }
     ];

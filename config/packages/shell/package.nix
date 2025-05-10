@@ -7,7 +7,7 @@ ags.lib.bundle {
   gtk4 = true;
 
   # additional libraries and executables to add to gjs' runtime
-  extraPackages = with ags; [
+  extraPackages = with ags.packages; [
     hyprland
     battery
     bluetooth
@@ -16,5 +16,8 @@ ags.lib.bundle {
     powerprofiles
     tray
     wireplumber
+
+    # https://github.com/Aylur/ags/issues/678
+    pkgs.gtk4
   ];
 }

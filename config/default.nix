@@ -45,16 +45,19 @@ in
           ags = inputs'.ags.packages.ags // {
             full = inputs'.ags.packages.agsFull;
             inherit (inputs.ags) lib;
-            inherit (inputs'.ags.packages)
-              hyprland
-              battery
-              bluetooth
-              mpris
-              network
-              powerprofiles
-              tray
-              wireplumber
-              ;
+            packages = {
+              inherit (inputs'.ags.packages)
+                gjs
+                hyprland
+                battery
+                bluetooth
+                mpris
+                network
+                powerprofiles
+                tray
+                wireplumber
+                ;
+            };
           };
           fira-code = pkgs.callPackage ./packages/fira-code/package.nix { src = fira-code; };
           fira-code-nerdfont = pkgs.callPackage ./packages/fira-code-nerdfont/package.nix {
@@ -64,7 +67,7 @@ in
             #   useVariableFont = false;
             # };
           };
-          # alxandr-bar = pkgs.callPackage ./packages/bar/package.nix { inherit (packages) ags; };
+          alxandr-shell = pkgs.callPackage ./packages/shell/package.nix { inherit (packages) ags; };
         };
 
         apps = {

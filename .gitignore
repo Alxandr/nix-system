@@ -3,3 +3,4 @@ result/
 result-bin
 result-bin/
 .direnv/
+node_modules/

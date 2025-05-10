@@ -28,5 +28,5 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 				</menubutton>
 			</centerbox>
 		</window>
-	);
+	) as Gtk.Window;
 }
