@@ -57,7 +57,7 @@ in
     syntaxHighlighting.enable = true;
     history.size = 10000;
 
-    initExtra = lib.strings.concatLines sharedShell;
+    initContent = lib.strings.concatLines sharedShell;
   };
 
   programs.bash = {
