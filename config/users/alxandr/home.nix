@@ -41,69 +41,71 @@ in
     # };
 
     mutableExtensionsDir = false;
-    extensions =
-      (with pkgs.vscode-extensions; [
-        eamodio.gitlens
-        editorconfig.editorconfig
-        esbenp.prettier-vscode
-        fill-labs.dependi
-        github.copilot
-        github.copilot-chat
-        github.vscode-github-actions
-        jnoortheen.nix-ide
-        mkhl.direnv
-        pkief.material-icon-theme
-        rust-lang.rust-analyzer
-        skellock.just
-        tamasfe.even-better-toml
-        usernamehw.errorlens
-        vadimcn.vscode-lldb
-      ])
-      ++ (with pkgs.vscode-marketplace; [
-        jscearcy.rust-doc-viewer
-      ]);
+    profiles.default = {
+      extensions =
+        (with pkgs.vscode-extensions; [
+          eamodio.gitlens
+          editorconfig.editorconfig
+          esbenp.prettier-vscode
+          fill-labs.dependi
+          github.copilot
+          github.copilot-chat
+          github.vscode-github-actions
+          jnoortheen.nix-ide
+          mkhl.direnv
+          pkief.material-icon-theme
+          rust-lang.rust-analyzer
+          skellock.just
+          tamasfe.even-better-toml
+          usernamehw.errorlens
+          vadimcn.vscode-lldb
+        ])
+        ++ (with pkgs.vscode-marketplace; [
+          jscearcy.rust-doc-viewer
+        ]);
 
-    userSettings =
-      let
-        perLang = langs: conf: genAttrs (langs |> map (l: "[${l}]")) (v: conf);
+      userSettings =
+        let
+          perLang = langs: conf: genAttrs (langs |> map (l: "[${l}]")) (v: conf);
 
-      in
-      [
-        {
-          "window.titleBarStyle" = "custom";
-          "terminal.integrated.fontFamily" = terminalFont;
-          "editor.formatOnSave" = true;
-          "editor.tabSize" = 2;
-          "workbench.iconTheme" = "material-icon-theme";
-          "nix.enableLanguageServer" = true;
-          "nix.formatterPath" = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
-          "nix.serverSettings"."nil" = {
-            "formatting"."command" = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
-            "nix"."maxMemoryMB" = 12560;
-            "nix"."flake" = {
-              "autoArchive" = true;
-              "autoEvalInputs" = true;
-            };
-          };
-        }
-        (
+        in
+        [
           {
-            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+            "window.titleBarStyle" = "custom";
+            "terminal.integrated.fontFamily" = terminalFont;
+            "editor.formatOnSave" = true;
+            "editor.tabSize" = 2;
+            "workbench.iconTheme" = "material-icon-theme";
+            "nix.enableLanguageServer" = true;
+            "nix.formatterPath" = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
+            "nix.serverSettings"."nil" = {
+              "formatting"."command" = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
+              "nix"."maxMemoryMB" = 12560;
+              "nix"."flake" = {
+                "autoArchive" = true;
+                "autoEvalInputs" = true;
+              };
+            };
           }
-          |> perLang [
-            "jsonc"
-            "json"
-            "javascript"
-            "javascriptreact"
-            "typescript"
-            "typescriptreact"
-            "scss"
-            "css"
-          ]
-        )
-      ]
-      |> flatten
-      |> mkMerge;
+          (
+            {
+              "editor.defaultFormatter" = "esbenp.prettier-vscode";
+            }
+            |> perLang [
+              "jsonc"
+              "json"
+              "javascript"
+              "javascriptreact"
+              "typescript"
+              "typescriptreact"
+              "scss"
+              "css"
+            ]
+          )
+        ]
+        |> flatten
+        |> mkMerge;
+    };
   };
 
   programs.ssh = {

@@ -76,7 +76,7 @@
       inputs.home-manager.follows = "home-manager";
     };
     stylix-unstable = {
-      url = "github:lordkekz/stylix?ref=f61debdb5cd8eb4df55fca8f344a1b6884291b20";
+      url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.home-manager.follows = "home-manager-unstable";
     };
