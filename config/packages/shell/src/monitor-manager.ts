@@ -63,6 +63,7 @@ export default function perMonitor(
 				console.log(`Monitor ${removedState.name} removed`);
 
 				if (removedState.window) {
+					console.log(`Destroying window for monitor ${removedState.name}`);
 					removedState.window.destroy();
 					removedState.window = null;
 				}
