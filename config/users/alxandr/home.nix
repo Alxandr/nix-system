@@ -55,6 +55,7 @@ in
           mkhl.direnv
           pkief.material-icon-theme
           rust-lang.rust-analyzer
+          signageos.signageos-vscode-sops
           skellock.just
           tamasfe.even-better-toml
           usernamehw.errorlens
