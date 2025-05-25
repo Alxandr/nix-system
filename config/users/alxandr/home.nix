@@ -53,6 +53,7 @@ in
           github.vscode-github-actions
           jnoortheen.nix-ide
           mkhl.direnv
+          ms-vscode-remote.remote-containers
           pkief.material-icon-theme
           rust-lang.rust-analyzer
           signageos.signageos-vscode-sops

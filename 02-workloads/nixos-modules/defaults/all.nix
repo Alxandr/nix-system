@@ -5,5 +5,6 @@
     ./locale.nix
     ./shell.nix
     ./bluetooth.nix
+    ./containers.nix
   ];
 }
