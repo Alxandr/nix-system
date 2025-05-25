@@ -8,6 +8,7 @@
     "wheel"
     "networkmanager"
     "keys"
+    "dialout"
   ];
 
   home = ./home.nix;
