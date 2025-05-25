@@ -22,6 +22,10 @@ in
   programs.bat.enable = true;
   programs.eza.enable = true;
 
+  home.packages = with pkgs; [
+    dua
+  ];
+
   home.shellAliases = {
     # Add color to commands
     grep = "grep --color=auto";
