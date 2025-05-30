@@ -63,6 +63,7 @@ in
           vadimcn.vscode-lldb
         ])
         ++ (with pkgs.vscode-marketplace; [
+          gamunu.opentofu
           jscearcy.rust-doc-viewer
         ]);
 
