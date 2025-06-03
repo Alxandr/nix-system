@@ -54,8 +54,12 @@ in
           jnoortheen.nix-ide
           mkhl.direnv
           ms-vscode-remote.remote-containers
+          ms-vscode.cmake-tools
+          ms-vscode.cpptools
+          ms-vscode.cpptools-extension-pack
           pkief.material-icon-theme
           rust-lang.rust-analyzer
+          samuelcolvin.jinjahtml
           signageos.signageos-vscode-sops
           skellock.just
           tamasfe.even-better-toml
