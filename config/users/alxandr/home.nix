@@ -52,6 +52,7 @@ in
           github.copilot
           github.copilot-chat
           github.vscode-github-actions
+          hashicorp.hcl
           jnoortheen.nix-ide
           mkhl.direnv
           ms-vscode-remote.remote-containers
