@@ -48,6 +48,7 @@ in
           editorconfig.editorconfig
           esbenp.prettier-vscode
           fill-labs.dependi
+          foxundermoon.shell-format
           github.copilot
           github.copilot-chat
           github.vscode-github-actions
