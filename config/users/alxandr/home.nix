@@ -55,12 +55,17 @@ in
           hashicorp.hcl
           jnoortheen.nix-ide
           mkhl.direnv
+          ms-python.debugpy
+          ms-python.python
+          ms-python.vscode-pylance
           ms-vscode-remote.remote-containers
           ms-vscode.cmake-tools
           ms-vscode.cpptools
           ms-vscode.cpptools-extension-pack
           pkief.material-icon-theme
           redhat.ansible
+          redhat.vscode-xml
+          redhat.vscode-yaml
           rust-lang.rust-analyzer
           samuelcolvin.jinjahtml
           signageos.signageos-vscode-sops
