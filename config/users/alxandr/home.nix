@@ -60,6 +60,7 @@ in
           ms-vscode.cpptools
           ms-vscode.cpptools-extension-pack
           pkief.material-icon-theme
+          redhat.ansible
           rust-lang.rust-analyzer
           samuelcolvin.jinjahtml
           signageos.signageos-vscode-sops
