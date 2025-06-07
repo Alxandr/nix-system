@@ -109,6 +109,7 @@ in
         }
       )
       ./theme
+      ./nixos-modules/certificates
       nixosModules.keyboard
       sops-nix.nixosModules.sops
       (

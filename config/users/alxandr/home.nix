@@ -101,6 +101,7 @@ in
                 "autoEvalInputs" = true;
               };
             };
+            "redhat.telemetry.enabled" = true;
           }
           (
             {
