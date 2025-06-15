@@ -102,20 +102,22 @@ in
               };
             };
             "redhat.telemetry.enabled" = true;
+            "github.copilot.nextEditSuggestions.enabled" = true;
           }
           (
             {
               "editor.defaultFormatter" = "esbenp.prettier-vscode";
             }
             |> perLang [
-              "jsonc"
-              "json"
+              "css"
               "javascript"
               "javascriptreact"
+              "json"
+              "jsonc"
+              "scss"
               "typescript"
               "typescriptreact"
-              "scss"
-              "css"
+              "yaml"
             ]
           )
         ]
