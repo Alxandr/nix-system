@@ -47,7 +47,7 @@ in
             inherit (inputs.ags) lib;
             packages = {
               inherit (inputs'.ags.packages)
-                gjs
+                # gjs
                 hyprland
                 battery
                 bluetooth
