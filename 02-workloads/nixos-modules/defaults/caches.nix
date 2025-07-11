@@ -26,7 +26,6 @@ in
         "https://nix-community.cachix.org"
         "https://nixpkgs-wayland.cachix.org"
         "https://hyprland.cachix.org"
-        "https://ags.cachix.org"
       ];
 
       trusted-public-keys = [

@@ -16,7 +16,6 @@
       "https://nix-community.cachix.org"
       "https://nixpkgs-wayland.cachix.org"
       "https://hyprland.cachix.org"
-      "https://ags.cachix.org"
     ];
 
     trusted-public-keys = [
@@ -81,12 +80,6 @@
       inputs.home-manager.follows = "home-manager-unstable";
     };
 
-    # Widgets (bar and similar)
-    ags = {
-      url = "github:aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
     # Nix language server
     nil = {
       url = "github:oxalica/nil";
@@ -120,7 +113,6 @@
       stylix,
       stylix-unstable,
       fira-code,
-      ags,
       nil,
       nixos-hardware,
       nix-vscode-extensions,
@@ -165,7 +157,6 @@
             users
             systems
             fira-code
-            ags
             nil
             sops-nix
             nixos-hardware

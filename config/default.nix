@@ -42,23 +42,6 @@ in
         packages = {
           inherit (pkgs) cascadia-code;
           inherit (inputs'.nil.packages) nil;
-          ags = inputs'.ags.packages.ags // {
-            full = inputs'.ags.packages.agsFull;
-            inherit (inputs.ags) lib;
-            packages = {
-              inherit (inputs'.ags.packages)
-                # gjs
-                hyprland
-                battery
-                bluetooth
-                mpris
-                network
-                powerprofiles
-                tray
-                wireplumber
-                ;
-            };
-          };
           fira-code = pkgs.callPackage ./packages/fira-code/package.nix { src = fira-code; };
           fira-code-nerdfont = pkgs.callPackage ./packages/fira-code-nerdfont/package.nix {
             inherit (packages) fira-code;
@@ -67,7 +50,6 @@ in
             #   useVariableFont = false;
             # };
           };
-          alxandr-shell = pkgs.callPackage ./packages/shell/package.nix { inherit (packages) ags; };
         };
 
         apps = {
@@ -95,7 +77,6 @@ in
               inherit (config.flake.packages.${pkgs.system})
                 fira-code
                 fira-code-nerdfont
-                ags
                 nil
                 ;
             })

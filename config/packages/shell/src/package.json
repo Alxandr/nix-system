@@ -1,6 +1,0 @@
-{
-	"name": "shell",
-	"dependencies": {
-		"astal": "file:../../../../node_modules/astral"
-	}
-}
