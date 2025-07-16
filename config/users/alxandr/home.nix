@@ -75,6 +75,7 @@ in
           vadimcn.vscode-lldb
         ])
         ++ (with pkgs.vscode-marketplace; [
+          fengtan.ldap-explorer
           gamunu.opentofu
           jscearcy.rust-doc-viewer
         ]);
