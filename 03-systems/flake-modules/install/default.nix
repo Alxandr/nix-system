@@ -40,21 +40,34 @@ in
       installers = bySystem.${system} or { };
       installerApps =
         installers
-        |> lib.attrsets.mapAttrs (
+        |> lib.attrsets.mapAttrs' (
           name: pkg: {
-            type = "app";
-            program = pkg;
-            meta.description = "Install ${name} system";
+            name = pkg.name;
+            value = {
+              type = "app";
+              program = pkg;
+              meta.description = "Install ${name} system";
+            };
           }
         );
 
     in
     rec {
-      packages = {
-        install = pkgs.callPackage ./packages/install-any {
-          inherit installers isSingle;
-        };
-      } // installers;
+      packages =
+        {
+          install = pkgs.callPackage ./packages/install-any {
+            inherit installers isSingle;
+          };
+        }
+        // (
+          installers
+          |> lib.attrsets.mapAttrs' (
+            name: value: {
+              inherit (value) name;
+              inherit value;
+            }
+          )
+        );
 
       apps = {
         install = {
