@@ -180,6 +180,7 @@
         config.outputs.nixosModules
         {
           inherit (disko.nixosModules) disko;
+          inherit (sops-nix.nixosModules) sops;
         }
       ];
       lib = nixpkgs.lib.mergeAttrsList [
