@@ -36,7 +36,7 @@ writeShellApplication {
 
   text = ''
     # format disk
-    ${diskoScripts.format}
+    ${lib.getExe diskoScripts.format}
     ${lib.getExe gum}/bin/gum format "✔️ Disk formatted"
 
     # install system
