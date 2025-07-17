@@ -15,6 +15,7 @@ let
     ./home.nix
     ./trusted.nix
     ./1password.nix
+    ./authorized-keys.nix
     (pkgs.path + "/nixos/modules/misc/assertions.nix")
     (pkgs.path + "/nixos/modules/misc/meta.nix")
   ];
