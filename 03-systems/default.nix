@@ -1,4 +1,8 @@
-{ flake-parts-lib, inputs, ... }:
+{
+  flake-parts-lib,
+  inputs,
+  ...
+}:
 {
   flake.flakeModules =
     let
@@ -7,6 +11,7 @@
 
     in
     {
-      systems = importModule ./flake-modules/systems.nix { inherit inputs flake-parts-lib; };
+      systems = importModule ./flake-modules/systems { inherit inputs flake-parts-lib; };
+      install = importModule ./flake-modules/install { inherit inputs flake-parts-lib; };
     };
 }

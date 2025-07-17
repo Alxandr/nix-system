@@ -24,6 +24,7 @@ in
     base.flakeModules.disko
     users.flakeModules.user-manager
     systems.flakeModules.systems
+    systems.flakeModules.install
     ./disko-configurations
   ];
 
@@ -53,7 +54,8 @@ in
         };
 
         apps = {
-          nh.program = "${pkgs.nh}/bin/nh";
+          nh.program = pkgs.nh;
+          nh.meta.description = "NixOS helper";
         };
 
         devShells.default = import ./dev-shell.nix { inherit pkgs packages; };
