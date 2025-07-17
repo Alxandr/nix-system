@@ -76,8 +76,8 @@ in
         ])
         ++ (with pkgs.vscode-marketplace; [
           fengtan.ldap-explorer
-          gamunu.opentofu
           jscearcy.rust-doc-viewer
+          opentofu.vscode-opentofu
         ]);
 
       userSettings =
