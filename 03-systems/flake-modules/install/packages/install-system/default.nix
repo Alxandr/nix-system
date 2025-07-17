@@ -36,7 +36,7 @@ writeShellApplication {
 
   text = ''
     # format disk
-    ${lib.getExe diskoScripts.format}
+    ${lib.getExe diskoScripts.destroyFormatMount}
     ${lib.getExe gum} format "✔️ Disk formatted"
 
     # install system
