@@ -37,7 +37,7 @@ writeShellApplication {
   text = ''
     # format disk
     ${lib.getExe diskoScripts.format}
-    ${lib.getExe gum}/bin/gum format "✔️ Disk formatted"
+    ${lib.getExe gum} format "✔️ Disk formatted"
 
     # install system
     ${lib.getExe gum} spin --spinner line --title "Refresh flake..." --show-output -- ${nix}/bin/nix --experimental-features "nix-command flakes" flake metadata --refresh -- "${flake.path}" >/dev/null
