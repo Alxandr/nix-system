@@ -78,6 +78,7 @@ in
           fengtan.ldap-explorer
           jscearcy.rust-doc-viewer
           opentofu.vscode-opentofu
+          oven.bun-vscode
         ]);
 
       userSettings =
