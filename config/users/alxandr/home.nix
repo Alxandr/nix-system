@@ -75,6 +75,7 @@ in
           vadimcn.vscode-lldb
         ])
         ++ (with pkgs.vscode-marketplace; [
+          arktypeio.arkdark
           fengtan.ldap-explorer
           jscearcy.rust-doc-viewer
           opentofu.vscode-opentofu

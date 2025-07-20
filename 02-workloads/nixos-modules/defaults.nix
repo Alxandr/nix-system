@@ -25,7 +25,10 @@
     # Programs for all systems
     environment.systemPackages = with pkgs; [
       btop
+      dig
       htop
+      tcpdump
+      traceroute
       wget
     ];
 
