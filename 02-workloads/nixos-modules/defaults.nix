@@ -22,6 +22,11 @@
     # Setup GPG
     programs.gnupg.agent.enable = true;
 
+    programs.vim.enable = true;
+
+    programs.neovim.enable = true;
+    programs.neovim.defaultEditor = true;
+
     # Programs for all systems
     environment.systemPackages = with pkgs; [
       btop
