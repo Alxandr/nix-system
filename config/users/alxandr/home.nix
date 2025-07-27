@@ -43,6 +43,9 @@ in
       "sql"
       "toml"
     ];
+    extraPackages = with pkgs; [
+      nixd
+    ];
   };
 
   programs.vscode = mkIf isDesktop {
@@ -231,7 +234,6 @@ in
       [
         nh
         nil
-        nixd
         nixfmt-rfc-style
         nixpkgs-fmt
       ]
