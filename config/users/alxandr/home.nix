@@ -160,7 +160,6 @@ in
 
     aliases = {
       wip = "commit -am 'WIP'";
-      zed = "zeditor";
     };
 
     signing = {
