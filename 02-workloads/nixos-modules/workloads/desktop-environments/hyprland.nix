@@ -31,6 +31,7 @@ in
     workloads.wayland.xdg.portal.config.hyprland = {
       default = [
         "hyprland"
+        "kde"
         "gtk"
       ];
     };

@@ -165,7 +165,7 @@ in
       xdg.portal.config = mkMerge [
         {
           common = {
-            default = [ "wlr" ];
+            default = [ "gtk" ];
           };
         }
         cfg.xdg.portal.config
