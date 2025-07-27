@@ -22,6 +22,7 @@ in
     ./home/waybar
     ./home/wofi
     ./home/swaync
+    ./home/zed.nix
   ];
 
   # TODO: https://github.com/danth/stylix/issues/865
@@ -32,42 +33,6 @@ in
     enable = true;
     font.name = mkForce terminalFont;
     font.package = mkForce pkgs.cascadia-code;
-  };
-
-  programs.zed-editor = mkIf isDesktop {
-    enable = true;
-    extensions = [
-      "crates-lsp"
-      "html"
-      "nix"
-      "sql"
-      "toml"
-    ];
-    extraPackages = with pkgs; [
-      nixd
-      rust-analyzer
-    ];
-
-    userSettings = {
-      agent.enabled = true;
-      agent.default_model = {
-        provider = "copilot_chat";
-        model = "gpt-4.1";
-      };
-
-      node = {
-        path = lib.getExe pkgs.nodejs;
-        npm_path = lib.getExe' pkgs.nodejs "npm";
-      };
-
-      journal.hour_format = "hour24";
-      auto_update = false;
-
-      lsp.rust_analyzer.binary.path_lookup = true;
-      lsp.nix.binary.path_lookup = true;
-      load_direnv = "shell_hook";
-      base_keymap = "VSCode";
-    };
   };
 
   programs.vscode = mkIf isDesktop {

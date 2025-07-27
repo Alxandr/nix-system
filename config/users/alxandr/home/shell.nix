@@ -51,9 +51,6 @@ in
 
     # zoxide
     zz = "z -";
-
-    # Zed editor
-    zed = mkIf isDesktop "zeditor";
   };
 
   programs.zsh = {
