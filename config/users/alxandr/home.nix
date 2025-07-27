@@ -50,6 +50,10 @@ in
 
     userSettings = {
       agent.enabled = true;
+      agent.default_model = {
+        provider = "copilot_chat";
+        model = "gpt-4.1";
+      };
 
       node = {
         path = lib.getExe pkgs.nodejs;
