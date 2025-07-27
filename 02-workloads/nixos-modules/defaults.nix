@@ -32,6 +32,7 @@
       btop
       dig
       htop
+      netclient
       tcpdump
       traceroute
       wget
