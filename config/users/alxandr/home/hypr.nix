@@ -49,6 +49,7 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
+      portalPackage = null;
 
       # conflicts with uwsm
       systemd.enable = false;
