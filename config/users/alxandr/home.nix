@@ -157,6 +157,7 @@ in
 
     aliases = {
       wip = "commit -am 'WIP'";
+      zed = "zeditor";
     };
 
     signing = {
@@ -228,10 +229,11 @@ in
     with pkgs;
     (
       [
-        nixpkgs-fmt
-        nixfmt-rfc-style
-        nil
         nh
+        nil
+        nixd
+        nixfmt-rfc-style
+        nixpkgs-fmt
       ]
       ++ optionals isDesktop [
         # gitbutler
