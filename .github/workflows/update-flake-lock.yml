@@ -27,7 +27,7 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v17
+        uses: DeterminateSystems/nix-installer-action@v19
 
       - name: Update flake.lock
         uses: DeterminateSystems/update-flake-lock@v25
