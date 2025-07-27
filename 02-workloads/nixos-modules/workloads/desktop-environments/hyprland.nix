@@ -27,10 +27,11 @@ in
     };
 
     workloads.wayland.xdg.portal.extraPortals.hyprland.enable = true;
+    workloads.wayland.xdg.portal.extraPortals.gtk.enable = true;
     workloads.wayland.xdg.portal.config.hyprland = {
       default = [
         "hyprland"
-        "wlr"
+        "gtk"
       ];
     };
 
@@ -56,6 +57,8 @@ in
       kdePackages.kwalletmanager
       kdePackages.kwallet-pam
       kdePackages.kwallet
+
+      grim
     ];
   };
 }

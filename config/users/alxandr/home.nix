@@ -45,7 +45,25 @@ in
     ];
     extraPackages = with pkgs; [
       nixd
+      rust-analyzer
     ];
+
+    userSettings = {
+      agent.enabled = true;
+
+      node = {
+        path = lib.getExe pkgs.nodejs;
+        npm_path = lib.getExe' pkgs.nodejs "npm";
+      };
+
+      journal.hour_format = "hour24";
+      auto_update = false;
+
+      lsp.rust_analyzer.binary.path_lookup = true;
+      lsp.nix.binary.path_lookup = true;
+      load_direnv = "shell_hook";
+      base_keymap = "VSCode";
+    };
   };
 
   programs.vscode = mkIf isDesktop {
