@@ -34,6 +34,17 @@ in
     font.package = mkForce pkgs.cascadia-code;
   };
 
+  programs.zed-editor = mkIf isDesktop {
+    enable = true;
+    extensions = [
+      "crates-lsp"
+      "html"
+      "nix"
+      "sql"
+      "toml"
+    ];
+  };
+
   programs.vscode = mkIf isDesktop {
     enable = true;
     # package = pkgs.vscode.override {
