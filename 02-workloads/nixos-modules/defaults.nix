@@ -27,12 +27,14 @@
     programs.neovim.enable = true;
     programs.neovim.defaultEditor = true;
 
+    # Enable netclient service
+    services.netclient.enable = true;
+
     # Programs for all systems
     environment.systemPackages = with pkgs; [
       btop
       dig
       htop
-      netclient
       tcpdump
       traceroute
       wget
