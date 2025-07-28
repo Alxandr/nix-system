@@ -32,12 +32,13 @@
 
     # Programs for all systems
     environment.systemPackages = with pkgs; [
-      btop
       dig
+      btop
       htop
+      wget
       tcpdump
       traceroute
-      wget
+      wireguard-tools
     ];
 
     nix.settings = {
