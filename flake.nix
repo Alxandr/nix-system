@@ -188,5 +188,8 @@
       lib = nixpkgs.lib.mergeAttrsList [
         workloads.outputs.lib
       ];
+      overlays = {
+        default = patches;
+      };
     };
 }
