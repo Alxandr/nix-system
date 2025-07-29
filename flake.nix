@@ -149,10 +149,12 @@
             ;
         };
       };
+      patches = import ./99-patches;
       config = lib.mkStage ./config {
         name = "config";
         inputs = {
           inherit
+            patches
             base
             users
             systems

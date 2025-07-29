@@ -6,6 +6,7 @@
 }:
 let
   inherit (inputs)
+    patches
     base
     users
     systems
@@ -74,6 +75,7 @@ in
         { pkgs, ... }:
         {
           config.nixpkgs.overlays = [
+            patches
             nix-vscode-extensions.overlays.default
             (final: prev: {
               inherit (config.flake.packages.${pkgs.system})
