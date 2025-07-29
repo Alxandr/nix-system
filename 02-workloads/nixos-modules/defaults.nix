@@ -27,8 +27,8 @@
     programs.neovim.enable = true;
     programs.neovim.defaultEditor = true;
 
-    # Enable netclient service
-    services.netclient.enable = true;
+    # Enable netbird service
+    services.netbird.enable = true;
 
     # Programs for all systems
     environment.systemPackages = with pkgs; [
