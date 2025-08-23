@@ -1,3 +1,3 @@
 final: prev: {
-  netbird = prev.callPackage ./netbird.nix { };
+  # netbird = prev.callPackage ./netbird.nix { };
 }
