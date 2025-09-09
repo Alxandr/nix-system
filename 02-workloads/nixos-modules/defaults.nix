@@ -37,6 +37,7 @@
       htop
       wget
       tcpdump
+      usbutils
       nfs-utils
       traceroute
       wireguard-tools
