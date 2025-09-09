@@ -21,6 +21,9 @@
     workloads.desktop.environment.niri.enable = true;
     workloads.gaming.enable = true;
 
+    # XBox Controller
+    hardware.xone.enable = true;
+
     # Some packages
     environment.systemPackages = with pkgs; [ unzip ];
 
