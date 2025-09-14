@@ -17,7 +17,6 @@ let
     name = "kwallet-pam-init";
     text = ''
       ${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init
-      ${pkgs.libsForQt5.kwallet-pam}/libexec/pam_kwallet_init
     '';
   };
 in

@@ -51,10 +51,6 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      libsForQt5.kwalletmanager
-      libsForQt5.kwallet-pam
-      libsForQt5.kwallet
-
       kdePackages.kwalletmanager
       kdePackages.kwallet-pam
       kdePackages.kwallet
