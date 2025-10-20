@@ -26,11 +26,11 @@ in
           package = "winetricks";
         };
 
-        q4wine = mkProgramOption {
-          inherit pkgs;
-          name = "Q4Wine";
-          package = "q4wine";
-        };
+        # q4wine = mkProgramOption {
+        #   inherit pkgs;
+        #   name = "Q4Wine";
+        #   package = "q4wine";
+        # };
       }
     );
     module.options.package = mkOption {
@@ -44,8 +44,8 @@ in
     (mkIf (system == "x86_64-linux" && cfg.programs.winetricks.enable) {
       environment.systemPackages = [ cfg.programs.winetricks.package ];
     })
-    (mkIf (system == "x86_64-linux" && cfg.programs.q4wine.enable) {
-      environment.systemPackages = [ cfg.programs.q4wine.package ];
-    })
+    # (mkIf (system == "x86_64-linux" && cfg.programs.q4wine.enable) {
+    #   environment.systemPackages = [ cfg.programs.q4wine.package ];
+    # })
   ]);
 }
