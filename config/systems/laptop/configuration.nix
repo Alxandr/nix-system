@@ -13,6 +13,7 @@
 
     # Enable networking
     networking.networkmanager.enable = true;
+    services.tailscale.enable = true;
 
     # Workloads
     workloads.desktop.enable = true;
