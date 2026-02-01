@@ -288,20 +288,16 @@ in
           ##############################
           ### WINDOWS AND WORKSPACES ###
           ##############################
-          windowrulev2 = [
-            # Make gamescope run on it's own special workspace
-            "workspace special:steam silent, class:^gamescope$"
-            "maximize, class:^gamescope$"
-            # Make XWayland steam games fullscreen
-            "fullscreen, class:^steam_app_.*, xwayland:1"
-            # "content game, class:^steam_app_.*, xwayland:1"
-            "nomaxsize, class:^steam_app_.*, xwayland:1"
-            # Fix some dragging issues with XWayland
-            "nofocus, class:^$, title:^$, xwayland:1, floating:1, fullscreen:0, pinned:0"
+          windowrule = [
+            # "match:class ^1Password$, stay_focused on"
+            {
+              name = "1Password Quick Access";
+              "match:class" = "^1Password$";
+              "match:title" = "^Quick Access — 1Password$";
 
-            # Make the 1Password quick access retain focus
-            "stayfocused, class:^1Password$, title:^Quick Access — 1Password$"
-            "center, class:^1Password$, title:^Quick Access — 1Password$"
+              "stay_focused" = "on";
+              "center" = "on";
+            }
           ];
 
           #############
