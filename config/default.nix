@@ -78,7 +78,7 @@ in
             patches
             nix-vscode-extensions.overlays.default
             (final: prev: {
-              inherit (config.flake.packages.${pkgs.system})
+              inherit (config.flake.packages.${pkgs.stdenv.hostPlatform.system})
                 fira-code
                 fira-code-nerdfont
                 nil
