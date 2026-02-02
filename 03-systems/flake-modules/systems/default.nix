@@ -149,10 +149,12 @@ in
           };
     in
     m.nixpkgs.lib.nixosSystem {
-      system = systemConfiguration.system;
       specialArgs = config.systemConfigurations.extraSpecialArgs // systemConfiguration.extraSpecialArgs;
       modules =
         [
+          # Set the system platform using the new approach
+          { nixpkgs.hostPlatform = systemConfiguration.system; }
+
           # common modules
           m.home-manager.nixosModules.home-manager
           m.stylix.nixosModules.stylix
