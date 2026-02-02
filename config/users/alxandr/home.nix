@@ -142,13 +142,6 @@ in
     enable = true;
     lfs.enable = true;
 
-    userName = "Aleksander Heintz";
-    userEmail = "alxandr@alxandr.me";
-
-    aliases = {
-      wip = "commit -am 'WIP'";
-    };
-
     signing = {
       format = "ssh";
       signByDefault = true;
@@ -156,7 +149,18 @@ in
       signer = "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
     };
 
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Aleksander Heintz";
+        email = "alxandr@alxandr.me";
+        useConfigOnly = true;
+        signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA49cjFMWbxCAjTsK7H/r0biiBV0EGZHJR1xmik/arxA";
+      };
+
+      alias = {
+        wip = "commit -am 'WIP'";
+      };
+
       core.symlinks = true;
 
       color.ui = "auto";
@@ -184,11 +188,6 @@ in
       };
 
       credential.helper = "cache --timeout=3600";
-
-      user = {
-        useConfigOnly = true;
-        signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA49cjFMWbxCAjTsK7H/r0biiBV0EGZHJR1xmik/arxA";
-      };
 
       gitbutler.signCommits = true;
 
