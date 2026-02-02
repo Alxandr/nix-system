@@ -96,9 +96,9 @@ in
             "editor.tabSize" = 2;
             "workbench.iconTheme" = "material-icon-theme";
             "nix.enableLanguageServer" = true;
-            "nix.formatterPath" = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
+            "nix.formatterPath" = "${pkgs.nixfmt}/bin/nixfmt";
             "nix.serverSettings"."nil" = {
-              "formatting"."command" = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
+              "formatting"."command" = [ "${pkgs.nixfmt}/bin/nixfmt" ];
               "nix"."maxMemoryMB" = 12560;
               "nix"."flake" = {
                 "autoArchive" = true;
@@ -220,7 +220,7 @@ in
       [
         nh
         nil
-        nixfmt-rfc-style
+        nixfmt
         nixpkgs-fmt
       ]
       ++ optionals isDesktop [

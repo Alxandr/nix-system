@@ -10,7 +10,7 @@ with lib;
 
 let
   inherit (workloads-lib) mkDefaultsOption;
-  inherit (pkgs) system;
+  inherit (pkgs.stdenv.hostPlatform) system;
 
   cfg = config.defaults.shell;
 in

@@ -10,7 +10,7 @@ with lib;
 
 let
   inherit (workloads-lib) mkWorkloadOption mkProgramOption;
-  inherit (pkgs) system;
+  inherit (pkgs.stdenv.hostPlatform) system;
 
   cfg = config.workloads.podman;
 in

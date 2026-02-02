@@ -22,7 +22,7 @@ let
     |> lib.attrsets.mapAttrsToList (
       name: cfg: {
         inherit name cfg;
-        system = cfg.pkgs.system;
+        system = cfg.pkgs.stdenv.hostPlatform.system;
         install-pkg = cfg.pkgs.callPackage ./packages/install-system {
           inherit name;
           nixosConfiguration = cfg.config;

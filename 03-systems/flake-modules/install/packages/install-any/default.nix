@@ -42,7 +42,7 @@ writeShellApplication {
   text =
     if count == 0 then
       ''
-        echo "Current architecture (${pkgs.system}) is not supported by any nixosConfigurations in this flake."
+        echo "Current architecture (${pkgs.stdenv.hostPlatform.system}) is not supported by any nixosConfigurations in this flake."
       ''
     else if isSingle then
       let
