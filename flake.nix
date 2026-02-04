@@ -147,6 +147,10 @@
             ;
         };
       };
+      hardware = lib.mkStage ./04-hardware {
+        name = "hardware";
+        inputs = { inherit nixos-hardware; };
+      };
       patches = import ./99-patches;
       config = lib.mkStage ./config {
         name = "config";
@@ -156,10 +160,10 @@
             base
             users
             systems
+            hardware
             fira-code
             nil
             sops-nix
-            nixos-hardware
             nix-vscode-extensions
             ;
 
