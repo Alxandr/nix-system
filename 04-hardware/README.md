@@ -11,7 +11,7 @@ This stage provides a sub-flake that re-exports the upstream `nixos-hardware` fl
 
 ### Minisforum MS-S1 Max
 
-Hardware configuration for the Minisforum MS-S1 Max mini PC, which features Intel Core Ultra (Meteor Lake) processors.
+Hardware configuration for the Minisforum MS-S1 Max mini PC, which features AMD Ryzen processors.
 
 **Usage:**
 
@@ -32,8 +32,9 @@ In your system's `hardware.nix`:
 ```
 
 **Features:**
-- Intel CPU microcode updates
-- Intel integrated GPU support
+- AMD CPU microcode updates
+- AMD CPU P-State driver support
+- AMD integrated GPU support (AMDGPU)
 - SSD optimization (TRIM)
 - Thunderbolt support
 - Bluetooth support

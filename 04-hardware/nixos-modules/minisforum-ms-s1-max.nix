@@ -7,11 +7,12 @@
 }:
 {
   # Minisforum MS-S1 Max hardware configuration
-  # This is a mini PC with Intel Core Ultra (Meteor Lake) processors
+  # This is a mini PC with AMD Ryzen processors
 
   imports = [
-    nixos-hardware.common-cpu-intel
-    nixos-hardware.common-gpu-intel
+    nixos-hardware.common-cpu-amd
+    nixos-hardware.common-cpu-amd-pstate
+    nixos-hardware.common-gpu-amd
     nixos-hardware.common-pc-ssd
   ];
 
@@ -23,8 +24,8 @@
     "usbhid"
     "sd_mod"
   ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

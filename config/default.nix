@@ -67,7 +67,7 @@ in
     };
 
     systemConfigurations.extraSpecialArgs = {
-      nixos-hardware = hardware.outputs.nixosModules;
+      nixos-hardware = hardware.nixosModules;
     };
 
     systemConfigurations.sharedModules = [
