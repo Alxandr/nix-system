@@ -8,7 +8,7 @@
 {
   # Minisforum MS-S1 Max hardware configuration
   # This is a mini PC with Intel Core Ultra (Meteor Lake) processors
-  
+
   imports = [
     nixos-hardware.common-cpu-intel
     nixos-hardware.common-gpu-intel
