@@ -11,7 +11,7 @@ This stage provides a sub-flake that re-exports the upstream `nixos-hardware` fl
 
 ### Minisforum MS-S1 Max
 
-Hardware configuration for the Minisforum MS-S1 Max mini PC, which features AMD Ryzen processors.
+Hardware configuration for the Minisforum MS-S1 Max mini PC. This module is based on the Framework Desktop configuration from nixos-hardware, as the hardware is very similar.
 
 **Usage:**
 
@@ -32,13 +32,9 @@ In your system's `hardware.nix`:
 ```
 
 **Features:**
-- AMD CPU microcode updates
-- AMD CPU P-State driver support
-- AMD integrated GPU support (AMDGPU)
+- AMD CPU support with P-State driver
+- AMD GPU support with kernel 6.14+ optimization
 - SSD optimization (TRIM)
-- Thunderbolt support
-- Bluetooth support
-- Firmware updates via fwupd
 
 ## Adding New Hardware Modules
 
