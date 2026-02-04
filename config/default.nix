@@ -10,9 +10,9 @@ let
     base
     users
     systems
+    hardware
     fira-code
     sops-nix
-    nixos-hardware
     nix-vscode-extensions
     ;
   inherit (config.flake) diskoConfigurations;
@@ -67,7 +67,7 @@ in
     };
 
     systemConfigurations.extraSpecialArgs = {
-      nixos-hardware = nixos-hardware.nixosModules;
+      nixos-hardware = hardware.outputs.nixosModules;
     };
 
     systemConfigurations.sharedModules = [
