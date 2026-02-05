@@ -162,5 +162,21 @@ in
         };
       };
     };
+
+    systemConfigurations.systems.desktop = {
+      unstable = true;
+      hardware = ./systems/desktop/hardware.nix;
+      configuration = ./systems/desktop/configuration.nix;
+      users = {
+        alxandr = ./users/alxandr;
+      };
+      drives = {
+        imports = [ diskoConfigurations.btrfs ];
+        disko.devices.disk.root.device = "/dev/nvme0n1";
+        disko.swap.root = {
+          enable = false;
+        };
+      };
+    };
   };
 }

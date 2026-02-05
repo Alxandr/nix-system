@@ -39,12 +39,14 @@
       btop
       htop
       wget
+      parted
       tcpdump
+      tparted
+      ripgrep
       usbutils
       nfs-utils
       traceroute
       wireguard-tools
-      unetbootin # for creating bootable USB drives
     ];
 
     nix.settings = {
