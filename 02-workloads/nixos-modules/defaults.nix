@@ -46,6 +46,7 @@
       usbutils
       nfs-utils
       traceroute
+      appimage-run
       wireguard-tools
     ];
 
