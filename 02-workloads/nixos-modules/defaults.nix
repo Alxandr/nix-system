@@ -30,6 +30,9 @@
     # Enable netbird service
     services.netbird.enable = true;
 
+    # Enable the firmware update service
+    services.fwupd.enable = true;
+
     # Programs for all systems
     environment.systemPackages = with pkgs; [
       dig
@@ -41,6 +44,7 @@
       nfs-utils
       traceroute
       wireguard-tools
+      unetbootin # for creating bootable USB drives
     ];
 
     nix.settings = {
