@@ -147,6 +147,12 @@
             ;
         };
       };
+      hardware = lib.mkStage ./04-hardware {
+        name = "hardware";
+        inputs = {
+          inherit nixos-hardware;
+        };
+      };
       patches = import ./99-patches;
       config = lib.mkStage ./config {
         name = "config";
@@ -159,11 +165,11 @@
             fira-code
             nil
             sops-nix
-            nixos-hardware
             nix-vscode-extensions
             ;
 
           nixpkgs = nixpkgs;
+          nixos-hardware = hardware.outputs;
         };
       };
     in
@@ -181,6 +187,7 @@
         {
           inherit (disko.nixosModules) disko;
           inherit (sops-nix.nixosModules) sops;
+          hardware = hardware.outputs.nixosModules;
         }
       ];
       lib = nixpkgs.lib.mergeAttrsList [
