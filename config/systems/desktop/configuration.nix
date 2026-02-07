@@ -23,6 +23,10 @@
     workloads.gaming.enable = true;
     workloads.podman.enable = true;
 
+    environment.systemPackages = with pkgs; [
+      mcp-proxy
+    ];
+
     # Setup auto-upgrade
     system.autoUpgrade = {
       enable = true;
