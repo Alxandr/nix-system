@@ -5,7 +5,7 @@ pkgs.mkShell {
     sops
     just
     typescript
-    nodejs_22
+    nodejs_24
   ];
 
   shellHook = ''
