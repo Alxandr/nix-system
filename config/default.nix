@@ -96,6 +96,8 @@ in
             pkgs.noto-fonts-cjk-sans
             pkgs.noto-fonts-cjk-serif
           ];
+
+          config.boot.kernelPackages = pkgs.linuxPackages_latest;
         }
       )
       ./theme
