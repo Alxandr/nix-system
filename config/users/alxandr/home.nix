@@ -224,6 +224,7 @@ in
       ]
       ++ optionals isDesktop [
         # gitbutler
+        anytype
       ]
     );
 
