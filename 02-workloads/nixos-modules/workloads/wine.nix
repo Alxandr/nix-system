@@ -35,7 +35,7 @@ in
     );
     module.options.package = mkOption {
       type = types.package;
-      default = pkgs.wineWowPackages.full;
+      default = pkgs.wineWow64Packages.full;
     };
   };
 
