@@ -226,7 +226,7 @@ in
         nh
         nil
         nixfmt
-        nixpkgs-fmt
+        devenv
       ]
       ++ optionals isDesktop [
         # gitbutler
