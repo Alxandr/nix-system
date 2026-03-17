@@ -3,11 +3,13 @@
   config,
   pkgs,
   nixos-wsl,
+  determinate,
   ...
 }:
 {
   imports = [
     nixos-wsl.default
+    determinate.default
   ];
 
   wsl.enable = true;

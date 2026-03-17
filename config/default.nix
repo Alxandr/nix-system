@@ -15,6 +15,7 @@ let
     nixos-hardware
     nix-vscode-extensions
     nixos-wsl
+    determinate
     ;
   inherit (config.flake) diskoConfigurations;
   inherit (config.flake) nixosModules;
@@ -70,6 +71,7 @@ in
     systemConfigurations.extraSpecialArgs = {
       nixos-hardware = nixos-hardware.nixosModules;
       nixos-wsl = nixos-wsl.nixosModules;
+      determinate = determinate.nixosModules;
     };
 
     systemConfigurations.sharedModules = [
