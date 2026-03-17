@@ -12,6 +12,11 @@
     determinate.default
   ];
 
+  virtualisation.docker.enable = true;
+  users.extraGroups.docker.members = [ "alxandr" ];
+
+
+  # WSL specific
   wsl.enable = true;
   wsl.defaultUser = "alxandr";
   wsl.ssh-agent.enable = true;
