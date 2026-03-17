@@ -30,6 +30,9 @@ let
         };
       }
     )
+    |> lib.filter (
+      sys: (sys.cfg.config.disko.devices.disk |> lib.attrsets.attrNames |> lib.lists.length) > 0
+    )
     |> lib.lists.groupBy' (acc: sys: acc // { "${sys.name}" = sys.install-pkg; }) { } (sys: sys.system);
 in
 {
@@ -53,21 +56,20 @@ in
 
     in
     rec {
-      packages =
-        {
-          install = pkgs.callPackage ./packages/install-any {
-            inherit installers isSingle;
-          };
-        }
-        // (
-          installers
-          |> lib.attrsets.mapAttrs' (
-            name: value: {
-              inherit (value) name;
-              inherit value;
-            }
-          )
-        );
+      packages = {
+        install = pkgs.callPackage ./packages/install-any {
+          inherit installers isSingle;
+        };
+      }
+      // (
+        installers
+        |> lib.attrsets.mapAttrs' (
+          name: value: {
+            inherit (value) name;
+            inherit value;
+          }
+        )
+      );
 
       apps = {
         install = {
@@ -75,6 +77,7 @@ in
           program = packages.install;
           meta.description = "Install a system";
         };
-      } // installerApps;
+      }
+      // installerApps;
     };
 }

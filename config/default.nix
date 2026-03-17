@@ -14,6 +14,7 @@ let
     sops-nix
     nixos-hardware
     nix-vscode-extensions
+    nixos-wsl
     ;
   inherit (config.flake) diskoConfigurations;
   inherit (config.flake) nixosModules;
@@ -68,6 +69,7 @@ in
 
     systemConfigurations.extraSpecialArgs = {
       nixos-hardware = nixos-hardware.nixosModules;
+      nixos-wsl = nixos-wsl.nixosModules;
     };
 
     systemConfigurations.sharedModules = [
@@ -179,6 +181,16 @@ in
           enable = false;
         };
       };
+    };
+
+    systemConfigurations.systems.wsl = {
+      unstable = true;
+      hardware = { }; # wsl doesn't really have hardware
+      configuration = ./systems/wsl/configuration.nix;
+      users = {
+        alxandr = ./users/alxandr;
+      };
+      drives = { };
     };
   };
 }

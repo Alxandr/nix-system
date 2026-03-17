@@ -92,6 +92,12 @@
     # Hardware support
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    # WSL support
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     # Fira Code source
     fira-code = {
       url = "github:tonsky/FiraCode/master";
@@ -114,6 +120,7 @@
       nil,
       nixos-hardware,
       nix-vscode-extensions,
+      nixos-wsl,
       ...
     }:
     let
@@ -166,6 +173,7 @@
             nil
             sops-nix
             nix-vscode-extensions
+            nixos-wsl
             ;
 
           nixpkgs = nixpkgs;
