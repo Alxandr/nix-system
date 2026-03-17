@@ -193,9 +193,13 @@
         users.outputs.nixosModules
         config.outputs.nixosModules
         {
-          inherit (disko.nixosModules) disko;
-          inherit (sops-nix.nixosModules) sops;
           hardware = hardware.outputs.nixosModules;
+          disko = {
+            imports = [ disko.nixosModules.disko ];
+          };
+          sops = {
+            imports = [ sops-nix.nixosModules.sops ];
+          };
         }
       ];
       lib = nixpkgs.lib.mergeAttrsList [
