@@ -10,6 +10,7 @@ with lib;
 
 let
   isDesktop = osConfig.workloads.desktop.enable;
+  isWsl = osConfig.wsl.enable or false;
   terminalFont = "Cascadia Code NF";
 
 in
@@ -130,7 +131,7 @@ in
     };
   };
 
-  programs.ssh = {
+  programs.ssh = mkIf (!isWsl) {
     enable = true;
     enableDefaultConfig = false;
     matchBlocks."*" = {
@@ -165,6 +166,8 @@ in
 
       color.ui = "auto";
 
+      core.sshCommand = mkIf isWsl "ssh.exe";
+
       "color \"grep\"" = {
         match = "cyan bold";
         selected = "blue";
@@ -192,8 +195,8 @@ in
       gitbutler.signCommits = true;
 
       http.cookieFile = "~/.gitcookies";
-
     };
+
     ignores = [
       # Logs and databases #
       ######################
