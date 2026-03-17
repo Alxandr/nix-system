@@ -13,6 +13,7 @@
   wsl.enable = true;
   wsl.defaultUser = "alxandr";
   wsl.ssh-agent.enable = true;
+  wsl.interop.register = true;
 
   wsl.extraBin = [
     # Required by VS Code's Remote WSL extension
