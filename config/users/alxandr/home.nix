@@ -148,9 +148,10 @@ in
       signByDefault = true;
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA49cjFMWbxCAjTsK7H/r0biiBV0EGZHJR1xmik/arxA";
       signer =
-        if (!isWsl)
-        then "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}"
-        else "/mnt/c/Program Files/1Password/app/8/op-ssh-sign.exe";
+        if (!isWsl) then
+          "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}"
+        else
+          "/mnt/c/Program Files/1Password/app/8/op-ssh-sign.exe";
     };
 
     settings = {
@@ -191,6 +192,10 @@ in
       push = {
         default = "upstream";
         autoSetupRemote = true;
+      };
+
+      pull = {
+        rebase = true;
       };
 
       credential.helper = "cache --timeout=3600";
