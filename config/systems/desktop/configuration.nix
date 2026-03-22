@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   ...
 }:
 {
@@ -15,6 +16,10 @@
     networking.networkmanager.enable = true;
     services.tailscale.enable = true;
 
+    # Enable iscsi
+    services.openiscsi.enable = true;
+    services.openiscsi.name = "iqn.2026-03.me.alxandr:${config.networking.hostName}";
+
     # Workloads
     workloads.desktop.enable = true;
     workloads.desktop.environment.plasma.enable = true;
@@ -25,6 +30,7 @@
 
     environment.systemPackages = with pkgs; [
       mcp-proxy
+      openiscsi
     ];
 
     # Setup auto-upgrade
