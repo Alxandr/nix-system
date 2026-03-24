@@ -36,6 +36,7 @@
     # Programs for all systems
     environment.systemPackages = with pkgs; [
       dig
+      nss
       btop
       htop
       wget
