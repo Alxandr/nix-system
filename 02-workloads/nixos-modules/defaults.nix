@@ -6,6 +6,9 @@
   ];
 
   config = {
+    # Allow normal users to bind to low ports
+    boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 80;
+
     # Environment variables
     environment.sessionVariables = {
       # XDG Variables
