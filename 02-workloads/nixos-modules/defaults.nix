@@ -31,7 +31,7 @@
     programs.neovim.defaultEditor = true;
 
     # Enable netbird service
-    services.netbird.enable = true;
+    services.netbird.enable = lib.mkDefault true;
 
     # Enable the firmware update service
     services.fwupd.enable = true;

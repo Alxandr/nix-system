@@ -15,6 +15,8 @@
   virtualisation.docker.enable = true;
   users.extraGroups.docker.members = [ "alxandr" ];
 
+  # Disable netbird - it makes little sense in WSL
+  services.netbird.enable = false;
 
   # WSL specific
   wsl.enable = true;

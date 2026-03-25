@@ -6,6 +6,7 @@ pkgs.mkShell {
     just
     typescript
     nodejs_24
+    nix-tree
   ];
 
   shellHook = ''
