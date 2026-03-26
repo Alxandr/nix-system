@@ -162,6 +162,8 @@ in
         signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA49cjFMWbxCAjTsK7H/r0biiBV0EGZHJR1xmik/arxA";
       };
 
+      gpg.ssh.allowedSignersFile = "~/.config/git/allowed_signers";
+
       alias = {
         wip = "commit -am 'WIP'";
       };
@@ -223,6 +225,28 @@ in
       "Thumbs.db"
     ];
   };
+
+  home.activation.ensureGitAllowedSigners =
+    let
+      allowedSigners = [
+        "alxandr@alxandr.me ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA49cjFMWbxCAjTsK7H/r0biiBV0EGZHJR1xmik/arxA"
+      ];
+
+      entriesScript = builtins.concatStringsSep "\n" (
+        map (e: ''
+          if ! grep -Fxq ${lib.strings.escapeShellArg e} "$file"; then
+            echo ${lib.strings.escapeShellArg e} >> "$file"
+          fi
+        '') allowedSigners
+      );
+    in
+    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      file="$HOME/.config/git/allowed_signers"
+      mkdir -p "$(dirname "$file")"
+      touch "$file"
+
+      ${entriesScript}
+    '';
 
   home.packages =
     with pkgs;
