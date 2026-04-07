@@ -76,4 +76,6 @@ in
     enable = true;
     nix-direnv.enable = true;
   };
+
+  xdg.configFile."direnv/lib/hm-op-direnv.sh".source = "${pkgs.op-direnv}/share/op-direnv/direnvrc";
 }

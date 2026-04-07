@@ -34,7 +34,7 @@
       programs.mcp.enable = true;
       programs.mcp.servers = {
         glider = {
-          command = "${lib.getExe yoloprojPkgs.glider}";
+          command = "${lib.getExe pkgs.glider}";
           args = [
             "--transport"
             "stdio"
@@ -42,7 +42,7 @@
         };
 
         nuget = {
-          command = "${lib.getExe yoloprojPkgs.nuget-mcp-server}";
+          command = "${lib.getExe pkgs.nuget-mcp-server}";
         };
 
         context7 = {
@@ -99,21 +99,18 @@
       programs.gh.gitCredentialHelper.enable = false; # we use 1password for this
 
       home.packages = [
-        # yoloproj packages
-        yoloprojPkgs.glider
-        yoloprojPkgs.nuget-mcp-server
-        yoloprojPkgs.t3code
-
-        # upstream packages
-        pkgs.prek
-        pkgs.docker-compose
-        pkgs.tmux
-        pkgs.pnpm
-        pkgs.jq
-        pkgs.yq-go
-        pkgs.just
-        pkgs.powershell
         pkgs.bun
+        pkgs.docker-compose
+        pkgs.glider
+        pkgs.jq
+        pkgs.just
+        pkgs.nuget-mcp-server
+        pkgs.pnpm
+        pkgs.powershell
+        pkgs.prek
+        pkgs.t3code
+        pkgs.tmux
+        pkgs.yq-go
 
         # dotnet
         dotnet

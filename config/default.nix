@@ -74,9 +74,6 @@ in
       nixos-hardware = nixos-hardware.nixosModules;
       nixos-wsl = nixos-wsl.nixosModules;
       determinate = determinate.nixosModules;
-
-      # packages
-      yoloproj = yoloproj.packages;
     };
 
     systemConfigurations.sharedModules = [
@@ -91,6 +88,13 @@ in
                 fira-code
                 fira-code-nerdfont
                 nil
+                ;
+
+              inherit (yoloproj.packages.${pkgs.stdenv.hostPlatform.system})
+                glider
+                nuget-mcp-server
+                op-direnv
+                t3code
                 ;
             })
           ];

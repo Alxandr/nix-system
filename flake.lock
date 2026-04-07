@@ -1286,11 +1286,11 @@
         "rust": "rust"
       },
       "locked": {
-        "lastModified": 1775559258,
-        "narHash": "sha256-TUn0fAePW+3NnPh8IVv7xxc5jyOL+mrVerAX6tGOO7k=",
+        "lastModified": 1775565669,
+        "narHash": "sha256-jFhSKzJ+GkwqskyMftnGixKgTSOk5QWi3nAzjkblPoc=",
         "owner": "YoloDev",
         "repo": "yoloproj",
-        "rev": "e5e68448524294e62dd24db16930b70efb57c227",
+        "rev": "0ad270a6c02f41118a37adb74e8027bdebaf3ee1",
         "type": "github"
       },
       "original": {
