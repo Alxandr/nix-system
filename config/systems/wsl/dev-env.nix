@@ -31,6 +31,10 @@
 
     in
     {
+      imports = [
+        ./home/worktrunk.nix
+      ];
+
       programs.mcp.enable = true;
       programs.mcp.servers = {
         glider = {
@@ -98,6 +102,9 @@
       programs.gh.enable = true;
       programs.gh.gitCredentialHelper.enable = false; # we use 1password for this
 
+      # git worktree manager
+      programs.worktrunk.enable = true;
+
       home.packages = [
         pkgs.bun # javascript runtime
         pkgs.docker-compose # docker compose cli
@@ -111,7 +118,6 @@
         pkgs.t3code # ai code multiplexer web ui
         pkgs.tmux # terminal multiplexer
         pkgs.yq-go # jq - but for yaml
-        pkgs.worktrunk # git worktree manager
 
         # dotnet
         dotnet
