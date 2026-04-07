@@ -99,18 +99,19 @@
       programs.gh.gitCredentialHelper.enable = false; # we use 1password for this
 
       home.packages = [
-        pkgs.bun
-        pkgs.docker-compose
-        pkgs.glider
-        pkgs.jq
-        pkgs.just
-        pkgs.nuget-mcp-server
-        pkgs.pnpm
-        pkgs.powershell
-        pkgs.prek
-        pkgs.t3code
-        pkgs.tmux
-        pkgs.yq-go
+        pkgs.bun # javascript runtime
+        pkgs.docker-compose # docker compose cli
+        pkgs.glider # mcp server for .NET
+        pkgs.jq # command-line JSON processor
+        pkgs.just # command runner for dev tasks
+        pkgs.nuget-mcp-server # mcp server for nuget packages
+        pkgs.pnpm # package manager for node
+        pkgs.powershell # shell
+        pkgs.prek # pre-commit hooks
+        pkgs.t3code # ai code multiplexer web ui
+        pkgs.tmux # terminal multiplexer
+        pkgs.yq-go # jq - but for yaml
+        pkgs.worktrunk # git worktree manager
 
         # dotnet
         dotnet
