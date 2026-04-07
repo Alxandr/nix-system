@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dotnet"
+  short_description: "Work on and analyze .NET codebases"
+  default_prompt: "Use $dotnet to work on this .NET codebase."
