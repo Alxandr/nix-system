@@ -134,6 +134,10 @@ in
           config.nix.extraOptions = ''
             !include ${config.sops.secrets."nix/access-tokens".path}
           '';
+
+          config.home-manager.sharedModules = [
+            sops-nix.homeManagerModules.sops
+          ];
         }
       )
       (

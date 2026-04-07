@@ -1,6 +1,11 @@
 keys:
+  # user keys - stored in one-password - typically used to encrypt the secrets
   - &user-alxandr age1p3n0ztudnl0rr4j4wcp4m00xqwaj5dvlzryg0rqd8xqvndpdhcmq4s6rt3
+
+  # host keys - stored at /etc/ssh/ssh_host_ed25519_key(.pub) on the hosts
+  # generate using `just host-key`
   - &host-laptop age18tr0kuwxhykfu4qms05qjmlgrgdmqvtuk5yk993004dwddtypqaq42fsvf
+  - &host-desktop age172csh0gswhckm6ecxg3mc4zfa47kpruxxmxfxad8vs9hckc7ryzs4ctg2q
   - &host-wsl-digdir age104rqjgzdsh06yaz37vqhy3dpktj3k3jed9ve9y0kldhryv4e04ssylktmv
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini|sops)$
@@ -8,7 +13,9 @@ creation_rules:
       - age:
           - *user-alxandr
           - *host-laptop
+          - *host-desktop
           - *host-wsl-digdir
+
 stores:
   yaml:
     indent: 2
