@@ -1,12 +1,14 @@
 keys:
   - &user-alxandr age1p4ehdz464azuu69mr9mvxswhw7df9dwh8cjv5258dqhfve9r63qq6yvq34
   - &host-laptop age18tr0kuwxhykfu4qms05qjmlgrgdmqvtuk5yk993004dwddtypqaq42fsvf
+  - &host-wsl-digdir age104rqjgzdsh06yaz37vqhy3dpktj3k3jed9ve9y0kldhryv4e04ssylktmv
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini|sops)$
     key_groups:
       - age:
           - *user-alxandr
           - *host-laptop
+          - *host-wsl-digdir
 stores:
   yaml:
     indent: 2

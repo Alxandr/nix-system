@@ -10,6 +10,8 @@
   imports = [
     nixos-wsl.default
     determinate.default
+    ./windows-proxies.nix
+    ./dev-env.nix
   ];
 
   virtualisation.docker.enable = true;

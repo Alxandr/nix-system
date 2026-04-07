@@ -1,12 +1,13 @@
 { pkgs, packages }:
 pkgs.mkShell {
   packages = with pkgs; [
-    ssh-to-age
-    sops
+    codex
     just
-    typescript
-    nodejs_24
     nix-tree
+    nodejs_24
+    sops
+    ssh-to-age
+    typescript
   ];
 
   shellHook = ''

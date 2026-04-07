@@ -15,6 +15,7 @@ let
     nixos-hardware
     nix-vscode-extensions
     nixos-wsl
+    yoloproj
     determinate
     ;
   inherit (config.flake) diskoConfigurations;
@@ -69,9 +70,13 @@ in
     };
 
     systemConfigurations.extraSpecialArgs = {
+      # nixos-modules
       nixos-hardware = nixos-hardware.nixosModules;
       nixos-wsl = nixos-wsl.nixosModules;
       determinate = determinate.nixosModules;
+
+      # packages
+      yoloproj = yoloproj.packages;
     };
 
     systemConfigurations.sharedModules = [
@@ -192,7 +197,7 @@ in
       users = {
         alxandr = ./users/alxandr;
       };
-      drives = { };
+      drives = { }; # wsl doesn't really have drives
     };
   };
 }

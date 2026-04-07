@@ -37,15 +37,14 @@
     # Pin our primary nixpkgs repository. This is the main nixpkgs repository
     # we'll use for our configurations. Be very careful changing this because
     # it'll impact your entire system.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     # Secret management
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Format disks with nix-config
@@ -58,32 +57,24 @@
     # Manage a user environment using Nix
     # https://github.com/nix-community/home-manager
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    home-manager-unstable = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     stylix = {
-      url = "github:danth/stylix/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    stylix-unstable = {
       url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Nix language server
     nil = {
       url = "github:oxalica/nil";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # # modern window compositor
@@ -97,7 +88,13 @@
     # WSL support
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Dev packages
+    yoloproj = {
+      url = "github:YoloDev/yoloproj";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Fira Code source
@@ -114,18 +111,16 @@
     {
       flake-parts,
       nixpkgs,
-      nixpkgs-unstable,
       sops-nix,
       disko,
       home-manager,
-      home-manager-unstable,
       stylix,
-      stylix-unstable,
       fira-code,
       nil,
       nixos-hardware,
       nix-vscode-extensions,
       nixos-wsl,
+      yoloproj,
       determinate,
       ...
     }:
@@ -152,11 +147,8 @@
             workloads
             disko
             nixpkgs
-            nixpkgs-unstable
             home-manager
-            home-manager-unstable
             stylix
-            stylix-unstable
             ;
         };
       };
@@ -180,6 +172,7 @@
             sops-nix
             nix-vscode-extensions
             nixos-wsl
+            yoloproj
             determinate
             ;
 

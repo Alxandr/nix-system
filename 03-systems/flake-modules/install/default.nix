@@ -5,7 +5,7 @@
 { lib, config, ... }:
 
 let
-  inherit (inputs) nixpkgs-unstable;
+  inherit (inputs) nixpkgs;
   inherit (config.flake) nixosConfigurations;
 
   count =
@@ -39,7 +39,7 @@ in
   perSystem =
     { system, ... }:
     let
-      pkgs = import nixpkgs-unstable { inherit system; };
+      pkgs = import nixpkgs { inherit system; };
       installers = bySystem.${system} or { };
       installerApps =
         installers

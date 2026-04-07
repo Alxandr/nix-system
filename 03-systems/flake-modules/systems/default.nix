@@ -11,11 +11,8 @@ let
     workloads
     disko
     nixpkgs
-    nixpkgs-unstable
     home-manager
-    home-manager-unstable
     stylix
-    stylix-unstable
     ;
 
   cfg = config.systemConfigurations;
@@ -137,46 +134,44 @@ in
     name: systemConfiguration:
     let
       m =
+        # here fore backwards compatibility
         if !systemConfiguration.unstable then
           {
             inherit nixpkgs home-manager stylix;
           }
         else
           {
-            nixpkgs = nixpkgs-unstable;
-            home-manager = home-manager-unstable;
-            stylix = stylix-unstable;
+            inherit nixpkgs home-manager stylix;
           };
     in
     m.nixpkgs.lib.nixosSystem {
       specialArgs = config.systemConfigurations.extraSpecialArgs // systemConfiguration.extraSpecialArgs;
-      modules =
-        [
-          # Set the system platform using the new approach
-          { nixpkgs.hostPlatform = systemConfiguration.system; }
+      modules = [
+        # Set the system platform using the new approach
+        { nixpkgs.hostPlatform = systemConfiguration.system; }
 
-          # common modules
-          m.home-manager.nixosModules.home-manager
-          m.stylix.nixosModules.stylix
-          disko.nixosModules.disko
-          users.nixosModules.user-manager
-          workloads.nixosModules.workloads
-          workloads.nixosModules.defaults
-          (importApply ./modules/flake-meta.nix {
-            inherit name;
-            inherit (config.flake) path;
-          })
-          (importApply ./modules/users.nix {
-            inherit (systemConfiguration) users;
-          })
+        # common modules
+        m.home-manager.nixosModules.home-manager
+        m.stylix.nixosModules.stylix
+        disko.nixosModules.disko
+        users.nixosModules.user-manager
+        workloads.nixosModules.workloads
+        workloads.nixosModules.defaults
+        (importApply ./modules/flake-meta.nix {
+          inherit name;
+          inherit (config.flake) path;
+        })
+        (importApply ./modules/users.nix {
+          inherit (systemConfiguration) users;
+        })
 
-          # per-system modules
-          systemConfiguration.hardware
-          systemConfiguration.drives
-          systemConfiguration.configuration
-        ]
-        ++ lib.optional systemConfiguration.isoImage.enable (importApply ./modules/iso-image.nix { })
-        ++ config.systemConfigurations.sharedModules;
+        # per-system modules
+        systemConfiguration.hardware
+        systemConfiguration.drives
+        systemConfiguration.configuration
+      ]
+      ++ lib.optional systemConfiguration.isoImage.enable (importApply ./modules/iso-image.nix { })
+      ++ config.systemConfigurations.sharedModules;
     }
   );
 
