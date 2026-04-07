@@ -17,12 +17,26 @@ let
 
   cfg = config.programs.worktrunk;
 
+  tomlFormat = pkgs.formats.toml { };
+
 in
 {
   options.programs.worktrunk = {
     enable = mkEnableOption "worktrunk, the worktree manager";
 
     package = mkPackageOption pkgs "worktrunk" { };
+
+    config = mkOption {
+      inherit (tomlFormat) type;
+      default = { };
+
+      description = ''
+        Configuration written to
+        {file}`$XDG_CONFIG_HOME/worktrunk/config.toml`.
+
+        See https://worktrunk.dev/ for documentation.
+      '';
+    };
 
     enableBashIntegration = lib.hm.shell.mkBashIntegrationOption { inherit config; };
 
@@ -60,6 +74,10 @@ in
       nushell.extraConfig = mkIf cfg.enableNushellIntegration (mkAfter ''
         ${getExe cfg.package} config shell init nu | save -f ($nu.default-config-dir | path join vendor/autoload/wt.nu)
       '');
+    };
+
+    xdg.configFile."worktrunk/config.toml" = mkIf (cfg.config != { }) {
+      source = tomlFormat.generate "worktrunk-config" cfg.config;
     };
   };
 }
