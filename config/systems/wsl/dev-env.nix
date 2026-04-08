@@ -108,6 +108,7 @@
       programs.worktrunk.config = {
         post-switch = [
           { direnv = "${lib.getExe pkgs.direnv} allow"; }
+          { prek = "${lib.getExe pkgs.prek} install"; }
         ];
       };
 
