@@ -105,7 +105,9 @@
       # git worktree manager
       programs.worktrunk.enable = true;
       programs.worktrunk.config = {
-        post-merge.direnv = "${lib.getExe pkgs.direnv} allow";
+        post-switch = [
+          { direnv = "${lib.getExe pkgs.direnv} allow"; }
+        ];
       };
 
       home.packages = [
