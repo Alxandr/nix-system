@@ -128,6 +128,16 @@ in
                 mode = "0440";
                 group = config.users.groups.keys.name;
               };
+
+              "mcp/github/pat" = {
+                mode = "0440";
+                group = config.users.groups.keys.name;
+              };
+
+              "mcp/context7/key" = {
+                mode = "0440";
+                group = config.users.groups.keys.name;
+              };
             };
           };
 

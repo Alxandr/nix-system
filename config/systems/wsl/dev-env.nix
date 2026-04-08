@@ -1,5 +1,6 @@
 {
   yoloproj,
+  config,
   ...
 }:
 {
@@ -127,5 +128,10 @@
         # dotnet
         dotnet
       ];
+
+      home.sessionVariables = {
+        CONTEXT7_API_KEY = "$(cat ${config.sops.secrets."mcp/context7/key".path})";
+        MCP_GITHUB_PAT = "$(cat ${config.sops.secrets."mcp/github/pat".path})";
+      };
     };
 }
