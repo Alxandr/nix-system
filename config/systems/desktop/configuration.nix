@@ -31,6 +31,7 @@
     environment.systemPackages = with pkgs; [
       mcp-proxy
       openiscsi
+      lmstudio
     ];
 
     # Setup auto-upgrade
