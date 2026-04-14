@@ -125,6 +125,7 @@
         pkgs.pnpm # package manager for node
         pkgs.powershell # shell
         pkgs.prek # pre-commit hooks
+        pkgs.rtk # cli proxy for reducing LLM token consumption
         pkgs.t3code # ai code multiplexer web ui
         pkgs.terraform # infrastructure as code tool
         pkgs.tmux # terminal multiplexer
