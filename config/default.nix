@@ -95,6 +95,7 @@ in
                 nuget-mcp-server
                 op-direnv
                 t3code
+                dotnet-verify
                 ;
             })
           ];

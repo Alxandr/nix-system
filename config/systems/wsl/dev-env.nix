@@ -115,6 +115,7 @@
       home.packages = [
         pkgs.bun # javascript runtime
         pkgs.docker-compose # docker compose cli
+        pkgs.dotnet-verify # tool for snapshot testing of .NET projects
         pkgs.glider # mcp server for .NET
         pkgs.helm # kubernetes package manager
         pkgs.jq # command-line JSON processor
