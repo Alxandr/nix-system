@@ -116,13 +116,17 @@
         pkgs.bun # javascript runtime
         pkgs.docker-compose # docker compose cli
         pkgs.glider # mcp server for .NET
+        pkgs.helm # kubernetes package manager
         pkgs.jq # command-line JSON processor
         pkgs.just # command runner for dev tasks
+        pkgs.kubectl # kubernetes cli
+        pkgs.kubelogin # kubernetes oidc login helper
         pkgs.nuget-mcp-server # mcp server for nuget packages
         pkgs.pnpm # package manager for node
         pkgs.powershell # shell
         pkgs.prek # pre-commit hooks
         pkgs.t3code # ai code multiplexer web ui
+        pkgs.terraform # infrastructure as code tool
         pkgs.tmux # terminal multiplexer
         pkgs.yq-go # jq - but for yaml
 
