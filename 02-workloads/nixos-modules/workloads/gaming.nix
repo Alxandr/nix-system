@@ -49,6 +49,12 @@ in
             name = "Lutris";
             package = "lutris";
           };
+
+          mangohud = mkProgramOption {
+            inherit pkgs;
+            name = "MangoHud";
+            package = "mangohud";
+          };
         }
       ]
       ++ optional (system == "x86_64-linux") {
