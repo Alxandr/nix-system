@@ -37,6 +37,18 @@ in
             inherit pkgs;
             name = "GameMode";
           };
+
+          cartridges = mkProgramOption {
+            inherit pkgs;
+            name = "Cartridges";
+            package = "cartridges";
+          };
+
+          lutris = mkProgramOption {
+            inherit pkgs;
+            name = "Lutris";
+            package = "lutris";
+          };
         }
       ]
       ++ optional (system == "x86_64-linux") {
@@ -123,6 +135,12 @@ in
     })
     (mkIf (cfg.programs.gamemode.enable) {
       programs.gamemode.enable = true;
+    })
+    (mkIf (cfg.programs.cartridges.enable) {
+      environment.systemPackages = [ cfg.programs.cartridges.package ];
+    })
+    (mkIf (cfg.programs.lutris.enable) {
+      environment.systemPackages = [ cfg.programs.lutris.package ];
     })
     (mkIf (system == "x86_64-linux" && cfg.programs.steam.enable) {
       programs.steam = {
