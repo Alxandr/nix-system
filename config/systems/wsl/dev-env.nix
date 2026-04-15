@@ -32,10 +32,6 @@
 
     in
     {
-      imports = [
-        ./home/worktrunk.nix
-      ];
-
       programs.mcp.enable = true;
       programs.mcp.servers = {
         glider = {

@@ -21,7 +21,7 @@
     workloads.desktop.environment.hyprland.enable = true;
     workloads.desktop.environment.niri.enable = true;
     workloads.gaming.enable = true;
-    workloads.podman.enable = true;
+    workloads.development.enable = true;
 
     # Screen configuration in hyprland
     home-manager.sharedModules = [

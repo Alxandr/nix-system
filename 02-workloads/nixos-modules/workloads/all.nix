@@ -7,6 +7,6 @@
     ./wine.nix
     ./wayland.nix
     ./pipewire.nix
-    ./podman.nix
+    ./dev.nix
   ];
 }

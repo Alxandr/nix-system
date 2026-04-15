@@ -14,7 +14,7 @@
     ./dev-env.nix
   ];
 
-  virtualisation.docker.enable = true;
+  workloads.development.enable = true;
   users.extraGroups.docker.members = [ "alxandr" ];
 
   # Disable netbird - it makes little sense in WSL

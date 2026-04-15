@@ -10,6 +10,7 @@ with lib;
 
 let
   isDesktop = osConfig.workloads.desktop.enable;
+  isDevelopment = osConfig.workloads.development.enable;
   isWsl = osConfig.wsl.enable or false;
   terminalFont = "Cascadia Code NF";
 
@@ -24,6 +25,7 @@ in
     ./home/wofi
     ./home/swaync
     ./home/zed.nix
+    ./home/worktrunk.nix
   ];
 
   # TODO: https://github.com/danth/stylix/issues/865
@@ -253,15 +255,19 @@ in
     (
       [
         nh
-        nil
         nixfmt
         devenv
+      ]
+      ++ optionals isDevelopment [
+        nil
       ]
       ++ optionals isDesktop [
         # gitbutler
         anytype
       ]
     );
+
+  programs.worktrunk.enable = mkIf isDevelopment true;
 
   # temp hack
   xdg.configFile."autostart/kde-theme-activate.desktop" = mkIf isDesktop {
