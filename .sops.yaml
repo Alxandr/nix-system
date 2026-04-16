@@ -16,6 +16,17 @@ creation_rules:
           - *host-desktop
           - *host-wsl-digdir
 
+  - path_regex: certs/[^/]+/key
+    key_groups:
+      - age:
+          - *user-alxandr
+          - *host-laptop
+          - *host-desktop
+          - *host-wsl-digdir
+
 stores:
   yaml:
+    indent: 2
+
+  json:
     indent: 2

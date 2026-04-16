@@ -8,6 +8,7 @@ pkgs.mkShell {
     sops
     ssh-to-age
     typescript
+    openssl
   ];
 
   shellHook = ''

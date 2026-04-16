@@ -139,8 +139,27 @@ in
                 mode = "0440";
                 group = config.users.groups.keys.name;
               };
+
+              "certs/dotnet/key" = {
+                mode = "0440";
+                group = config.users.groups.keys.name;
+                sopsFile = ../certs/dotnet/key;
+                format = "binary";
+              };
+
+              "certs/caddy/key" = {
+                mode = "0440";
+                group = config.users.groups.keys.name;
+                sopsFile = ../certs/caddy/key;
+                format = "binary";
+              };
             };
           };
+
+          config.security.pki.certificateFiles = [
+            ../certs/dotnet/cert
+            ../certs/caddy/cert
+          ];
 
           config.nix.extraOptions = ''
             !include ${config.sops.secrets."nix/access-tokens".path}
