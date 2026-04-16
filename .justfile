@@ -15,9 +15,20 @@
 @host-key: ensure-host-key
 	cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age
 
-@generate-cert NAME:
+@generate-ed25519-cert NAME:
 	openssl req \
 		-new -newkey ed25519 -nodes -x509 \
+		-keyout ./certs/{{NAME}}/key \
+		-out ./certs/{{NAME}}/cert \
+		-config ./certs/{{NAME}}/config \
+		-days 36525 \
+		-extensions v3_req
+
+	sops encrypt -i ./certs/{{NAME}}/key
+
+@generate-rsa-cert NAME:
+	openssl req \
+		-new -newkey rsa:4096 -nodes -x509 \
 		-keyout ./certs/{{NAME}}/key \
 		-out ./certs/{{NAME}}/cert \
 		-config ./certs/{{NAME}}/config \
