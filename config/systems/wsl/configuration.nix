@@ -14,6 +14,13 @@
     ./dev-env.nix
   ];
 
+  sops.secrets."altinn.env" = {
+    mode = "0440";
+    group = config.users.groups.keys.name;
+    sopsFile = ../../../secrets/wsl/altinn.env;
+    format = "dotenv";
+  };
+
   workloads.development.enable = true;
   users.extraGroups.docker.members = [ "alxandr" ];
 

@@ -16,6 +16,12 @@ creation_rules:
           - *host-desktop
           - *host-wsl-digdir
 
+  - path_regex: secrets/wsl/[^/]+\.(yaml|json|env|ini|sops)$
+    key_groups:
+      - age:
+          - *user-alxandr
+          - *host-wsl-digdir
+
   - path_regex: certs/[^/]+/key
     key_groups:
       - age:

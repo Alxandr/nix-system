@@ -26,6 +26,7 @@ in
     ./home/swaync
     ./home/zed.nix
     ./home/worktrunk.nix
+    ./home/session-variable-files.nix
   ];
 
   # TODO: https://github.com/danth/stylix/issues/865
