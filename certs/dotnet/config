@@ -11,7 +11,7 @@ basicConstraints = critical,CA:false
 keyUsage = critical,digitalSignature
 extendedKeyUsage = critical,serverAuth
 subjectAltName = critical,@alt_names
-1.3.6.1.4.1.311.84.1.1 = DER:01
+1.3.6.1.4.1.311.84.1.1 = DER:06
 
 [ alt_names ]
 DNS.1 = localhost
