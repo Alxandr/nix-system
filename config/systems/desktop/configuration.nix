@@ -16,6 +16,9 @@
     networking.networkmanager.enable = true;
     services.tailscale.enable = true;
 
+    # Sunshine game streaming
+    services.sunshine.enable = true;
+
     # Enable iscsi
     services.openiscsi.enable = true;
     services.openiscsi.name = "iqn.2026-03.me.alxandr:${config.networking.hostName}";
