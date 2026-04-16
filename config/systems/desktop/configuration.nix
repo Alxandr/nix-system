@@ -18,6 +18,9 @@
 
     # Sunshine game streaming
     services.sunshine.enable = true;
+    services.sunshine.openFirewall = true;
+    services.sunshine.capSysAdmin = true;
+    services.sunshine.autoStart = true;
 
     # Enable iscsi
     services.openiscsi.enable = true;
