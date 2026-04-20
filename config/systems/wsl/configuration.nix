@@ -40,6 +40,9 @@
     { src = "${pkgs.coreutils}/bin/uname"; }
   ];
 
+  # Enable pulseaudio (works with WSLg)
+  services.pulseaudio.enable = true;
+
   # Required by VS Code's Remote WSL extension
   programs.nix-ld.enable = true;
 
