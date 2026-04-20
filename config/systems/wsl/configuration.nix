@@ -22,6 +22,8 @@
   };
 
   workloads.development.enable = true;
+  virtualisation.docker.enable = true;
+  virtualisation.podman.dockerCompat = false;
   users.extraGroups.docker.members = [ "alxandr" ];
 
   # Disable netbird - it makes little sense in WSL
