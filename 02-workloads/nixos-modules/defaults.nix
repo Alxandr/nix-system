@@ -51,6 +51,7 @@
       nfs-utils
       traceroute
       appimage-run
+      attic-client
       wireguard-tools
     ];
 
