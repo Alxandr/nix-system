@@ -7,7 +7,6 @@
   config.home-manager.users.alxandr =
     { pkgs, lib, ... }:
     let
-      yoloprojPkgs = yoloproj.${pkgs.stdenv.hostPlatform.system};
       dotnet =
         let
           combined =
@@ -127,6 +126,7 @@
         pkgs.terraform # infrastructure as code tool
         pkgs.tmux # terminal multiplexer
         pkgs.yq-go # jq - but for yaml
+        pkgs.gitbutler-cli # git plexer
 
         # dotnet
         dotnet

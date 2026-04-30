@@ -1126,11 +1126,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1777086717,
-        "narHash": "sha256-vEl3cGHRxEFdVNuP9PbrhAWnmU98aPOLGy9/1JXzSuM=",
+        "lastModified": 1777519017,
+        "narHash": "sha256-TXilQ8MwFFtZs7HSogSI/LJzAS63nicE8iF63iB93WM=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "3be56bd430bfd65d3c468a50626c3a601c7dee03",
+        "rev": "09b556f18dacc39e97a46e0a1cba47af7b3af1d8",
         "type": "github"
       },
       "original": {
@@ -1286,11 +1286,11 @@
         "rust": "rust"
       },
       "locked": {
-        "lastModified": 1777055535,
-        "narHash": "sha256-AF9MSH2TMgtbZx3yeEdGotMWkCSTReFZ6LBJvtAx07o=",
+        "lastModified": 1777542815,
+        "narHash": "sha256-8cmZFISY8FWc0g+6QM8AJrdhWeFMKr8t1/mdHBhrBww=",
         "owner": "YoloDev",
         "repo": "yoloproj",
-        "rev": "b5ab640cdd490510bed4e8c318d8b7884b3e408e",
+        "rev": "8d54eebcd77501c8ef3f14a1044243c5fc26cb8d",
         "type": "github"
       },
       "original": {

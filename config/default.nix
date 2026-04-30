@@ -96,6 +96,7 @@ in
                 op-direnv
                 t3code
                 dotnet-verify
+                gitbutler-cli
                 ;
             })
 
