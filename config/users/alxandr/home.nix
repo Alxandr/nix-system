@@ -261,6 +261,7 @@ in
       ]
       ++ optionals isDevelopment [
         nil
+        gitbutler-cli
       ]
       ++ optionals isDesktop [
         # gitbutler
