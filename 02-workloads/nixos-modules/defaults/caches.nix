@@ -27,6 +27,7 @@ in
         "https://nixpkgs-wayland.cachix.org"
         "https://hyprland.cachix.org"
         "https://install.determinate.systems"
+        "https://attic.alxandr.me/attic/alxandr"
       ];
 
       trusted-public-keys = [
@@ -35,6 +36,7 @@ in
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
+        "alxandr:Va/JTYBsY78zfZHABghDQqdnLu02aDVJaoo7j98jefg="
       ];
     };
   });
