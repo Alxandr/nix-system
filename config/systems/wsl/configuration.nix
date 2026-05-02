@@ -26,6 +26,9 @@
   virtualisation.podman.dockerCompat = false;
   users.extraGroups.docker.members = [ "alxandr" ];
 
+  # Secrets manager
+  services.gnome.gnome-keyring.enable = true;
+
   # Disable netbird - it makes little sense in WSL
   services.netbird.enable = false;
 
