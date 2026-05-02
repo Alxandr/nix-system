@@ -25,6 +25,42 @@ in
           name = "dive";
           package = "dive";
         };
+
+        just = mkProgramOption {
+          inherit pkgs;
+          name = "just";
+          package = "just";
+        };
+
+        jq = mkProgramOption {
+          inherit pkgs;
+          name = "jq";
+          package = "jq";
+        };
+
+        yq = mkProgramOption {
+          inherit pkgs;
+          name = "yq";
+          package = "yq-go";
+        };
+
+        codex = mkProgramOption {
+          inherit pkgs;
+          name = "codex";
+          package = "codex";
+        };
+
+        bun = mkProgramOption {
+          inherit pkgs;
+          name = "bun";
+          package = "bun";
+        };
+
+        nodejs = mkProgramOption {
+          inherit pkgs;
+          name = "nodejs";
+          package = "nodejs";
+        };
       }
     ]);
   };
@@ -47,6 +83,24 @@ in
     }
     (mkIf cfg.programs.dive.enable {
       environment.systemPackages = [ cfg.programs.dive.package ];
+    })
+    (mkIf cfg.programs.just.enable {
+      environment.systemPackages = [ cfg.programs.just.package ];
+    })
+    (mkIf cfg.programs.jq.enable {
+      environment.systemPackages = [ cfg.programs.jq.package ];
+    })
+    (mkIf cfg.programs.yq.enable {
+      environment.systemPackages = [ cfg.programs.yq.package ];
+    })
+    (mkIf cfg.programs.codex.enable {
+      environment.systemPackages = [ cfg.programs.codex.package ];
+    })
+    (mkIf cfg.programs.bun.enable {
+      environment.systemPackages = [ cfg.programs.bun.package ];
+    })
+    (mkIf cfg.programs.nodejs.enable {
+      environment.systemPackages = [ cfg.programs.nodejs.package ];
     })
   ]);
 }
