@@ -102,30 +102,9 @@ in
 
             # https://github.com/NixOS/nixpkgs/issues/513245
             (final: prev: {
-              # Override the underlying lutris package
-              lutris = prev.lutris.override {
-                # Intercept buildFHSEnv to modify target packages
-                buildFHSEnv =
-                  args:
-                  final.buildFHSEnv (
-                    args
-                    // {
-                      multiPkgs =
-                        envPkgs:
-                        let
-                          # Fetch original package list
-                          originalPkgs = args.multiPkgs envPkgs;
-
-                          # Disable tests for openldap
-                          customLdap = envPkgs.openldap.overrideAttrs {
-                            doCheck = false;
-                          };
-                        in
-                        # Replace broken openldap with the custom one
-                        builtins.filter (p: (p.pname or "") != "openldap") originalPkgs ++ [ customLdap ];
-                    }
-                  );
-              };
+              openldap = prev.openldap.overrideAttrs (_: {
+                doCheck = !prev.stdenv.hostPlatform.isi686;
+              });
             })
           ];
 
