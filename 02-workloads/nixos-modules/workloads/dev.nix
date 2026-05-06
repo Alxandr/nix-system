@@ -61,6 +61,12 @@ in
           name = "nodejs";
           package = "nodejs";
         };
+
+        ast-grep = mkProgramOption {
+          inherit pkgs;
+          name = "ast-grep";
+          package = "ast-grep";
+        };
       }
     ]);
   };
