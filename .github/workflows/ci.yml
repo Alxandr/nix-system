@@ -11,13 +11,30 @@ jobs:
     runs-on: ubuntu-latest
     needs: []
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - name: Configure git
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.symlinks true
+          git config --global fetch.parallel 32
 
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Set up Nix
+        uses: DeterminateSystems/determinate-nix-action@7c4cc317e802185875512bfcb68259257279d767 # v3.19.1
+        with:
+          extra-conf: |
+            keep-env-derivations = true
+            keep-outputs = true
+
+      - uses: YoloDev/actions-attic@7a1c97712ee0e9953a06181473792f2ed318bc82 # v0.1.0
+        id: attic
+        with:
+          server: https://attic.alxandr.me/attic/
+          cacheName: alxandr
+          token: ${{ secrets.ATTIC_TOKEN }}
 
       - name: Check Nix flake Nixpkgs inputs
-        uses: DeterminateSystems/flake-checker-action@135843d9309301ab5a669e972b10b3c9f57a5da4 # main
+        uses: DeterminateSystems/flake-checker-action@3164002371bc90729c68af0e24d5aacf20d7c9f6 # v12
 
       - name: Show flake
         run: nix flake show --extra-experimental-features pipe-operators
