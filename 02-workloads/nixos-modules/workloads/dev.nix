@@ -108,5 +108,8 @@ in
     (mkIf cfg.programs.nodejs.enable {
       environment.systemPackages = [ cfg.programs.nodejs.package ];
     })
+    (mkIf cfg.programs.ast-grep.enable {
+      environment.systemPackages = [ cfg.programs.ast-grep.package ];
+    })
   ]);
 }
