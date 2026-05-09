@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  llm-models,
   ...
 }:
 {
@@ -33,6 +34,12 @@
     workloads.desktop.environment.niri.enable = true;
     workloads.gaming.enable = true;
     workloads.development.enable = true;
+    # workloads.llama.enable = true;
+    # workloads.llama.rocmSupport = true;
+    # workloads.llama.models = {
+    #   "Qwen-3.6/35B-A3b:Q5-K-XL" = llm-models."unsloth"."qwen3.6"."35b-a3b:ud-q5-k-xl";
+    #   "Qwen-3.6/27B:Q5-K-XL" = llm-models."unsloth"."qwen3.6"."27b:ud-q5-k-xl";
+    # };
 
     environment.systemPackages = with pkgs; [
       mcp-proxy

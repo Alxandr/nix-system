@@ -1,4 +1,5 @@
 { pkgs, packages }:
+
 pkgs.mkShell {
   packages = with pkgs; [
     codex
@@ -10,6 +11,13 @@ pkgs.mkShell {
     typescript
     openssl
     libsecret
+
+    packages.hf2nix
+
+    # development of hf2nix
+    basedpyright
+    python3Packages.ruff
+    python3Packages.huggingface-hub
   ];
 
   shellHook = ''

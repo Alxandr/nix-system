@@ -1,38 +1,47 @@
 [private]
 @default:
-	just --choose
+    just --choose
 
 # Update sops secrets with new keys
 @update-keys:
-	sops updatekeys secrets/*
-	sops updatekeys certs/*/key
+    sops updatekeys secrets/*
+    sops updatekeys certs/*/key
+
+# Evaluate generated model packages
+@models:
+    nix eval --impure --expr 'let \
+      flake = builtins.getFlake (toString ./.); \
+      pkgs = import flake.inputs.nixpkgs { system = "x86_64-linux"; }; \
+      value = pkgs.callPackage ./config/models/default.nix { }; \
+    in \
+      builtins.removeAttrs value [ "override" "overrideDerivation" ]'
 
 [private]
 @ensure-host-key:
-	test -f /etc/ssh/ssh_host_ed25519_key.pub || sudo ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key
+    test -f /etc/ssh/ssh_host_ed25519_key.pub || sudo ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key
 
 # Get host age key
 @host-key: ensure-host-key
-	cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age
+    cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age
 
 @generate-ed25519-cert NAME:
-	openssl req \
-		-new -newkey ed25519 -nodes -x509 \
-		-keyout ./certs/{{NAME}}/key \
-		-out ./certs/{{NAME}}/cert \
-		-config ./certs/{{NAME}}/config \
-		-days 36525 \
-		-extensions v3_req
+    openssl req \
+    	-new -newkey ed25519 -nodes -x509 \
+    	-keyout ./certs/{{ NAME }}/key \
+    	-out ./certs/{{ NAME }}/cert \
+    	-config ./certs/{{ NAME }}/config \
+    	-days 36525 \
+    	-extensions v3_req
 
-	sops encrypt -i ./certs/{{NAME}}/key
+    sops encrypt -i ./certs/{{ NAME }}/key
 
 @generate-rsa-cert NAME:
-	openssl req \
-		-new -newkey rsa:4096 -nodes -x509 \
-		-keyout ./certs/{{NAME}}/key \
-		-out ./certs/{{NAME}}/cert \
-		-config ./certs/{{NAME}}/config \
-		-days 36525 \
-		-extensions v3_req
+    openssl req \
+    	-new -newkey rsa:4096 -nodes -x509 \
+    	-keyout ./certs/{{ NAME }}/key \
+    	-out ./certs/{{ NAME }}/cert \
+    	-config ./certs/{{ NAME }}/config \
+    	-days 36525 \
+    	-extensions v3_req
 
-	sops encrypt -i ./certs/{{NAME}}/key
+    sops encrypt -i ./certs/{{ NAME }}/key

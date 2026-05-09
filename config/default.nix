@@ -47,6 +47,7 @@ in
         packages = {
           inherit (pkgs) cascadia-code;
           inherit (inputs'.nil.packages) nil;
+          hf2nix = pkgs.callPackage ./packages/hf2nix { };
           fira-code = pkgs.callPackage ./packages/fira-code/package.nix { src = fira-code; };
           fira-code-nerdfont = pkgs.callPackage ./packages/fira-code-nerdfont/package.nix {
             inherit (packages) fira-code;
@@ -87,6 +88,7 @@ in
               inherit (config.flake.packages.${pkgs.stdenv.hostPlatform.system})
                 fira-code
                 fira-code-nerdfont
+                hf2nix
                 nil
                 ;
 
@@ -124,6 +126,7 @@ in
       )
       ./theme
       ./nixos-modules/certificates
+      ./nixos-modules/llm-models
       nixosModules.keyboard
       sops-nix.nixosModules.sops
       (

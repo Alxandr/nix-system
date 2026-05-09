@@ -8,5 +8,6 @@
     ./wayland.nix
     ./pipewire.nix
     ./dev.nix
+    ./llama.nix
   ];
 }
