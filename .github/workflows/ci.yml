@@ -26,7 +26,7 @@ jobs:
             keep-env-derivations = true
             keep-outputs = true
 
-      - uses: YoloDev/actions-attic@7a1c97712ee0e9953a06181473792f2ed318bc82 # v0.1.0
+      - uses: YoloDev/actions-attic@96d2553f0175f02f07dc86dc7fe67eba05c7470d # v0.1.1
         id: attic
         with:
           server: https://attic.alxandr.me/attic/
