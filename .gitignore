@@ -5,3 +5,4 @@ result-bin/
 .direnv/
 node_modules/
 .codex
+/__pycache__/
