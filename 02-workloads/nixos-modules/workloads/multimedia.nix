@@ -27,10 +27,22 @@ in
             package = "vlc";
           };
 
-          jellyfin = mkProgramOption {
+          # jellyfin = mkProgramOption {
+          #   inherit pkgs;
+          #   name = "Jellyfin";
+          #   # package = "jellyfin-desktop";
+          # };
+
+          tsukimi = mkProgramOption {
             inherit pkgs;
-            name = "Jellyfin";
-            package = "jellyfin-media-player";
+            name = "Tsukimi";
+            package = "tsukimi";
+          };
+
+          delfin = mkProgramOption {
+            inherit pkgs;
+            name = "Delfin";
+            package = "delfin";
           };
         }
       ]
@@ -48,8 +60,14 @@ in
     (mkIf cfg.programs.vlc.enable {
       environment.systemPackages = [ cfg.programs.vlc.package ];
     })
-    (mkIf cfg.programs.jellyfin.enable {
-      environment.systemPackages = [ cfg.programs.jellyfin.package ];
+    # (mkIf cfg.programs.jellyfin.enable {
+    #   environment.systemPackages = [ cfg.programs.jellyfin.package ];
+    # })
+    (mkIf cfg.programs.tsukimi.enable {
+      environment.systemPackages = [ cfg.programs.tsukimi.package ];
+    })
+    (mkIf cfg.programs.delfin.enable {
+      environment.systemPackages = [ cfg.programs.delfin.package ];
     })
     (mkIf (system == "x86_64-linux" && cfg.programs.spotify.enable) {
       environment.systemPackages = [ cfg.programs.spotify.package ];
