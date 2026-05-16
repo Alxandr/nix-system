@@ -22,6 +22,11 @@ in
   programs.bat.enable = true;
   programs.eza.enable = true;
 
+  programs.atuin = {
+    enable = true;
+    daemon.enable = true;
+  };
+
   home.packages = with pkgs; [
     dua
   ];
