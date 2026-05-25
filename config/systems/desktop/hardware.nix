@@ -36,4 +36,8 @@
   };
 
   hardware.bluetooth.enable = lib.mkDefault true;
+  hardware.bluetooth.settings.General = {
+    Experimental = lib.mkDefault true;
+    ControllerMode = lib.mkDefault "dual"; # good default for most adapters
+  };
 }

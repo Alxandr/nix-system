@@ -40,52 +40,52 @@ in
   };
 
   programs.vscode = mkIf isDesktop {
-    enable = true;
+    enable = false;
     # package = pkgs.vscode.override {
     #   commandLineArgs = "--password-store=\"kwallet5\"";
     # };
 
     mutableExtensionsDir = false;
     profiles.default = {
-      extensions =
-        (with pkgs.vscode-extensions; [
-          eamodio.gitlens
-          editorconfig.editorconfig
-          esbenp.prettier-vscode
-          fill-labs.dependi
-          foxundermoon.shell-format
-          github.copilot
-          github.copilot-chat
-          github.vscode-github-actions
-          hashicorp.hcl
-          jnoortheen.nix-ide
-          mkhl.direnv
-          ms-python.debugpy
-          ms-python.python
-          ms-python.vscode-pylance
-          ms-vscode-remote.remote-containers
-          ms-vscode.cmake-tools
-          ms-vscode.cpptools
-          ms-vscode.cpptools-extension-pack
-          pkief.material-icon-theme
-          redhat.ansible
-          redhat.vscode-xml
-          redhat.vscode-yaml
-          rust-lang.rust-analyzer
-          samuelcolvin.jinjahtml
-          signageos.signageos-vscode-sops
-          skellock.just
-          tamasfe.even-better-toml
-          usernamehw.errorlens
-          vadimcn.vscode-lldb
-        ])
-        ++ (with pkgs.vscode-marketplace; [
-          arktypeio.arkdark
-          fengtan.ldap-explorer
-          jscearcy.rust-doc-viewer
-          opentofu.vscode-opentofu
-          oven.bun-vscode
-        ]);
+      # extensions =
+      #   (with pkgs.vscode-extensions; [
+      #     eamodio.gitlens
+      #     editorconfig.editorconfig
+      #     esbenp.prettier-vscode
+      #     fill-labs.dependi
+      #     foxundermoon.shell-format
+      #     github.copilot
+      #     github.copilot-chat
+      #     github.vscode-github-actions
+      #     hashicorp.hcl
+      #     jnoortheen.nix-ide
+      #     mkhl.direnv
+      #     ms-python.debugpy
+      #     ms-python.python
+      #     ms-python.vscode-pylance
+      #     ms-vscode-remote.remote-containers
+      #     ms-vscode.cmake-tools
+      #     ms-vscode.cpptools
+      #     ms-vscode.cpptools-extension-pack
+      #     pkief.material-icon-theme
+      #     redhat.ansible
+      #     redhat.vscode-xml
+      #     redhat.vscode-yaml
+      #     rust-lang.rust-analyzer
+      #     samuelcolvin.jinjahtml
+      #     signageos.signageos-vscode-sops
+      #     skellock.just
+      #     tamasfe.even-better-toml
+      #     usernamehw.errorlens
+      #     vadimcn.vscode-lldb
+      #   ])
+      #   ++ (with pkgs.vscode-marketplace; [
+      #     arktypeio.arkdark
+      #     fengtan.ldap-explorer
+      #     jscearcy.rust-doc-viewer
+      #     opentofu.vscode-opentofu
+      #     oven.bun-vscode
+      #   ]);
 
       userSettings =
         let
