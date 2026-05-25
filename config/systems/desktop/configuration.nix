@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   llm-models,
@@ -12,9 +13,23 @@
 
     # Latest kernel
     boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPatches =
+      lib.mkIf (lib.versionOlder config.boot.kernelPackages.kernel.version "7.0.10")
+        [
+          {
+            name = "btmtk-accept-short-wmt-func-ctrl-events";
+            patch = pkgs.fetchpatch {
+              url = "https://git.kernel.org/pub/scm/linux/kernel/git/bluetooth/bluetooth.git/patch/?id=e3ac0d9f1a205f33a43fba3b79ef74d2f604c78b";
+              hash = "sha256-DE6im1PmLWFYRk2QtfCWXfBzBCMT4fyUgufDhUn0wL8=";
+            };
+          }
+        ];
 
     # Enable aarch64 emulation
     boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+    # XBox Controller
+    hardware.xone.enable = true;
 
     # Enable networking
     networking.networkmanager.enable = true;
