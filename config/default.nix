@@ -118,6 +118,7 @@ in
 
             pkgs.noto-fonts
             pkgs.noto-fonts-color-emoji
+
             # Chinese, Korean, and Japanese fonts
             pkgs.noto-fonts-cjk-sans
             pkgs.noto-fonts-cjk-serif
