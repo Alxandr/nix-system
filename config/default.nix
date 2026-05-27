@@ -114,10 +114,24 @@ in
             pkgs.fira-code
             pkgs.fira-code-nerdfont
             pkgs.fira-code-symbols
+            pkgs.material-symbols
 
+            pkgs.noto-fonts
+            pkgs.noto-fonts-color-emoji
             # Chinese, Korean, and Japanese fonts
             pkgs.noto-fonts-cjk-sans
             pkgs.noto-fonts-cjk-serif
+          ];
+
+          config.fonts.fontconfig.defaultFonts = {
+            emoji = [ "Noto Color Emoji" ];
+            sansSerif = [ "Noto Sans" ];
+            serif = [ "Noto Serif" ];
+          };
+
+          config.environment.systemPackages = [
+            pkgs.adwaita-icon-theme
+            pkgs.hicolor-icon-theme
           ];
 
           # config.boot.kernelPackages = pkgs.linuxPackages_latest;
