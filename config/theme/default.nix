@@ -51,6 +51,14 @@ in
           # to fail activation. This forces the file location elsewhere such that there is no
           # conflict.
           config = {
+            gtk = {
+              iconTheme = {
+                name = "Adwaita";
+                package = pkgs.adwaita-icon-theme;
+              };
+              gtk4.theme = lib.mkDefault null;
+            };
+
             gtk.gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
             stylix.targets.hyprland.enable = false;
             stylix.targets.zed.enable = false;
