@@ -27,6 +27,11 @@ in
       options = lib.mkDefault "--delete-older-than 3w";
     };
 
+    nix.optimise = {
+      automatic = lib.mkDefault true;
+      dates = lib.mkDefault "weekly";
+    };
+
     # Manual optimise storage: nix-store --optimise
     # https://nixos.org/manual/nix/stable/command-ref/conf-file.html#conf-auto-optimise-store
     nix.settings.auto-optimise-store = lib.mkDefault true;
