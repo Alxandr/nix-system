@@ -25,6 +25,12 @@ in
   programs.atuin = {
     enable = true;
     daemon.enable = true;
+    #flags = [ "--disable-up-arrow" ];
+    settings = {
+      workspaces = true;
+      search_mode = "daemon-fuzzy";
+      filter_mode_shell_up_key_binding = "session-preload";
+    };
   };
 
   home.packages = with pkgs; [
