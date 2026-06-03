@@ -99,6 +99,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Moonfin
+    moonfin = {
+      url = "github:Alxandr/moonfin-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Fira Code source
     fira-code = {
       url = "github:tonsky/FiraCode/master";
@@ -124,6 +130,7 @@
       nixos-wsl,
       yoloproj,
       determinate,
+      moonfin,
       ...
     }:
     let
@@ -176,6 +183,7 @@
             nixos-wsl
             yoloproj
             determinate
+            moonfin
             ;
 
           nixpkgs = nixpkgs;

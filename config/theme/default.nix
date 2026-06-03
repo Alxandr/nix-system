@@ -12,6 +12,8 @@ in
   config = {
     stylix = {
       enable = lib.mkDefault true;
+      targets.kmscon.enable = false;
+
       image = wallpaper;
       polarity = "dark";
       base16Scheme = "${pkgs.base16-schemes}/share/themes/chalk.yaml";
