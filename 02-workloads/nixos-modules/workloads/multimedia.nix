@@ -44,6 +44,12 @@ in
             name = "Delfin";
             package = "delfin";
           };
+
+          moonfin = mkProgramOption {
+            inherit pkgs;
+            name = "Moonfin";
+            package = "moonfin";
+          };
         }
       ]
       ++ optional (system == "x86_64-linux") {
@@ -71,6 +77,9 @@ in
     })
     (mkIf (system == "x86_64-linux" && cfg.programs.spotify.enable) {
       environment.systemPackages = [ cfg.programs.spotify.package ];
+    })
+    (mkIf cfg.programs.moonfin.enable {
+      environment.systemPackages = [ cfg.programs.moonfin.package ];
     })
   ]);
 }
