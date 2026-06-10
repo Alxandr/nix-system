@@ -50,6 +50,12 @@ in
             name = "Moonfin";
             package = "moonfin";
           };
+
+          plezy = mkProgramOption {
+            inherit pkgs;
+            name = "Plezy";
+            package = "plezy";
+          };
         }
       ]
       ++ optional (system == "x86_64-linux") {
@@ -80,6 +86,9 @@ in
     })
     (mkIf cfg.programs.moonfin.enable {
       environment.systemPackages = [ cfg.programs.moonfin.package ];
+    })
+    (mkIf cfg.programs.plezy.enable {
+      environment.systemPackages = [ cfg.programs.plezy.package ];
     })
   ]);
 }
