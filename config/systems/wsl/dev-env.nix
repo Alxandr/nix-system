@@ -72,20 +72,39 @@
 
         skills.dotnet = ./skills/dotnet;
 
-        # settings = {
-        #   model = "gpt-5.4";
-        #   project_doc_fallback_filenames = [ "CLAUDE.md" ];
+        settings = {
+          model = "gpt-5.5";
+          project_doc_fallback_filenames = [ "CLAUDE.md" ];
 
-        #   mcp_servers = {
-        #     github = {
-        #       url = "https://api.githubcopilot.com/mcp/";
-        #       bearer_token_env_var = "MCP_GITHUB_PAT";
-        #       headers = {
-        #         "X-MCP-Toolsets" = "context,repos,issues,users,projects,pull_requests,labels";
-        #       };
-        #     };
-        #   };
-        # };
+          projects =
+            let
+              projects = [
+                "altinn-register"
+                "altinn-authorization-tmp"
+                "altinn-authorization-utils"
+                "nix-system"
+              ];
+            in
+            builtins.listToAttrs (
+              map (proj: {
+                name = "/home/alxandr/hub/${proj}";
+                value = {
+                  trust_level = "trusted";
+                };
+              }) projects
+            );
+          # projects."/home/alxandr/hub/altinn-register".trust_level = "trusted";
+
+          mcp_servers = {
+            github = {
+              url = "https://api.githubcopilot.com/mcp/";
+              bearer_token_env_var = "MCP_GITHUB_PAT";
+              headers = {
+                "X-MCP-Toolsets" = "context,repos,issues,users,projects,pull_requests,labels";
+              };
+            };
+          };
+        };
       };
 
       # programs.opencode = {
