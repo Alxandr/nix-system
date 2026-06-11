@@ -72,20 +72,20 @@
 
         skills.dotnet = ./skills/dotnet;
 
-        settings = {
-          model = "gpt-5.4";
-          project_doc_fallback_filenames = [ "CLAUDE.md" ];
+        # settings = {
+        #   model = "gpt-5.4";
+        #   project_doc_fallback_filenames = [ "CLAUDE.md" ];
 
-          mcp_servers = {
-            github = {
-              url = "https://api.githubcopilot.com/mcp/";
-              bearer_token_env_var = "MCP_GITHUB_PAT";
-              headers = {
-                "X-MCP-Toolsets" = "context,repos,issues,users,projects,pull_requests,labels";
-              };
-            };
-          };
-        };
+        #   mcp_servers = {
+        #     github = {
+        #       url = "https://api.githubcopilot.com/mcp/";
+        #       bearer_token_env_var = "MCP_GITHUB_PAT";
+        #       headers = {
+        #         "X-MCP-Toolsets" = "context,repos,issues,users,projects,pull_requests,labels";
+        #       };
+        #     };
+        #   };
+        # };
       };
 
       # programs.opencode = {
