@@ -93,7 +93,6 @@
                 };
               }) projects
             );
-          # projects."/home/alxandr/hub/altinn-register".trust_level = "trusted";
 
           mcp_servers = {
             github = {
