@@ -45,12 +45,6 @@ in
             package = "delfin";
           };
 
-          moonfin = mkProgramOption {
-            inherit pkgs;
-            name = "Moonfin";
-            package = "moonfin";
-          };
-
           plezy = mkProgramOption {
             inherit pkgs;
             name = "Plezy";
@@ -83,9 +77,6 @@ in
     })
     (mkIf (system == "x86_64-linux" && cfg.programs.spotify.enable) {
       environment.systemPackages = [ cfg.programs.spotify.package ];
-    })
-    (mkIf cfg.programs.moonfin.enable {
-      environment.systemPackages = [ cfg.programs.moonfin.package ];
     })
     (mkIf cfg.programs.plezy.enable {
       environment.systemPackages = [ cfg.programs.plezy.package ];

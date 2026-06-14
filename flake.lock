@@ -707,26 +707,6 @@
         "yoloproj"
       ]
     },
-    "moonfin": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1780354257,
-        "narHash": "sha256-dx5b1OZolQDY9xTdiobBvfh4oZX112cWDFFc1BaRLjw=",
-        "owner": "Alxandr",
-        "repo": "moonfin-nix",
-        "rev": "c49e8334da452d988dd9768773a9b7b03506655d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Alxandr",
-        "repo": "moonfin-nix",
-        "type": "github"
-      }
-    },
     "nil": {
       "inputs": {
         "nixpkgs": [
@@ -1122,7 +1102,6 @@
         "fira-code": "fira-code",
         "flake-parts": "flake-parts_2",
         "home-manager": "home-manager",
-        "moonfin": "moonfin",
         "nil": "nil",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixos-hardware": "nixos-hardware",

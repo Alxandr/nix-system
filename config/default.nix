@@ -17,7 +17,6 @@ let
     nixos-wsl
     yoloproj
     determinate
-    moonfin
     ;
   inherit (config.flake) diskoConfigurations;
   inherit (config.flake) nixosModules;
@@ -99,10 +98,6 @@ in
                 op-direnv
                 dotnet-verify
                 gitbutler-cli
-                ;
-
-              inherit (moonfin.packages.${pkgs.stdenv.hostPlatform.system})
-                moonfin
                 ;
             })
 
