@@ -43,6 +43,7 @@
       btop
       htop
       wget
+      unzip
       parted
       tcpdump
       tparted
