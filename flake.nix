@@ -52,7 +52,7 @@
     # Format disks with nix-config
     # https://github.com/nix-community/disko
     disko = {
-      url = "github:nix-community/disko/v1.12.0";
+      url = "github:nix-community/disko/v1.13.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
