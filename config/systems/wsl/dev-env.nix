@@ -34,7 +34,7 @@
       programs.mcp.enable = true;
       programs.mcp.servers = {
         glider = {
-          command = "${lib.getExe pkgs.glider}";
+          command = "${lib.getExe pkgs.nur.repos.alxandr.glider-mcp}";
           args = [
             "--transport"
             "stdio"
@@ -42,7 +42,7 @@
         };
 
         nuget = {
-          command = "${lib.getExe pkgs.nuget-mcp-server}";
+          command = "${lib.getExe pkgs.nur.repos.alxandr.dimon-smart-nuget-mcp-server}";
         };
 
         context7 = {
@@ -128,15 +128,15 @@
       home.packages = [
         pkgs.bun # javascript runtime
         pkgs.docker-compose # docker compose cli
-        pkgs.dotnet-verify # tool for snapshot testing of .NET projects
+        pkgs.nur.repos.alxandr.dotnet-verify # tool for snapshot testing of .NET projects
         pkgs.dotnet-repl # polyglot .NET REPL
-        pkgs.glider # mcp server for .NET
+        pkgs.nur.repos.alxandr.glider-mcp # mcp server for .NET
         pkgs.helm # kubernetes package manager
         pkgs.jq # command-line JSON processor
         pkgs.just # command runner for dev tasks
         pkgs.kubectl # kubernetes cli
         pkgs.kubelogin # kubernetes oidc login helper
-        pkgs.nuget-mcp-server # mcp server for nuget packages
+        pkgs.nur.repos.alxandr.dimon-smart-nuget-mcp-server # mcp server for nuget packages
         pkgs.pnpm # package manager for node
         pkgs.powershell # shell
         pkgs.prek # pre-commit hooks
@@ -144,7 +144,7 @@
         pkgs.terraform # infrastructure as code tool
         pkgs.tmux # terminal multiplexer
         pkgs.yq-go # jq - but for yaml
-        pkgs.gitbutler-cli # git plexer
+        pkgs.nur.repos.alxandr.gitbutler-cli # git plexer
 
         # dotnet
         dotnet

@@ -10,12 +10,12 @@ let
     base
     users
     systems
-    fira-code
     sops-nix
     nixos-hardware
     nix-vscode-extensions
     nixos-wsl
-    yoloproj
+    nur
+    nur-alxandr
     determinate
     ;
   inherit (config.flake) diskoConfigurations;
@@ -48,14 +48,6 @@ in
           inherit (pkgs) cascadia-code;
           inherit (inputs'.nil.packages) nil;
           hf2nix = pkgs.callPackage ./packages/hf2nix { };
-          fira-code = pkgs.callPackage ./packages/fira-code/package.nix { src = fira-code; };
-          fira-code-nerdfont = pkgs.callPackage ./packages/fira-code-nerdfont/package.nix {
-            inherit (packages) fira-code;
-            # fira-code = pkgs.callPackage ./packages/fira-code/package.nix {
-            #   src = fira-code;
-            #   useVariableFont = false;
-            # };
-          };
         };
 
         apps = {
@@ -84,20 +76,23 @@ in
           config.nixpkgs.overlays = [
             patches
             nix-vscode-extensions.overlays.default
+
+            # nur
+            (final: prev: {
+              nur = import nur {
+                nurpkgs = prev;
+                pkgs = prev;
+                repoOverrides = {
+                  alxandr = import nur-alxandr { pkgs = prev; };
+                };
+              };
+            })
+
+            # todo: remove later
             (final: prev: {
               inherit (config.flake.packages.${pkgs.stdenv.hostPlatform.system})
-                fira-code
-                fira-code-nerdfont
                 hf2nix
                 nil
-                ;
-
-              inherit (yoloproj.packages.${pkgs.stdenv.hostPlatform.system})
-                glider
-                nuget-mcp-server
-                op-direnv
-                dotnet-verify
-                gitbutler-cli
                 ;
             })
 
@@ -111,8 +106,8 @@ in
 
           config.fonts.packages = [
             pkgs.cascadia-code
-            pkgs.fira-code
-            pkgs.fira-code-nerdfont
+            pkgs.nur.repos.alxandr.fira-code
+            pkgs.nur.repos.alxandr.fira-code-nerdfont
             pkgs.fira-code-symbols
             pkgs.material-symbols
 
@@ -193,12 +188,6 @@ in
           config.home-manager.sharedModules = [
             sops-nix.homeManagerModules.sops
           ];
-        }
-      )
-      (
-        { ... }:
-        {
-          nixpkgs.config.permittedInsecurePackages = [ "qtwebengine-5.15.19" ];
         }
       )
     ];

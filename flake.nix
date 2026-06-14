@@ -93,16 +93,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Dev packages
-    yoloproj = {
-      url = "github:YoloDev/yoloproj";
+    # Nix User packages
+    nur = {
+      url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Fira Code source
-    fira-code = {
-      url = "github:tonsky/FiraCode/master";
-      flake = false;
+    nur-alxandr = {
+      url = "github:alxandr/nur";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Determinate
@@ -117,13 +116,13 @@
       disko,
       home-manager,
       stylix,
-      fira-code,
       nil,
       nixos-hardware,
       nix-vscode-extensions,
       nixos-wsl,
-      yoloproj,
       determinate,
+      nur,
+      nur-alxandr,
       ...
     }:
     let
@@ -169,12 +168,12 @@
             base
             users
             systems
-            fira-code
             nil
             sops-nix
             nix-vscode-extensions
             nixos-wsl
-            yoloproj
+            nur
+            nur-alxandr
             determinate
             ;
 

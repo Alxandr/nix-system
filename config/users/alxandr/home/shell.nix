@@ -88,5 +88,6 @@ in
     nix-direnv.enable = true;
   };
 
-  xdg.configFile."direnv/lib/hm-op-direnv.sh".source = "${pkgs.op-direnv}/share/op-direnv/direnvrc";
+  xdg.configFile."direnv/lib/hm-op-direnv.sh".source =
+    "${pkgs.nur.repos.alxandr.op-direnv}/share/op-direnv/direnvrc";
 }

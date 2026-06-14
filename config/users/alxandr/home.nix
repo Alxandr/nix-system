@@ -266,7 +266,7 @@ in
       ]
       ++ optionals isDevelopment [
         nil
-        gitbutler-cli
+        nur.repos.alxandr.gitbutler-cli
       ]
       ++ optionals isDesktop [
         # gitbutler
