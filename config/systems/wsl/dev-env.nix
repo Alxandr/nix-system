@@ -83,6 +83,7 @@
                 "altinn-authorization-tmp"
                 "altinn-authorization-utils"
                 "nix-system"
+                "nur"
               ];
             in
             builtins.listToAttrs (
