@@ -9,4 +9,4 @@ updates:
     schedule:
       interval: "weekly"
     labels:
-      - "autorelease"
+      - "automerge"
