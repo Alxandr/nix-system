@@ -265,8 +265,8 @@ in
         devenv
       ]
       ++ optionals isDevelopment [
-        nil
-        nur.repos.alxandr.gitbutler-cli
+        nur.repos.Alxandr.nil
+        nur.repos.Alxandr.gitbutler-cli
       ]
       ++ optionals isDesktop [
         # gitbutler

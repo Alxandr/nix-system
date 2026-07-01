@@ -73,12 +73,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Nix language server
-    nil = {
-      url = "github:oxalica/nil";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # # modern window compositor
     # hyprland.url = "github:hyprwm/Hyprland/v0.27.0";
     # # community wayland nixpkgs
@@ -99,11 +93,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur-alxandr = {
-      url = "github:alxandr/nur";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Determinate
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
   };
@@ -116,13 +105,11 @@
       disko,
       home-manager,
       stylix,
-      nil,
       nixos-hardware,
       nix-vscode-extensions,
       nixos-wsl,
       determinate,
       nur,
-      nur-alxandr,
       ...
     }:
     let
@@ -168,12 +155,10 @@
             base
             users
             systems
-            nil
             sops-nix
             nix-vscode-extensions
             nixos-wsl
             nur
-            nur-alxandr
             determinate
             ;
 

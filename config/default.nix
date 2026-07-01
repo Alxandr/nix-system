@@ -15,7 +15,6 @@ let
     nix-vscode-extensions
     nixos-wsl
     nur
-    nur-alxandr
     determinate
     ;
   inherit (config.flake) diskoConfigurations;
@@ -46,7 +45,6 @@ in
       rec {
         packages = {
           inherit (pkgs) cascadia-code;
-          inherit (inputs'.nil.packages) nil;
           hf2nix = pkgs.callPackage ./packages/hf2nix { };
         };
 
@@ -83,7 +81,7 @@ in
                 nurpkgs = prev;
                 pkgs = prev;
                 repoOverrides = {
-                  alxandr = import nur-alxandr { pkgs = prev; };
+                  # alxandr = import nur-alxandr { pkgs = prev; };
                 };
               };
             })
@@ -92,7 +90,6 @@ in
             (final: prev: {
               inherit (config.flake.packages.${pkgs.stdenv.hostPlatform.system})
                 hf2nix
-                nil
                 ;
             })
 
@@ -106,8 +103,8 @@ in
 
           config.fonts.packages = [
             pkgs.cascadia-code
-            pkgs.nur.repos.alxandr.fira-code
-            pkgs.nur.repos.alxandr.fira-code-nerdfont
+            pkgs.nur.repos.Alxandr.fira-code
+            pkgs.nur.repos.Alxandr.fira-code-nerdfont
             pkgs.fira-code-symbols
             pkgs.material-symbols
 

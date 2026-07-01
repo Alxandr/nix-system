@@ -89,5 +89,5 @@ in
   };
 
   xdg.configFile."direnv/lib/hm-op-direnv.sh".source =
-    "${pkgs.nur.repos.alxandr.op-direnv}/share/op-direnv/direnvrc";
+    "${pkgs.nur.repos.Alxandr.op-direnv}/share/op-direnv/direnvrc";
 }

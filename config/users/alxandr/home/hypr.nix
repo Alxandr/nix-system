@@ -369,7 +369,7 @@ in
         # characters not in the chosen font will fail to render.
         #
         # Otherwise, fonts are interpreted in Pango format.
-        font = mkForce "${pkgs.nur.repos.alxandr.fira-code}/share/fonts/truetype/FiraCode-VF.ttf";
+        font = mkForce "${pkgs.nur.repos.Alxandr.fira-code}/share/fonts/truetype/FiraCode-VF.ttf";
 
         # Point size of text.
         font-size = mkForce 24;

@@ -20,7 +20,7 @@ in
 
       fonts.monospace = {
         name = "Fira Code";
-        package = pkgs.nur.repos.alxandr.fira-code;
+        package = pkgs.nur.repos.Alxandr.fira-code;
       };
 
       cursor = {
