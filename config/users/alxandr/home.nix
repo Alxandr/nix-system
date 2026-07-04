@@ -137,8 +137,8 @@ in
   programs.ssh = mkIf (!isWsl) {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks."*" = {
-      identityAgent = "~/.1password/agent.sock";
+    settings."*" = {
+      IdentityAgent = "~/.1password/agent.sock";
     };
   };
 
@@ -263,6 +263,7 @@ in
         nh
         nixfmt
         devenv
+        herdr
       ]
       ++ optionals isDevelopment [
         nur.repos.Alxandr.nil
