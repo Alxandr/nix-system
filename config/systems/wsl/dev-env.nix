@@ -70,6 +70,7 @@
         enable = true;
         enableMcpIntegration = true;
 
+        context = ./AGENTS.md;
         skills.dotnet = ./skills/dotnet;
 
         settings = {
