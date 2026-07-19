@@ -38,6 +38,10 @@ in
     font.name = mkForce terminalFont;
     font.package = mkForce pkgs.cascadia-code;
   };
+  programs.ghostty = mkIf isDesktop {
+    enable = true;
+    settings.font-family = mkForce terminalFont;
+  };
 
   programs.vscode = mkIf isDesktop {
     enable = false;

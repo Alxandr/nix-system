@@ -80,7 +80,7 @@ in
           tooltip-format-wifi = "{essid} ({signalStrength}%) {icon}";
           tooltip-format-ethernet = "{ifname} 🖧 ";
           # TODO: replace with a nice wifi gui?
-          on-click = "${pkgs.kitty}/bin/kitty ${pkgs.networkmanager}/bin/nmtui";
+          on-click = "${pkgs.ghostty}/bin/ghostty -e ${pkgs.networkmanager}/bin/nmtui";
           format-icons = [
             "󰤯"
             "󰤢"

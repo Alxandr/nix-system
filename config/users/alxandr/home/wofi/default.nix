@@ -29,7 +29,7 @@ in
       height = 400;
       always_parse_args = true;
       show_all = true;
-      term = "${pkgs.kitty}/bin/kitty";
+      term = "${pkgs.ghostty}/bin/ghostty";
       hide_scroll = true;
       print_command = true;
       insensitive = true;

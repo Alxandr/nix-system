@@ -58,7 +58,7 @@ in
           app = cmd: "${pkgs.uwsm}/bin/uwsm app -- ${cmd}";
           mainMod = "SUPER";
 
-          terminal = app "${pkgs.kitty}/bin/kitty";
+          terminal = app "${pkgs.ghostty}/bin/ghostty";
           swaync-client = app "${pkgs.swaynotificationcenter}/bin/swaync-client";
           tofi-drun = app "${pkgs.tofi}/bin/tofi-drun";
           _1password = app "${pkgs._1password-gui}/bin/1password";
