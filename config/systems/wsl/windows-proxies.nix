@@ -17,9 +17,13 @@ let
       '';
     };
 
+  opProxy = mkProxy { name = "op"; };
+
 in
 {
   environment.systemPackages = [
-    (mkProxy { name = "op"; })
+    opProxy
   ];
+
+  environment.variables.OP_DIRENV_OP = lib.getExe opProxy;
 }
