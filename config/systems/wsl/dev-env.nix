@@ -84,6 +84,7 @@
                 "altinn-authorization-tmp"
                 "altinn-authorization-utils"
                 "nix-system"
+                "home-cluster"
                 "nur"
               ];
             in
