@@ -143,7 +143,6 @@
         pkgs.pnpm # package manager for node
         pkgs.powershell # shell
         pkgs.prek # pre-commit hooks
-        pkgs.rtk # cli proxy for reducing LLM token consumption
         pkgs.terraform # infrastructure as code tool
         pkgs.tmux # terminal multiplexer
         pkgs.yq-go # jq - but for yaml
