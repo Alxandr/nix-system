@@ -74,7 +74,8 @@
         skills.dotnet = ./skills/dotnet;
 
         settings = {
-          model = "gpt-5.5";
+          model = "gpt-5.6-sol";
+          model_reasoning_effort = "medium";
           project_doc_fallback_filenames = [ "CLAUDE.md" ];
 
           projects =
