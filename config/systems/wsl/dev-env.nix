@@ -49,6 +49,10 @@
           command = "${lib.getExe pkgs.context7-mcp}";
         };
 
+        gitbutler = {
+          command = "${lib.getExe pkgs.nur.repos.Alxandr.gitbutler-cli} mcp --internal";
+        };
+
         # TODO: enable after secrets work
         # github = {
         #   url = "https://api.githubcopilot.com/mcp/";
