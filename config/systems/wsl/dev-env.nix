@@ -50,7 +50,8 @@
         };
 
         gitbutler = {
-          command = "${lib.getExe pkgs.nur.repos.Alxandr.gitbutler-cli} mcp";
+          command = "${lib.getExe pkgs.nur.repos.Alxandr.gitbutler-cli}";
+          args = [ "mcp" ];
         };
 
         # TODO: enable after secrets work
