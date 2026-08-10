@@ -87,6 +87,7 @@
                 "nix-system"
                 "home-cluster"
                 "nur"
+                "sure"
               ];
             in
             builtins.listToAttrs (
