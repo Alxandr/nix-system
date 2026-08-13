@@ -6,5 +6,6 @@
     ./shell.nix
     ./bluetooth.nix
     ./containers.nix
+    ./xdg.nix
   ];
 }
