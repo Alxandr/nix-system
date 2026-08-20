@@ -82,9 +82,10 @@
           projects =
             let
               projects = [
-                "altinn-register"
-                "altinn-authorization-tmp"
-                "altinn-authorization-utils"
+                "altinn/register"
+                "altinn/auth-tmp"
+                "altinn/auth-utils"
+                "altinn/source"
                 "nix-system"
                 "home-cluster"
                 "nur"
