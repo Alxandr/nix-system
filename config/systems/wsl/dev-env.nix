@@ -79,6 +79,9 @@
           model_reasoning_effort = "medium";
           project_doc_fallback_filenames = [ "CLAUDE.md" ];
 
+          tui.status_line = ["model-with-reasoning" "current-dir" "context-used" "weekly-limit" "five-hour-limit"];
+          tui.status_line_use_colors = true;
+
           projects =
             let
               projects = [
