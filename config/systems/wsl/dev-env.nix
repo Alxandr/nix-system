@@ -72,7 +72,7 @@
 
         context = ./AGENTS.md;
         skills.dotnet = ./skills/dotnet;
-        skills.but = ./skills/but;
+        skills.but = "${pkgs.nur.repos.Alxandr.gitbutler-cli.skill}";
 
         settings = {
           model = "gpt-5.6-sol";
@@ -161,6 +161,7 @@
         pkgs.yq-go # jq - but for yaml
         pkgs.nur.repos.Alxandr.gitbutler-cli # git plexer
         pkgs.shfmt # shell script formatter
+        pkgs.nur.repos.Alxandr.dagger # dag-based container build tool
 
         # dotnet
         dotnet
