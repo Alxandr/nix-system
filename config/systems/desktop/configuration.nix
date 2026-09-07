@@ -52,6 +52,7 @@
     workloads.desktop.environment.niri.enable = true;
     workloads.gaming.enable = true;
     workloads.development.enable = true;
+    workloads.openterface.enable = true;
     # workloads.llama.enable = true;
     # workloads.llama.rocmSupport = true;
     # workloads.llama.models = {

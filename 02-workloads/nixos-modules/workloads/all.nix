@@ -9,5 +9,6 @@
     ./pipewire.nix
     ./dev.nix
     ./llama.nix
+    ./openterface.nix
   ];
 }

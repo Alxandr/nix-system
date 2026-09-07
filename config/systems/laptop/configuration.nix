@@ -23,6 +23,7 @@
     workloads.desktop.environment.niri.enable = true;
     workloads.gaming.enable = true;
     workloads.development.enable = true;
+    workloads.openterface.enable = true;
 
     # Screen configuration in hyprland
     home-manager.sharedModules = [
