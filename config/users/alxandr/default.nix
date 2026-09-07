@@ -14,6 +14,7 @@ in
     "networkmanager"
     "keys"
     "dialout"
+    "video"
   ];
 
   home = ./home.nix;
