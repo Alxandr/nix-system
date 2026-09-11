@@ -34,7 +34,7 @@ jobs:
           token: ${{ secrets.ATTIC_TOKEN }}
 
       - name: Check Nix flake Nixpkgs inputs
-        uses: DeterminateSystems/flake-checker-action@de924abd783455e8429c858962b9e43062d19da1 # v13
+        uses: DeterminateSystems/flake-checker-action@786422608c7bded2bbc9741ad9f91356842bf520 # v14
 
       - name: Show flake
         run: nix flake show --extra-experimental-features pipe-operators
