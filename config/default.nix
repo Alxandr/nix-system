@@ -81,7 +81,7 @@ in
                 nurpkgs = prev;
                 pkgs = prev;
                 repoOverrides = {
-                  # alxandr = import nur-alxandr { pkgs = prev; };
+                  # Alxandr = import inputs.inputs.nur-alxandr { pkgs = final; };
                 };
               };
             })
@@ -187,6 +187,9 @@ in
           ];
         }
       )
+      ({ pkgs, ... }: {
+        home-manager.sharedModules = [ pkgs.nur.repos.Alxandr.homeModules.herdr-plugins ];
+      })
     ];
 
     systemConfigurations.systems.tv = {

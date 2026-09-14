@@ -267,7 +267,6 @@ in
         nh
         nixfmt
         devenv
-        herdr
       ]
       ++ optionals isDevelopment [
         nur.repos.Alxandr.nil
@@ -280,6 +279,37 @@ in
     );
 
   programs.worktrunk.enable = mkIf isDevelopment true;
+  programs.herdr.enable = true;
+  programs.herdr.installPlugins = true;
+  programs.herdr.plugins = [
+    pkgs.nur.repos.Alxandr.herdrPlugins.herdr-navigator
+  ];
+  programs.herdr.settings = {
+    onboarding = false;
+
+    keys = {
+      prefix = "ctrl+b";
+      command = [
+        {
+          command = "herdr-navigator.open";
+          description = "jump to anything";
+          key = "prefix+t";
+          type = "plugin_action";
+        }
+      ];
+    };
+
+    ui = {
+      agent_panel_sort = "priority";
+      sidebar_width = 32;
+      sound = {
+        enabled = true;
+      };
+      # toast = {
+      #   delivery = "herdr";
+      # };
+    };
+  };
 
   # temp hack
   xdg.configFile."autostart/kde-theme-activate.desktop" = mkIf isDesktop {

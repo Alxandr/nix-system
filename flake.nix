@@ -93,12 +93,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # nur-alxandr = {
+    #   url = "github:alxandr/nur?ref=feat/herdr-plugins";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.nur.follows = "nur";
+    # };
+
     # Determinate
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
   };
 
   outputs =
-    {
+    inputs@{
       flake-parts,
       nixpkgs,
       sops-nix,
@@ -160,6 +166,7 @@
             nixos-wsl
             nur
             determinate
+            inputs
             ;
 
           nixpkgs = nixpkgs;
