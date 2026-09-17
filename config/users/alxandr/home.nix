@@ -25,7 +25,6 @@ in
     ./home/wofi
     ./home/swaync
     ./home/zed.nix
-    ./home/worktrunk.nix
     ./home/session-variable-files.nix
   ];
 
@@ -278,7 +277,6 @@ in
       ]
     );
 
-  programs.worktrunk.enable = mkIf isDevelopment true;
   programs.herdr.enable = true;
   programs.herdr.installPlugins = true;
   programs.herdr.plugins = [

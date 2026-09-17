@@ -208,15 +208,6 @@ in
       programs.gh.enable = true;
       programs.gh.gitCredentialHelper.enable = false; # we use 1password for this
 
-      # git worktree manager
-      programs.worktrunk.enable = true;
-      programs.worktrunk.config = {
-        post-switch = [
-          { direnv = "${lib.getExe pkgs.direnv} allow"; }
-          { prek = "${lib.getExe pkgs.prek} install"; }
-        ];
-      };
-
       home.packages = [
         pkgs.bun # javascript runtime
         pkgs.docker-compose # docker compose cli
