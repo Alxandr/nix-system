@@ -3,9 +3,26 @@
   config,
   ...
 }:
+let
+  nixosConfig = config;
+in
 {
+  # syncthing ports
+  config.networking.firewall = {
+    allowedTCPPorts = [ 22000 ];
+    allowedUDPPorts = [
+      22000
+      21027
+    ];
+  };
+
   config.home-manager.users.alxandr =
-    { pkgs, lib, config, ... }:
+    {
+      pkgs,
+      lib,
+      config,
+      ...
+    }:
     let
       herdrCodexHook = "${config.home.homeDirectory}/.codex/herdr-agent-state.sh";
       herdrCodexHookCommand = "bash '${herdrCodexHook}' session";
@@ -52,6 +69,20 @@
 
     in
     {
+      services.syncthing = {
+        enable = true;
+
+        settings = {
+          folders = {
+            codex-memories = {
+              enable = true;
+              path = "~/.codex/memories";
+              devices = [ ];
+            };
+          };
+        };
+      };
+
       programs.mcp.enable = true;
       programs.mcp.servers = {
         glider = {
@@ -108,6 +139,9 @@
             "five-hour-limit"
           ];
           tui.status_line_use_colors = true;
+
+          features.memories = true;
+          features.context_management.experimental_mode = true;
 
           projects =
             let
@@ -213,12 +247,12 @@
       ];
 
       home.sessionVariables = {
-        CONTEXT7_API_KEY = "$(cat ${config.sops.secrets."mcp/context7/key".path})";
-        MCP_GITHUB_PAT = "$(cat ${config.sops.secrets."mcp/github/pat".path})";
+        CONTEXT7_API_KEY = "$(cat ${nixosConfig.sops.secrets."mcp/context7/key".path})";
+        MCP_GITHUB_PAT = "$(cat ${nixosConfig.sops.secrets."mcp/github/pat".path})";
       };
 
       home.sessionVariableFiles = [
-        config.sops.secrets."altinn.env".path
+        nixosConfig.sops.secrets."altinn.env".path
       ];
     };
 }
