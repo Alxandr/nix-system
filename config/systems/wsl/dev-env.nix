@@ -5,8 +5,29 @@
 }:
 {
   config.home-manager.users.alxandr =
-    { pkgs, lib, ... }:
+    { pkgs, lib, config, ... }:
     let
+      herdrCodexHook = "${config.home.homeDirectory}/.codex/herdr-agent-state.sh";
+      herdrCodexHookCommand = "bash '${herdrCodexHook}' session";
+      herdrCodexHookIdentity = builtins.toJSON {
+        event_name = "session_start";
+        hooks = [
+          {
+            async = false;
+            command = herdrCodexHookCommand;
+            timeout = 10;
+            type = "command";
+          }
+        ];
+      };
+      herdrCodexHookTrustHash =
+        "sha256:"
+        + builtins.convertHash {
+          hash = builtins.hashString "sha256" herdrCodexHookIdentity;
+          hashAlgo = "sha256";
+          toHashFormat = "base16";
+        };
+
       dotnet =
         let
           combined =
@@ -109,6 +130,27 @@
                 };
               }) projects
             );
+
+          # Codex compares this hash to the normalized hook definition, so it
+          # is reviewed again automatically if the hook changes.
+          hooks = {
+            SessionStart = [
+              {
+                hooks = [
+                  {
+                    type = "command";
+                    command = herdrCodexHookCommand;
+                    timeout = 10;
+                  }
+                ];
+              }
+            ];
+
+            state = {
+              "${config.home.homeDirectory}/.codex/config.toml:session_start:0:0".trusted_hash =
+                herdrCodexHookTrustHash;
+            };
+          };
 
           mcp_servers = {
             github = {
