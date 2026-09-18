@@ -139,13 +139,6 @@ in
         { config, pkgs, ... }:
         {
           config.sops = {
-            # sops-nix currently builds this activation helper with Go 1.25,
-            # which was removed from our Nixpkgs.  The helper builds unchanged
-            # with the current, unversioned Go builder.
-            package = pkgs.callPackage "${sops-nix}/pkgs/sops-install-secrets" {
-              buildGo125Module = pkgs.buildGoModule;
-              vendorHash = "sha256-SXOd+0yh0DQr3uLVQBdw07J9j5HNuFJSOajDul1B1qo=";
-            };
             defaultSopsFile = ../secrets/secrets.yaml;
             age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
             secrets = {
