@@ -49,7 +49,7 @@
   services.pulseaudio.enable = true;
 
   # Setup Netbird client for WSL
-  services.netbird.clients.wt-nb-alxandr = {
+  services.netbird.clients.wt-nb-home = {
     # Port used to listen to wireguard connections
     port = 51821;
 
