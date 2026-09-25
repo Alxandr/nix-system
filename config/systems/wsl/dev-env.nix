@@ -73,11 +73,16 @@ in
         enable = true;
 
         settings = {
+          devices = {
+            pangolin.id = "KPHJWQF-JCO6KG3-KPOIYHV-2XKRQAN-NYIDCJG-7QNFJ73-CDM2CJR-57EREAX";
+            pangolin.addresses = [ "tcp://pangolin.alxandr.me:22000" ];
+          };
+
           folders = {
             codex-memories = {
               enable = true;
               path = "~/.codex/memories";
-              devices = [ ];
+              devices = [ "pangolin" ];
             };
           };
         };

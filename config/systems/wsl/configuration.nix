@@ -48,6 +48,21 @@
   # Enable pulseaudio (works with WSLg)
   services.pulseaudio.enable = true;
 
+  # Setup Netbird client for WSL
+  services.netbird.clients.wtnetbird = {
+    # Port used to listen to wireguard connections
+    port = 51821;
+
+    # Set this to true if you want the GUI client
+    ui.enable = false;
+
+    # This opens ports required for direct connection without a relay
+    openFirewall = true;
+
+    # This opens necessary firewall ports in the Netbird client's network interface
+    openInternalFirewall = true;
+  };
+
   # Required by VS Code's Remote WSL extension
   programs.nix-ld.enable = true;
 
