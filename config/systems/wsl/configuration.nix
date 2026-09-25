@@ -63,6 +63,8 @@
     openInternalFirewall = true;
   };
 
+  environment.systemPackages = with pkgs; [ netbird ];
+
   # Required by VS Code's Remote WSL extension
   programs.nix-ld.enable = true;
 
