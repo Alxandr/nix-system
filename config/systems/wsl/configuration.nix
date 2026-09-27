@@ -63,6 +63,31 @@
     openInternalFirewall = true;
   };
 
+  systemd.services.wsl-eth0-mtu = {
+    description = "Set WSL eth0 MTU";
+
+    after = [
+      "network-pre.target"
+      "sys-subsystem-net-devices-eth0.device"
+    ];
+
+    wants = [
+      "sys-subsystem-net-devices-eth0.device"
+    ];
+
+    before = [
+      "netbird-wt-nb-home.service"
+    ];
+
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.iproute2}/bin/ip link set dev eth0 mtu 1500";
+      RemainAfterExit = true;
+    };
+  };
+
   # Required by VS Code's Remote WSL extension
   programs.nix-ld.enable = true;
 
