@@ -157,6 +157,7 @@ in
                 "altinn/source"
                 "nix-system"
                 "home-cluster"
+                "dbost-server"
                 "nur"
                 "sure"
               ];
