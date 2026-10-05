@@ -1,4 +1,14 @@
 final: prev: {
+  pythonPackagesExtensions = (prev.pythonPackagesExtensions or [ ]) ++ [
+    (pythonFinal: pythonPrev: {
+      # Remove when AnyIO includes the upstream TLS test fix.
+      # https://github.com/NixOS/nixpkgs/issues/570271
+      anyio = pythonPrev.anyio.overridePythonAttrs (old: {
+        patches = (old.patches or [ ]) ++ [ ./anyio-test-tls-connectable.patch ];
+      });
+    })
+  ];
+
   openterface-qt =
     if prev.lib.versionOlder prev.openterface-qt.version "0.5.30" then
       prev.openterface-qt.overrideAttrs (_: {
