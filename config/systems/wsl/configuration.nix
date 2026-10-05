@@ -90,6 +90,25 @@
 
   # Required by VS Code's Remote WSL extension
   programs.nix-ld.enable = true;
+  # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/programs/nix-ld.nix#L47
+  programs.nix-ld.libraries =
+    with pkgs;
+    lib.mkForce [
+      zlib
+      zstd
+      stdenv.cc.cc
+      curl
+      openssl_3_6 # overridden
+      attr
+      libssh
+      bzip2
+      libxml2
+      acl
+      libsodium
+      util-linux
+      xz
+      systemd
+    ];
 
   environment.variables.PATH = lib.mkForce [
     config.environment.sessionVariables.PATH
