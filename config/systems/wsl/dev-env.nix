@@ -136,6 +136,7 @@ in
           model_reasoning_effort = "low";
           project_doc_fallback_filenames = [ "CLAUDE.md" ];
 
+          tui.auto_recap = false;
           tui.status_line = [
             "model-with-reasoning"
             "current-dir"
