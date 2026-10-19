@@ -156,6 +156,7 @@ in
                 "altinn/auth-tmp"
                 "altinn/auth-utils"
                 "altinn/source"
+                "altinn/altinn-studio-ops"
                 "nix-system"
                 "home-cluster"
                 "dbost-server"
