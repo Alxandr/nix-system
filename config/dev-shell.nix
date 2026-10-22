@@ -3,6 +3,7 @@
 pkgs.mkShell {
   packages = with pkgs; [
     codex
+    bubblewrap
     just
     nix-tree
     nodejs_24

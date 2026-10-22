@@ -50,6 +50,13 @@ in
           package = "codex";
         };
 
+        bubblewrap = mkProgramOption {
+          inherit pkgs;
+          name = "bubblewrap";
+          package = "bubblewrap";
+          defaultEnable = false;
+        };
+
         bun = mkProgramOption {
           inherit pkgs;
           name = "bun";
@@ -100,7 +107,11 @@ in
       environment.systemPackages = [ cfg.programs.yq.package ];
     })
     (mkIf cfg.programs.codex.enable {
+      workloads.development.programs.bubblewrap.enable = mkDefault true;
       environment.systemPackages = [ cfg.programs.codex.package ];
+    })
+    (mkIf cfg.programs.bubblewrap.enable {
+      environment.systemPackages = [ cfg.programs.bubblewrap.package ];
     })
     (mkIf cfg.programs.bun.enable {
       environment.systemPackages = [ cfg.programs.bun.package ];
