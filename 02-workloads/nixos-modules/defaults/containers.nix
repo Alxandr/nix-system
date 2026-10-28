@@ -1,4 +1,4 @@
 { lib, ... }:
 {
-  config.virtualisation.containers.registries.search = lib.mkDefault [ "docker.io" ];
+  config.virtualisation.containers.registries.settings.unqualified-search-registries = lib.mkDefault [ "docker.io" ];
 }
