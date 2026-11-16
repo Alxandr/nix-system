@@ -98,7 +98,7 @@
       zstd
       stdenv.cc.cc
       curl
-      openssl_3_6 # overridden
+      openssl_4_1 # overridden
       attr
       libssh
       bzip2

@@ -6,7 +6,6 @@
 {
   imports = [
     ./lib-module.nix
-    ./polyfills/xdg.nix
     ./defaults/all.nix
   ];
 
