@@ -126,6 +126,8 @@ in
       programs.codex = {
         enable = true;
         enableMcpIntegration = true;
+        # Keep Nix defaults while allowing Codex to save project trust and UI settings.
+        mutableSettings = true;
 
         context = ./AGENTS.md;
         skills.dotnet = ./skills/dotnet;
@@ -148,30 +150,6 @@ in
 
           features.memories = true;
           features.context_management.experimental_mode = true;
-
-          projects =
-            let
-              projects = [
-                "altinn/register"
-                "altinn/auth-tmp"
-                "altinn/auth-utils"
-                "altinn/source"
-                "altinn/altinn-studio-ops"
-                "nix-system"
-                "home-cluster"
-                "dbost-server"
-                "nur"
-                "sure"
-              ];
-            in
-            builtins.listToAttrs (
-              map (proj: {
-                name = "/home/alxandr/hub/${proj}";
-                value = {
-                  trust_level = "trusted";
-                };
-              }) projects
-            );
 
           # Codex compares this hash to the normalized hook definition, so it
           # is reviewed again automatically if the hook changes.
