@@ -201,6 +201,7 @@ in
       };
 
       init.defaultBranch = "main";
+      fetch.prune = true;
 
       push = {
         default = "upstream";
